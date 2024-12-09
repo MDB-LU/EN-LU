@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Verb Forms</title>
+</head>
+<body>
+    <h1>Test - Verb Forms</h1>
+<p>There are five tasks in this test. Answer every question.</p>
+	<p>At the end of the test, you will find a button called <strong>Check Answers</strong>. Press <strong>Enter</strong> to activate the button. Your results will then be shown below, so make sure to press <strong>arrow down</strong>.
+	<p><strong>BE CAREFUL:</strong> Fusion will read the options in the dropdown list, as well as your words in the <span lang="de">Eingabefeld</span> in German. If you want to listen to it in English, you have to press <strong>Control + Windows + L</strong> and then choose <span lang="de"><strong>Englisch (Grossbritanien)</strong></span>.</p>
+
+<br>
+
+    <!-- Task 1: Past Simple Form -->
+    <h2>Task 1</h2>
+	<p>Write down the <strong>Past Simple Form</strong> of the verb given.</p>
+    <div id="task1"></div>
+
+    <!-- Task 2: Past Participle Form -->
+    <h2>Task 2</h2>
+	<p>Write down the <strong>Past Participle Form</strong> of the verb given.</p>
+    <div id="task2"></div>
+
+    <!-- Task 3: Sentence True/False -->
+    <h2>Task 3</h2>
+	<p>Are the sentences gramatically correct or not. Choose <strong>True</strong> if they are correct or choose <strong>False</strong> if they are incorrect.</p>
+    <div id="task3"></div>
+
+    <!-- Task 4: Fill in the Gap -->
+    <h2>Task 4</h2>
+	<p>Write down the correct form of the verb given so that the sentence is correct.</p>
+    <div id="task4"></div>
+
+    <!-- Task 5: Verb Forms True/False -->
+    <h2>Task 5</h2>
+	<p>Are the three verb forms (base form, past simple, past participle) correct or not? Choose <strong>True</strong> if they are correct or choose <strong>False</strong> if they are incorrect.</p>
+ 
+    <div id="task5"></div>
+<br>
+    <button onclick="checkAnswers()">Check Answers</button>
+
+    <script>
+        const dataset = [
+                       {
+                verb: "see",
+                pastSimple: "saw",
+                pastParticiple: "seen",
+                sentence: "I have not seen the film yet.",
+                solution: "true",
+                gap: "My brother _..._ you yesterday.",
+                answer: "saw",
+                forms: "see, sow, sown",
+                check: "false"
+            },
+            {
+                verb: "go",
+                pastSimple: "went",
+                pastParticiple: "gone",
+                sentence: "I have gone to this store before.",
+                solution: "true",
+                gap: "She _..._ to the park yesterday.",
+                answer: "went",
+                forms: "go, gone, went",
+                check: "false"
+            },
+            {
+                verb: "eat",
+                pastSimple: "ate",
+                pastParticiple: "eaten",
+                sentence: "He has eaten all the cookies.",
+                solution: "true",
+                gap: "They _..._ turkey last night.",
+                answer: "ate",
+                forms: "eat, ate, eaten",
+                check: "true"
+            },
+            {
+                verb: "take",
+                pastSimple: "took",
+                pastParticiple: "taken",
+                sentence: "She takes a lot of medicine.",
+                solution: "true",
+                gap: "We _..._ a taxi to the airport for our last holiday.",
+                answer: "took",
+                forms: "take, took, token",
+                check: "false"
+            },
+            {
+                verb: "come",
+                pastSimple: "came",
+                pastParticiple: "come",
+                sentence: "They have came to visit us.",
+                solution: "false",
+                gap: "I _..._ home late last night.",
+                answer: "came",
+                forms: "come, came, come",
+                check: "true"
+            },
+            {
+                verb: "write",
+                pastSimple: "wrote",
+                pastParticiple: "written",
+                sentence: "She writes with her left hand.",
+                solution: "true",
+                gap: "She _..._ ten books so far.",
+                answer: "has written",
+                forms: "write, wrote, written",
+                check: "true"
+            },
+    {
+        verb: "find",
+        pastSimple: "found",
+        pastParticiple: "found",
+        sentence: "They have found the missing keys.",
+        solution: "true",
+        gap: "She _..._ a great restaurant last week.",
+        answer: "found",
+        forms: "find, found, found",
+        check: "false"
+    },
+    {
+        verb: "drink",
+        pastSimple: "drank",
+        pastParticiple: "drunk",
+        sentence: "He has drunk a lot of water today.",
+        solution: "true",
+        gap: "I _..._ a coffee this morning.",
+        answer: "drank",
+        forms: "drink, drank, drunk",
+        check: "true"
+    },
+    {
+        verb: "run",
+        pastSimple: "ran",
+        pastParticiple: "run",
+        sentence: "She has ran a marathon.",
+        solution: "false",
+        gap: "He _..._ five miles last Sunday.",
+        answer: "ran",
+        forms: "run, ran, ran",
+        check: "false"
+    },
+    {
+        verb: "give",
+        pastSimple: "gave",
+        pastParticiple: "given",
+        sentence: "They has given me a wonderful gift.",
+        solution: "false",
+        gap: "I didn't _..._ him anything for his birthday.",
+        answer: "give",
+        forms: "give, gave, given",
+        check: "true"
+    },
+    {
+        verb: "read",
+        pastSimple: "read",
+        pastParticiple: "read",
+        sentence: "He has read many interesting books.",
+        solution: "true",
+        gap: "He _..._ every day.",
+        answer: "reads",
+        forms: "read, reads, reading",
+        check: "false"
+    },
+    {
+        verb: "speak",
+        pastSimple: "spoke",
+        pastParticiple: "spoken",
+        sentence: "She has spoken to him about the issue.",
+        solution: "true",
+        gap: "He _..._ to his boss yesterday.",
+        answer: "spoke",
+        forms: "speak, spoke, spoken",
+        check: "true"
+    },
+    {
+        verb: "sing",
+        pastSimple: "sang",
+        pastParticiple: "sung",
+        sentence: "They have sung in many concerts.",
+        solution: "true",
+        gap: "The choir _..._ beautifully last night.",
+        answer: "sang",
+        forms: "sing, sang, sung",
+        check: "true"
+    },
+    {
+        verb: "buy",
+        pastSimple: "bought",
+        pastParticiple: "bought",
+        sentence: "She has bought a new car.",
+        solution: "true",
+        gap: "They _..._ a house last year.",
+        answer: "bought",
+        forms: "buy, bought, bought",
+        check: "true"
+    },
+    {
+        verb: "sleep",
+        pastSimple: "slept",
+        pastParticiple: "slept",
+        sentence: "He has sleeped well after the long trip.",
+        solution: "false",
+        gap: "I _..._ for eight hours last night.",
+        answer: "slept",
+        forms: "sleep, slept, slept",
+        check: "true"
+    },
+    {
+        verb: "drive",
+        pastSimple: "drove",
+        pastParticiple: "driven",
+        sentence: "She has driven across the country two times so far.",
+        solution: "true",
+        gap: "He _..._ to work this morning.",
+        answer: "drove",
+        forms: "drive, drove, droven",
+        check: "false"
+    },
+    {
+        verb: "build",
+        pastSimple: "built",
+        pastParticiple: "built",
+        sentence: "They are building a new playground.",
+        solution: "true",
+        gap: "We _..._ a sandcastle yesterday.",
+        answer: "built",
+        forms: "build, builed, builed",
+        check: "false"
+    },
+    {
+        verb: "catch",
+        pastSimple: "caught",
+        pastParticiple: "caught",
+        sentence: "He has caught the flu for the second time this year.",
+        solution: "true",
+        gap: "She didn't _..._ the bus this morning.",
+        answer: "catch",
+        forms: "catch, caught, caught",
+        check: "true"
+    },
+    {
+        verb: "teach",
+        pastSimple: "taught",
+        pastParticiple: "taught",
+        sentence: "She has taught English for ten years.",
+        solution: "true",
+        gap: "He _..._ math at this high school when he was young.",
+        answer: "taught",
+        forms: "teach, taught, taught",
+        check: "true"
+    },
+    {
+        verb: "swim",
+        pastSimple: "swam",
+        pastParticiple: "swum",
+        sentence: "They have swam in many different lakes.",
+        solution: "false",
+        gap: "I can't _..._.",
+        answer: "swim",
+        forms: "swim, swam, swim",
+        check: "false"
+    },
+    {
+        verb: "sit",
+        pastSimple: "sat",
+        pastParticiple: "sat",
+        sentence: "He has sat in the same chair for hours.",
+        solution: "true",
+        gap: "We _..._ on the grass during the picnic.",
+        answer: "sat",
+        forms: "sit, sat, sat",
+        check: "true"
+    },
+    {
+        verb: "make",
+        pastSimple: "made",
+        pastParticiple: "made",
+        sentence: "She has make a delicious cake.",
+        solution: "false",
+        gap: "He didn't _..._ a sound when he came home.",
+        answer: "make",
+        forms: "make, make, make",
+        check: "false"
+    },
+    {
+        verb: "break",
+        pastSimple: "broke",
+        pastParticiple: "broken",
+        sentence: "He have broken his phone screen again.",
+        solution: "false",
+        gap: "She has _..._ more than ten bones.",
+        answer: "broken",
+        forms: "break, broke, broken",
+        check: "true"
+    },
+    {
+        verb: "choose",
+        pastSimple: "chose",
+        pastParticiple: "chosen",
+        sentence: "She doesn't like to chose.",
+        solution: "false",
+        gap: "He is the _..._ one.",
+        answer: "chosen",
+        forms: "choose, chose, chosen",
+        check: "true"
+    },
+    {
+        verb: "hear",
+        pastSimple: "heard",
+        pastParticiple: "heard",
+        sentence: "She has heard that song before.",
+        solution: "true",
+        gap: "We _..._ a strange noise last night.",
+        answer: "heard",
+        forms: "hear, heard, heard",
+        check: "true"
+    },
+    {
+        verb: "play",
+        pastSimple: "played",
+        pastParticiple: "played",
+        sentence: "He plays football.",
+        solution: "true",
+        gap: "He _..._ football every week.",
+        answer: "plays",
+        forms: "play, played, played",
+        check: "true"
+    },
+    {
+        verb: "become",
+        pastSimple: "became",
+        pastParticiple: "become",
+        sentence: "I want to became famous.",
+        solution: "false",
+        gap: "She is sixty years old, but she _..._ famous in her thirties.",
+        answer: "became",
+        forms: "become, became, become",
+        check: "true"
+    },
+    {
+        verb: "meet",
+        pastSimple: "met",
+        pastParticiple: "met",
+        sentence: "She has met many interesting people in her life so far.",
+        solution: "true",
+        gap: "They _..._ their new neighbors yesterday.",
+        answer: "met",
+        forms: "meet, met, met",
+        check: "true"
+    },
+    {
+        verb: "sell",
+        pastSimple: "sold",
+        pastParticiple: "sold",
+        sentence: "He sells his old car.",
+        solution: "true",
+        gap: "She _..._ her bike last month.",
+        answer: "sold",
+        forms: "sell, selled, selled",
+        check: "false"
+    },
+    {
+        verb: "shine",
+        pastSimple: "shone",
+        pastParticiple: "shone",
+        sentence: "The sun has shone brightly all day.",
+        solution: "true",
+        gap: "Look at this! The stars _..._ brightly.",
+        answer: "shine",
+        forms: "shine, shone, shonen",
+        check: "false"
+    },
+    {
+        verb: "throw",
+        pastSimple: "threw",
+        pastParticiple: "thrown",
+        sentence: "She has thrown the ball to her dog.",
+        solution: "true",
+        gap: "He _..._ the paper in the trash.",
+        answer: "threw",
+        forms: "throw, threw, thrown",
+        check: "true"
+    },
+    {
+        verb: "fall",
+        pastSimple: "fell",
+        pastParticiple: "fallen",
+        sentence: "She has fallen from her bike two times already.",
+        solution: "true",
+        gap: "Santa Clause _..._ down the chimney.",
+        answer: "fell",
+        forms: "fall, felt, felt",
+        check: "false"
+    },
+    {
+        verb: "try",
+        pastSimple: "tried",
+        pastParticiple: "tried",
+        sentence: "She has tried to find a job since she got fired last September.",
+        solution: "true",
+        gap: "I would like to _..._ this sport.",
+        answer: "try",
+        forms: "try, tried, tried",
+        check: "true"
+    },
+    {
+        verb: "cut",
+        pastSimple: "cut",
+        pastParticiple: "cut",
+        sentence: "He has cutted the vegetables for dinner.",
+        solution: "false",
+        gap: "She _..._ the cake into pieces.",
+        answer: "cut",
+        forms: "cut, cut, cut",
+        check: "true"
+    },
+    {
+        verb: "forget",
+        pastSimple: "forgot",
+        pastParticiple: "forgotten",
+        sentence: "She has forgot to call her friend.",
+        solution: "false",
+        gap: "He never _..._ his password.",
+        answer: "forgets",
+        forms: "forget, forgot, forgotten",
+        check: "true"
+    },
+    {
+        verb: "win",
+        pastSimple: "won",
+        pastParticiple: "won",
+        sentence: "They have just won the championship.",
+        solution: "true",
+        gap: "She _..._ first place in the race.",
+        answer: "won",
+        forms: "win, won, won",
+        check: "true"
+    },
+    {
+        verb: "visit",
+        pastSimple: "visited",
+        pastParticiple: "visited",
+        sentence: "He have visited almost every country in the world.",
+        solution: "false",
+        gap: "They have _..._ their grandparent ten times this year.",
+        answer: "visited",
+        forms: "visit, visited, visiting",
+        check: "false"
+    },
+    {
+        verb: "begin",
+        pastSimple: "began",
+        pastParticiple: "begun",
+        sentence: "She begun her new job last week.",
+        solution: "false",
+        gap: "He _..._ working on the project last month.",
+        answer: "began",
+        forms: "begin, began, begun",
+        check: "true"
+    },
+    {
+        verb: "keep",
+        pastSimple: "kept",
+        pastParticiple: "kept",
+        sentence: "She keep a lot of secrets.",
+        solution: "false",
+        gap: "She didn't _..._ her wedding ring.",
+        answer: "keep",
+        forms: "keep, keeped, kept",
+        check: "false"
+    },
+    {
+        verb: "get",
+        pastSimple: "got",
+        pastParticiple: "got",
+        sentence: "They have got new furniture.",
+        solution: "true",
+        gap: "He never _..._ tired of playing with his children.",
+        answer: "gets",
+        forms: "get, got, got",
+        check: "true"
+    },
+    {
+        verb: "stay",
+        pastSimple: "stayed",
+        pastParticiple: "stayed",
+        sentence: "She has stayed in this hotel before.",
+        solution: "true",
+        gap: "Nobody _..._ in that house.",
+        answer: "stays",
+        forms: "stay, stayed, stayed",
+        check: "true"
+    },
+    {
+        verb: "hide",
+        pastSimple: "hid",
+        pastParticiple: "hidden",
+        sentence: "He has hidden the keys.",
+        solution: "true",
+        gap: "She always _..._ her son's gifts. He doesn't like it.",
+        answer: "hides",
+        forms: "hide, hid, hidden",
+        check: "true"
+    },
+    {
+        verb: "do",
+        pastSimple: "did",
+        pastParticiple: "done",
+        sentence: "Did you did your homework?",
+        solution: "false",
+        gap: "What have you _..._?",
+        answer: "done",
+        forms: "do, did, done",
+        check: "true"
+    },
+    {
+        verb: "stand",
+        pastSimple: "stood",
+        pastParticiple: "stood",
+        sentence: "Everyone stood up because the concert was so good.",
+        solution: "true",
+        gap: "I can't _..._ this woman.",
+        answer: "stand",
+        forms: "stand, stood, stooden",
+        check: "false"
+    },
+    {
+        verb: "hit",
+        pastSimple: "hit",
+        pastParticiple: "hit",
+        sentence: "He has never hitted a hole-in-one.",
+        solution: "false",
+        gap: "He didn't _..._ his girlfriend.",
+        answer: "hit",
+        forms: "hit, hit, hit",
+        check: "true"
+    },
+    {
+        verb: "tell",
+        pastSimple: "told",
+        pastParticiple: "told",
+        sentence: "She tell me everything.",
+        solution: "false",
+        gap: "He _..._ a funny story last night.",
+        answer: "told",
+        forms: "tell, told, telled",
+        check: "false"
+    },
+    {
+        verb: "wear",
+        pastSimple: "wore",
+        pastParticiple: "worn",
+        sentence: "He has worn the same suit for years.",
+        solution: "true",
+        gap: "She _..._ a red dress to the party.",
+        answer: "wore",
+        forms: "wear, wore, worn",
+        check: "true"
+    },
+    {
+        verb: "steal",
+        pastSimple: "stole",
+        pastParticiple: "stolen",
+        sentence: "The thiefes stoled everything of value.",
+        solution: "false",
+        gap: "They have _..._ paintings from a lot of different museums.",
+        answer: "stolen",
+        forms: "steal, stole, stolen",
+        check: "true"
+    },
+    {
+        verb: "climb",
+        pastSimple: "climbed",
+        pastParticiple: "climbed",
+        sentence: "She has climbed multiple mountains when she was a teenager.",
+        solution: "false",
+        gap: "I have never _..._ in my life.",
+        answer: "climbed",
+        forms: "climb, climbed, climbed",
+        check: "true"
+    },
+    {
+        verb: "think",
+        pastSimple: "thought",
+        pastParticiple: "thought",
+        sentence: "I don't want to thought about it.",
+        solution: "false",
+        gap: "She _..._ she is very clever.",
+        answer: "thinks",
+        forms: "think, thank, thonk",
+        check: "false"
+    },
+    {
+        verb: "know",
+        pastSimple: "knew",
+        pastParticiple: "knows",
+        sentence: "I don't knew this person.",
+        solution: "false",
+        gap: "They _..._ who did it.",
+        answer: "knew",
+        forms: "know, knew, known",
+        check: "true"
+    },
+    {
+        verb: "change",
+        pastSimple: "changed",
+        pastParticiple: "changed",
+        sentence: "Since they came into the league, they have changed the game.",
+        solution: "true",
+        gap: "He _..._ his mind all the time.",
+        answer: "changes",
+        forms: "change, changed, changen",
+        check: "false"
+    },
+    {
+        verb: "wake",
+        pastSimple: "woke",
+        pastParticiple: "woken",
+        sentence: "She had to woke uo very early this morning.",
+        solution: "false",
+        gap: "He never _..._ up before eight o'clock. I don't know how he does it.",
+        answer: "wakes",
+        forms: "wake, woke, waken",
+        check: "false"
+    },
+    {
+        verb: "fly",
+        pastSimple: "flew",
+        pastParticiple: "flown",
+        sentence: "I have never flown before.",
+        solution: "true",
+        gap: "She only _..._ first class.",
+        answer: "flies",
+        forms: "fly, flies, flied",
+        check: "false"
+    },
+    {
+        verb: "lose",
+        pastSimple: "lost",
+        pastParticiple: "lost",
+        sentence: "They have losen their son last year.",
+        solution: "false",
+        gap: "He has never _..._ his keys.",
+        answer: "lost",
+        forms: "lose, lost, lost",
+        check: "true"
+    },
+    {
+        verb: "leave",
+        pastSimple: "left",
+        pastParticiple: "left",
+        sentence: "Elvis has left the building.",
+        solution: "true",
+        gap: "She can't find her phone. She must have _..._ it at the hotel.",
+        answer: "left",
+        forms: "leave, left, left",
+        check: "true"
+    },
+    {
+        verb: "want",
+        pastSimple: "wanted",
+        pastParticiple: "wanted",
+        sentence: "I wanted to go home now!",
+        solution: "false",
+        gap: "I didn't _..._ to be here.",
+        answer: "want",
+        forms: "want, wants, wanted",
+        check: "false"
+    },
+    {
+        verb: "draw",
+        pastSimple: "drew",
+        pastParticiple: "drawn",
+        sentence: "She has drew a beautiful picture.",
+        solution: "false",
+        gap: "He _..._ a sketch of the building during his last holiday.",
+        answer: "drew",
+        forms: "draw, drew, drawn",
+        check: "true"
+    },
+    {
+        verb: "have",
+        pastSimple: "had",
+        pastParticiple: "had",
+        sentence: "I had had multiple accidents before I turned fifty.",
+        solution: "true",
+        gap: "_..._ she been to Rome before?",
+        answer: "has",
+        forms: "have, has, had",
+        check: "false"
+    },
+    {
+        verb: "feel",
+        pastSimple: "felt",
+        pastParticiple: "felt",
+        sentence: "He didn't felt any pain.",
+        solution: "false",
+        gap: "She doesn't _..._ bad about the argument.",
+        answer: "feel",
+        forms: "feel, fell, fallen",
+        check: "false"
+    },
+    {
+        verb: "clean",
+        pastSimple: "cleaned",
+        pastParticiple: "cleaned",
+        sentence: "She cleaned the whole apartment.",
+        solution: "true",
+        gap: "He never _..._ his room.",
+        answer: "cleans",
+        forms: "clean, cleans, cleaning",
+        check: "false"
+    },
+    {
+        verb: "work",
+        pastSimple: "worked",
+        pastParticiple: "worked",
+        sentence: "I works a lot.",
+        solution: "false",
+        gap: "She _..._ in a bank.",
+        answer: "works",
+        forms: "work, works, worked",
+        check: "false"
+    },
+    {
+        verb: "grow",
+        pastSimple: "grew",
+        pastParticiple: "grown",
+        sentence: "He has grew a beard.",
+        solution: "false",
+        gap: "A lot of men nowadays _..._ their beard.",
+        answer: "grow",
+        forms: "grow, grew, grown",
+        check: "true"
+    },
+    {
+        verb: "say",
+        pastSimple: "said",
+        pastParticiple: "said",
+        sentence: "She hasn't say much so far.",
+        solution: "false",
+        gap: "I say Tiffany yesterday. She _..._ hello.",
+        answer: "said",
+        forms: "say, said, said",
+        check: "true"
+    },
+    {
+        verb: "ride",
+        pastSimple: "rode",
+        pastParticiple: "ridden",
+        sentence: "He has rode all his life.",
+        solution: "false",
+        gap: "They like to _..._.",
+        answer: "ride",
+        forms: "ride, rite, ritten",
+        check: "false"
+    },
+    {
+        verb: "hate",
+        pastSimple: "hated",
+        pastParticiple: "hated",
+        sentence: "She hated him since he was a little boy.",
+        solution: "false",
+        gap: "He _..._ his job.",
+        answer: "hates",
+        forms: "hate, hated, hated",
+        check: "true"
+    }
+];
+
+        let pastSimpleQuestions = [];
+        let pastParticipleQuestions = [];
+        let trueFalseQuestions = [];
+        let fillGapQuestions = [];
+        let verbFormsQuestions = [];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function generateTasks() {
+            const shuffledDataset = shuffleArray([...dataset]); // Create a copy and shuffle
+            pastSimpleQuestions = shuffledDataset.slice(0, 6); // First 6 for Task 1
+            pastParticipleQuestions = shuffledDataset.slice(6, 12); // Next 6 for Task 2
+            trueFalseQuestions = shuffledDataset.slice(12, 18); // Next 6 for Task 3
+            fillGapQuestions = shuffledDataset.slice(18, 24); // 
+            verbFormsQuestions = shuffledDataset.slice(24, 30); // 
+           
+	 // Render Task 1
+            const task1Div = document.getElementById('task1');
+            task1Div.innerHTML = pastSimpleQuestions.map((item, index) => `
+                <p><strong>${item.verb}</strong></p>
+                <input type="text" id="pastSimple${index + 1}">
+            `).join('<br>');
+
+            // Render Task 2
+            const task2Div = document.getElementById('task2');
+            task2Div.innerHTML = pastParticipleQuestions.map((item, index) => `
+                <p><strong>${item.verb}</strong></p>
+                <input type="text" id="pastParticiple${index + 1}">
+            `).join('<br>');
+
+            // Render Task 3
+            const task3Div = document.getElementById('task3');
+            task3Div.innerHTML = trueFalseQuestions.map((item, index) => `
+                <p><strong>${item.sentence}</strong></p>
+                <select id="trueFalse${index + 1}">
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select>
+            `).join('<br>');
+
+            // Render Task 4
+            const task4Div = document.getElementById('task4');
+            task4Div.innerHTML = fillGapQuestions.map((item, index) => `
+                <p><strong>${item.gap}</strong></p>
+                <p><strong style="text-transform: uppercase;">${item.verb}</strong></p>
+                <input type="text" id="fillGap${index + 1}">
+            `).join('<br>');
+
+            // Render Task 5
+            const task5Div = document.getElementById('task5');
+            task5Div.innerHTML = verbFormsQuestions.map((item, index) => `
+                <p><strong>${item.forms}</strong></p>
+                <select id="verbForms${index + 1}">
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select>
+            `).join('<br>');
+        }
+
+        function checkAnswers() {
+            let correctAnswersCount = 0;
+            let incorrectAnswersHtml = '';
+
+            // Check Task 1 Answers
+            pastSimpleQuestions.forEach((item, index) => {
+                const userAnswer = document.getElementById(`pastSimple${index + 1}`).value.trim().toLowerCase();
+                if (userAnswer === item.pastSimple.toLowerCase()) {
+                    correctAnswersCount++;
+                } else {
+                    incorrectAnswersHtml += `
+                        <p><strong>Task 1 - Question ${index + 1}:</strong></p>
+                        <p>Question: What is the past simple form of "${item.verb}"?</p>
+                        <p>Your answer: "${userAnswer}"</p>
+                        <p>Correct answer: "${item.pastSimple}"</p>
+                    `;
+                }
+            });
+
+            // Check Task 2 Answers
+            pastParticipleQuestions.forEach((item, index) => {
+                const userAnswer = document.getElementById(`pastParticiple${index + 1}`).value.trim().toLowerCase();
+                if (userAnswer === item.pastParticiple.toLowerCase()) {
+                    correctAnswersCount++;
+                } else {
+                    incorrectAnswersHtml += `
+                        <p><strong>Task 2 - Question ${index + 1}:</strong></p>
+                        <p>Question: What is the past participle form of "${item.verb}"?</p>
+                        <p>Your answer: "${userAnswer}"</p>
+                        <p>Correct answer: "${item.pastParticiple}"</p>
+                    `;
+                }
+            });
+
+            // Check Task 3 Answers
+            trueFalseQuestions.forEach((item, index) => {
+                const userAnswer = document.getElementById(`trueFalse${index + 1}`).value.trim().toLowerCase();
+                if (userAnswer === item.solution.toLowerCase()) {
+                    correctAnswersCount++;
+                } else {
+                    incorrectAnswersHtml += `
+                        <p><strong>Task 3 - Question ${index + 1}:</strong></p>
+                        <p>Sentence: "${item.sentence}"</p>
+                        <p>Your answer: "${userAnswer === 'true' ? 'True' : 'False'}"</p>
+                        <p>Correct answer: "${item.solution === 'true' ? 'True' : 'False'}"</p>
+                    `;
+                }
+            });
+
+            // Check Task 4 Answers
+            fillGapQuestions.forEach((item, index) => {
+                const userAnswer = document.getElementById(`fillGap${index + 1}`).value.trim().toLowerCase();
+                if (userAnswer === item.answer.toLowerCase()) {
+                    correctAnswersCount++;
+                } else {
+                    incorrectAnswersHtml += `
+                        <p><strong>Task 4 - Question ${index + 1}:</strong></p>
+                        <p>Sentence with gap: "${item.gap}"</p>
+                        <p>Your answer: "${userAnswer}"</p>
+                        <p>Correct answer: "${item.answer}"</p>
+                    `;
+                }
+            });
+
+            // Check Task 5 Answers
+            verbFormsQuestions.forEach((item, index) => {
+                const userAnswer = document.getElementById(`verbForms${index + 1}`).value.trim().toLowerCase();
+                if (userAnswer === item.check.toLowerCase()) {
+                    correctAnswersCount++;
+                } else {
+                    incorrectAnswersHtml += `
+                        <p><strong>Task 5 - Question ${index + 1}:</strong></p>
+                        <p>Verb Forms: "${item.forms}"</p>
+                        <p>Your answer: "${userAnswer === 'true' ? 'True' : 'False'}"</p>
+                        <p>Correct answer: "${item.check === 'true' ? 'True' : 'False'}"</p>
+                    `;
+                }
+            });
+
+            // Add correct answers summary before incorrect answers
+            let resultHtml = `
+                <h2>Results</h2>
+                <p>You have answered ${correctAnswersCount} out of ${pastSimpleQuestions.length + pastParticipleQuestions.length + trueFalseQuestions.length + fillGapQuestions.length + verbFormsQuestions.length} questions correctly.</p>
+<h2>Incorrect Answers</h2>
+                ${incorrectAnswersHtml}
+
+            `;
+
+            // Show results
+            document.body.insertAdjacentHTML('beforeend', `<div id="results">${resultHtml}</div>`);
+        }
+
+        // Initialize tasks on page load
+        window.onload = generateTasks;
+    </script>
+</body>
+</html>

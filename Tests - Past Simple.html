@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Past Simple</title>
+    <style>
+        body
+        .question {
+            margin-bottom: 20px;
+        }
+        .button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test - Past Simple</h1>
+<p>There are four tasks in this test. Answer every question.</p>
+<p>At the end of the test, you will find a button called <strong>Check Answers</strong>. Press <strong>Enter</strong> to activate the button. Your results will then be shown under this button, so make sure to press <strong>arrow down</strong>.
+<p><strong>BE CAREFUL:</strong> Fusion will read the options in the dropdown list, as well as your sentences in the <span lang="de">Eingabefeld</span> in German. If you want to listen to it in English, you have to press <strong>Control + Windows + L</strong> and then choose <span lang="de"><strong>Englisch (Grossbritanien)</strong></span>.</p>
+
+<br>
+
+    <form id="testForm">
+        <!-- Task 1 -->
+        <div id="task1">
+            <h2>Task 1</h2>
+	<p>Are the following sentences gramatically correct or not? Choose <strong>True</strong> if it is correct or <strong>False</strong> if it is incorrect.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Task 2 -->
+        <div id="task2">
+            <h2>Task 2</h2>
+	<p>Turn the positive sentences into negative sentences. Only use the Past Simple.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Task 3 -->
+        <div id="task3">
+            <h2>Task 3</h2>
+	<p>Choose the correct auxiliary verb for the following questions.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Task 4 -->
+        <div id="task4">
+            <h2>Task 4</h2>
+	<p>Turn the negative sentences into positive sentences. Only use the Past Simple.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <button type="button" class="button" onclick="checkAnswers()">Check Answers</button>
+    </form>
+
+    <div id="result"></div>
+    <div id="wrongAnswers"></div>
+
+    <script>
+        const data = [
+ { positive: "I flew from Germany to Australia.", negative: "I didn't fly from Germany to Australia.", rightwrong: "We flown from Germany to Australia.", rightwrongsol: "false", questiongap: "When _..._ they fly to Australia?", answer: "did" },
+  { positive: "She visited the museum last weekend.", negative: "She didn't visit the museum last weekend.", rightwrong: "She visiting the museum last weekend.", rightwrongsol: "false", questiongap: "When _..._ she visit the museum?", answer: "did" },
+  { positive: "He ate dinner at 8 PM.", negative: "He didn't eat dinner at 8 PM.", rightwrong: "He ate dinner at 8 PM.", rightwrongsol: "true", questiongap: "What time _..._ he eat dinner?", answer: "did" },
+  { positive: "They watched a movie on Friday night.", negative: "They didn't watch a movie on Friday night.", rightwrong: "They don't watched a movie on Friday night.", rightwrongsol: "false", questiongap: "When _..._ they watch a movie?", answer: "did" },
+  { positive: "I bought a new car last month.", negative: "I didn't buy a new car last month.", rightwrong: "I buyed a new car last month.", rightwrongsol: "false", questiongap: "When _..._ you buy a new car?", answer: "did" },
+  { positive: "We played soccer in the park.", negative: "We didn't play soccer in the park.", rightwrong: "We played soccer in the park.", rightwrongsol: "true", questiongap: "Where _..._ you play soccer?", answer: "did" },
+  { positive: "The concert started at 7 PM.", negative: "The concert didn't start at 7 PM.", rightwrong: "The concert doesn't started at 7 PM.", rightwrongsol: "false", questiongap: "What time _..._ the concert start?", answer: "did" },
+  { positive: "She read a book during the flight.", negative: "She didn't read a book during the flight.", rightwrong: "She read a book during the flight.", rightwrongsol: "true", questiongap: "What _..._ she do during the flight?", answer: "did" },
+  { positive: "He traveled to Japan last year.", negative: "He didn't travel to Japan last year.", rightwrong: "Does he travel to Japan last year.", rightwrongsol: "false", questiongap: "Where _..._ he travel last year?", answer: "did" },
+  { positive: "They finished their project on time.", negative: "They didn't finish their project on time.", rightwrong: "They finished their project on time.", rightwrongsol: "true", questiongap: "When _..._ they finish their project?", answer: "did" },
+  { positive: "I found my keys under the couch.", negative: "I didn't find my keys under the couch.", rightwrong: "I finded my keys under the couch.", rightwrongsol: "false", questiongap: "Where _..._ you find your keys?", answer: "did" },
+  { positive: "We cooked dinner together.", negative: "We didn't cook dinner together.", rightwrong: "We cooked dinner together.", rightwrongsol: "true", questiongap: "What _..._ you do together?", answer: "did" },
+  { positive: "She sang beautifully at the concert.", negative: "She didn't sing beautifully at the concert.", rightwrong: "She singed beautifully at the concert.", rightwrongsol: "false", questiongap: "How _..._ she sing at the concert?", answer: "did" },
+  { positive: "He wrote a letter to his friend.", negative: "He didn't write a letter to his friend.", rightwrong: "He wrote a letter to his friend.", rightwrongsol: "true", questiongap: "What _..._ he write to his friend?", answer: "did" },
+  { positive: "They met at the café yesterday.", negative: "They didn't meet at the café yesterday.", rightwrong: "They meet at the café yesterday.", rightwrongsol: "false", questiongap: "Where _..._ they meet yesterday?", answer: "did" },
+  { positive: "I saw a shooting star last night.", negative: "I didn't see a shooting star last night.", rightwrong: "I saw a shooting star last night.", rightwrongsol: "true", questiongap: "What _..._ you see last night?", answer: "did" },
+  { positive: "We danced all night at the party.", negative: "We didn't dance all night at the party.", rightwrong: "We didn't danced all night at the party.", rightwrongsol: "false", questiongap: "What _..._ you do all night at the party?", answer: "did" },
+  { positive: "She drove to the countryside on Sunday.", negative: "She didn't drive to the countryside on Sunday.", rightwrong: "She drove to the countryside on Sunday.", rightwrongsol: "true", questiongap: "When _..._ she drive to the countryside?", answer: "did" },
+  { positive: "He built a treehouse for his kids.", negative: "He didn't build a treehouse for his kids.", rightwrong: "He builded a treehouse for his kids.", rightwrongsol: "false", questiongap: "What _..._ he build for his kids?", answer: "did" },
+  { positive: "They opened a new store last week.", negative: "They didn't open a new store last week.", rightwrong: "They opened a new store last week.", rightwrongsol: "true", questiongap: "When _..._ they open a new store?", answer: "did" },
+  { positive: "I painted the fence yesterday.", negative: "I didn't paint the fence yesterday.", rightwrong: "I doesn't paint the fence yesterday.", rightwrongsol: "false", questiongap: "What _..._ you paint yesterday?", answer: "did" },
+{ positive: "She was happy with the results.", negative: "She wasn't happy with the results.", rightwrong: "She were happy with the results.", rightwrongsol: "false", questiongap: "How happy_..._ she with the results?", answer: "was" }, 
+{ positive: "They were at the park yesterday.", negative: "They weren't at the park yesterday.", rightwrong: "They were at the park yesterday.", rightwrongsol: "true", questiongap: "Where _..._ they yesterday?", answer: "were" }, 
+{ positive: "I was tired after the long journey.", negative: "I wasn't tired after the long journey.", rightwrong: "I not was tired after the long journey.", rightwrongsol: "false", questiongap: "How _..._ you after the long journey?", answer: "were" }, 
+{ positive: "He was excited about the trip.", negative: "He wasn't excited about the trip.", rightwrong: "He was excited about the trip.", rightwrongsol: "true", questiongap: "_..._ he excited about the trip?", answer: "was" }, 
+{ positive: "We were ready for the presentation.", negative: "We weren't ready for the presentation.", rightwrong: "We not were ready for the presentation.", rightwrongsol: "false", questiongap: "_..._ you ready for the presentation?", answer: "were" }, 
+{ positive: "The weather was perfect for a picnic.", negative: "The weather wasn't perfect for a picnic.", rightwrong: "The weather was perfect for a picnic.", rightwrongsol: "true", questiongap: "How _..._ the weather?", answer: "was" }, 
+{ positive: "They were interested in the offer.", negative: "They weren't interested in the offer.", rightwrong: "They is interested in the offer.", rightwrongsol: "false", questiongap: "How interested _..._ they in the offer?", answer: "were" }, 
+{ positive: "She was the best student in the class.", negative: "She wasn't the best student in the class.", rightwrong: "She was the best student in the class.", rightwrongsol: "true", questiongap: "Who _..._ the best student in the class?", answer: "was" }, 
+{ positive: "We were late for the meeting.", negative: "We weren't late for the meeting.", rightwrong: "We are late for the meeting yesterday.", rightwrongsol: "false", questiongap: "Why _..._ you late for the meeting?", answer: "were" }, 
+{ positive: "He was surprised by the news.", negative: "He wasn't surprised by the news.", rightwrong: "He was surprised by the news.", rightwrongsol: "true", questiongap: "_..._ he surprised by the news?", answer: "was" }, 
+{ positive: "The cake was delicious.", negative: "The cake wasn't delicious.", rightwrong: "The cakes was delicious.", rightwrongsol: "false", questiongap: "How _..._ the cake?", answer: "was" }, 
+{ positive: "They were at the concert last night.", negative: "They weren't at the concert last night.", rightwrong: "They were at the concert last night.", rightwrongsol: "true", questiongap: "Where _..._ they last night?", answer: "were" }, 
+{ positive: "I was at home during the storm.", negative: "I wasn't at home during the storm.", rightwrong: "I were at home during the storm.", rightwrongsol: "false", questiongap: "Where _..._ you during the storm?", answer: "were" }, 
+{ positive: "She was a famous actress.", negative: "She wasn't a famous actress.", rightwrong: "She was a famous actress.", rightwrongsol: "true", questiongap: "Who _..._ a famous actress?", answer: "was" }, 
+{ positive: "We were happy with the final decision.", negative: "We weren't happy with the final decision.", rightwrong: "We wasn't happy with the final decision.", rightwrongsol: "false", questiongap: "How _..._ you with the final decision?", answer: "were" }, 
+{ positive: "He was in the office all day.", negative: "He wasn't in the office all day.", rightwrong: "Was he in the office all day?", rightwrongsol: "true", questiongap: "Where _..._ he?", answer: "was" }, 
+{ positive: "The children were tired after playing.", negative: "The children weren't tired after playing.", rightwrong: "Was the children tired after playing?", rightwrongsol: "false", questiongap: "_..._ the children tired?", answer: "were" }, 
+{ positive: "I was surprised by his response.", negative: "I wasn't surprised by his response.", rightwrong: "I was surprised by his response.", rightwrongsol: "true", questiongap: "How surprised _..._ you by his response?", answer: "were" }, 
+{ positive: "They were in the same class.", negative: "They weren't in the same class.", rightwrong: "He was in the same class.", rightwrongsol: "true", questiongap: "_..._ he in the same class as you?", answer: "was" }, 
+{ positive: "She was the winner of the competition.", negative: "She wasn't the winner of the competition.", rightwrong: "She were the winner of the competition.", rightwrongsol: "false", questiongap: "Who _..._ the winner of the competition?", answer: "was" },
+{ positive: "She broke the vase.", negative: "She didn't break the vase.", rightwrong: "She break the vase.", rightwrongsol: "false", questiongap: "What _..._ she break?", answer: "did" }, 
+{ positive: "They caught the thief.", negative: "They didn't catch the thief.", rightwrong: "They didn't catch the thief.", rightwrongsol: "true", questiongap: "Who _..._ they catch?", answer: "did" }, 
+{ positive: "I drank a glass of water.", negative: "I didn't drink a glass of water.", rightwrong: "I drunk a glass of water.", rightwrongsol: "false", questiongap: "What _..._ you drink?", answer: "did" }, 
+{ positive: "He drove to the city.", negative: "He didn't drive to the city.", rightwrong: "He drove to the city.", rightwrongsol: "true", questiongap: "Where _..._ he drive?", answer: "did" }, 
+{ positive: "We ate dinner at 7 PM.", negative: "We didn't eat dinner at 7 PM.", rightwrong: "We eaten dinner at 7 PM.", rightwrongsol: "false", questiongap: "When _..._ you eat dinner?", answer: "did" }, 
+{ positive: "The dog found a bone.", negative: "The dog didn't find a bone.", rightwrong: "The dog found a bone.", rightwrongsol: "true", questiongap: "What _..._ the dog find?", answer: "did" }, 
+{ positive: "She gave him a gift.", negative: "She didn't give him a gift.", rightwrong: "Gave she him a gift?", rightwrongsol: "false", questiongap: "What _..._ she give him?", answer: "did" }, 
+{ positive: "They went to the beach.", negative: "They didn't go to the beach.", rightwrong: "They went to the beach.", rightwrongsol: "true", questiongap: "Where _..._ they go?", answer: "did" }, 
+{ positive: "I heard a strange noise.", negative: "I didn't hear a strange noise.", rightwrong: "I heart a strange noise.", rightwrongsol: "false", questiongap: "What _..._ you hear?", answer: "did" }, 
+{ positive: "He knew the answer.", negative: "He didn't know the answer.", rightwrong: "He know the answer.", rightwrongsol: "false", questiongap: "What _..._ he know?", answer: "did" }, 
+{ positive: "We made a cake for her birthday.", negative: "We didn't make a cake for her birthday.", rightwrong: "We didn't make a cake for her birthday.", rightwrongsol: "true", questiongap: "What _..._ you make for her birthday?", answer: "did" },
+{ positive: "She met him at the park.", negative: "She didn't meet him at the park.", rightwrong: "She meet him at the park.", rightwrongsol: "false", questiongap: "Where _..._ she meet him?", answer: "did" }, 
+{ positive: "They paid the bill.", negative: "They didn't pay the bill.", rightwrong: "They didn't pay the bill.", rightwrongsol: "true", questiongap: "What _..._ they pay?", answer: "did" }, 
+{ positive: "I read a book last night.", negative: "I didn't read a book last night.", rightwrong: "I readed a book last night.", rightwrongsol: "false", questiongap: "What _..._ you read last night?", answer: "did" }, 
+{ positive: "He sold his car.", negative: "He didn't sell his car.", rightwrong: "He sold his car.", rightwrongsol: "true", questiongap: "What _..._ he sell?", answer: "did" }, 
+{ positive: "We spoke to the manager.", negative: "We didn't speak to the manager.", rightwrong: "We spoken to the manager.", rightwrongsol: "false", questiongap: "Who _..._ you speak to?", answer: "did" }, 
+{ positive: "She took a picture of the sunset.", negative: "She didn't take a picture of the sunset.", rightwrong: "She took a picture of the sunset.", rightwrongsol: "true", questiongap: "What _..._ she take a picture of?", answer: "did" }, 
+{ positive: "They won the game.", negative: "They didn't win the game.", rightwrong: "They win the game last night.", rightwrongsol: "false", questiongap: "What _..._ they win?", answer: "did" }, 
+{ positive: "I wrote a letter to my friend.", negative: "I didn't write a letter to my friend.", rightwrong: "I wrote a letter to my friend.", rightwrongsol: "true", questiongap: "What _..._ you write to your friend?", answer: "did" }, 
+{ positive: "He wore a blue shirt.", negative: "He didn't wear a blue shirt.", rightwrong: "He wears a blue shirt.", rightwrongsol: "false", questiongap: "What _..._ he wear?", answer: "did" },
+{ positive: "The meeting was productive.", negative: "The meeting wasn't productive.", rightwrong: "The meeting were productive.", rightwrongsol: "false", questiongap: "How _..._ the meeting?", answer: "was" }, 
+{ positive: "They were on vacation last week.", negative: "They weren't on vacation last week.", rightwrong: "Were they on vacation last week?", rightwrongsol: "true", questiongap: "When _..._ they on vacation?", answer: "were" }, 
+{ positive: "I was at the grocery store.", negative: "I wasn't at the grocery store.", rightwrong: "I didn't was at the grocery store.", rightwrongsol: "false", questiongap: "Where _..._ you?", answer: "were" }, 
+{ positive: "She was thrilled with her new job.", negative: "She wasn't thrilled with her new job.", rightwrong: "She was thrilled with her new job.", rightwrongsol: "true", questiongap: "_..._ she thrilled with her new job?", answer: "was" }, 
+{ positive: "We were early for the show.", negative: "We weren't early for the show.", rightwrong: "We wasn't early for the show.", rightwrongsol: "false", questiongap: "_..._ you early for the show?", answer: "were" }, 
+{ positive: "He was in the garden.", negative: "He wasn't in the garden.", rightwrong: "He was in the garden.", rightwrongsol: "true", questiongap: "Where _..._ he?", answer: "was" }, 
+{ positive: "The children were very quiet.", negative: "The children weren't very quiet.", rightwrong: "The children was very quiet.", rightwrongsol: "false", questiongap: "How _..._ the children?", answer: "were" }, 
+{ positive: "I was the first to arrive.", negative: "I wasn't the first to arrive.", rightwrong: "I was the first to arrive.", rightwrongsol: "true", questiongap: "Who _..._ the first to arrive?", answer: "was" }, 
+{ positive: "She was a great leader.", negative: "She wasn't a great leader.", rightwrong: "She is a great leader when she was young.", rightwrongsol: "false", questiongap: "Who _..._ a great leader?", answer: "was" }, 
+{ positive: "They were very tired after their trip.", negative: "They weren't very tired after their trip.", rightwrong: "Was they tired after the trip?", rightwrongsol: "false", questiongap: "How _..._ the trip?", answer: "was" }            
+   ];
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        shuffle(data);
+
+        const task1Questions = data.slice(0, 6);
+        const task2Questions = data.slice(6, 12);
+        const task3Questions = data.slice(12, 18);
+        const task4Questions = data.slice(18, 24);
+
+        const task1Div = document.getElementById('task1');
+        const task2Div = document.getElementById('task2');
+        const task3Div = document.getElementById('task3');
+        const task4Div = document.getElementById('task4');
+
+        task1Questions.forEach((q, index) => {
+            task1Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.rightwrong}</strong></p>
+                    <input type="radio" id="task1q${index}true" name="task1q${index}" value="true">
+                    <label for="task1q${index}true">True</label>
+                    <input type="radio" id="task1q${index}false" name="task1q${index}" value="false">
+                    <label for="task1q${index}false">False</label>
+                </div>
+            `;
+        });
+
+        task2Questions.forEach((q, index) => {
+            task2Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.positive}</strong></p>
+                    <input type="text" id="task2q${index}" name="task2q${index}">
+                </div>
+            `;
+        });
+
+        task3Questions.forEach((q, index) => {
+            task3Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.questiongap}</strong></p>
+                    <select id="task3q${index}" name="task3q${index}">
+                        <option value="was">was</option>
+                        <option value="were">were</option>
+                        <option value="did">did</option>
+                    </select>
+                </div>
+            `;
+        });
+
+        task4Questions.forEach((q, index) => {
+            task4Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.negative}</strong></p>
+                    <input type="text" id="task4q${index}" name="task4q${index}">
+                </div>
+            `;
+        });
+
+        function checkAnswers() {
+            let correctAnswers = 0;
+            const totalQuestions = task1Questions.length + task2Questions.length + task3Questions.length + task4Questions.length;
+            let wrongAnswersHTML = '';
+
+            // Check Task 1 Answers
+            task1Questions.forEach((q, index) => {
+                const userAnswer = document.querySelector(`input[name="task1q${index}"]:checked`);
+                if (userAnswer && userAnswer.value === q.rightwrongsol) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 1:</strong><br> ${q.rightwrong} <br> Your answer: ${userAnswer ? userAnswer.value : 'No answer'} <br> Correct answer: ${q.rightwrongsol}</p>`;
+                }
+            });
+
+            // Check Task 2 Answers
+            task2Questions.forEach((q, index) => {
+                const userAnswer = document.getElementById(`task2q${index}`).value.trim();
+                if (userAnswer === q.negative) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 2:</strong> <br> ${q.positive} <br> Your answer: "${userAnswer}" <br> Correct answer: "${q.negative}"</p>`;
+                }
+            });
+
+            // Check Task 3 Answers
+            task3Questions.forEach((q, index) => {
+                const userAnswer = document.getElementById(`task3q${index}`).value;
+                if (userAnswer === q.answer) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 3:</strong><br> ${q.questiongap} <br> Your answer: "${userAnswer}" <br> Correct answer: "${q.answer}"</p>`;
+                }
+            });
+
+            // Check Task 4 Answers
+            task4Questions.forEach((q, index) => {
+                const userAnswer = document.getElementById(`task4q${index}`).value.trim();
+                if (userAnswer === q.positive) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 4:</strong><br> ${q.negative}<br>Your answer: "${userAnswer}"<br> Correct answer: "${q.positive}"</p>`;
+                }
+            });
+
+	    document.getElementById('result').innerHTML = `<h3>Results</h3><p>You have answered ${correctAnswers} out of ${totalQuestions} questions correctly.</p>`;
+            document.getElementById('wrongAnswers').innerHTML = `<h3>Incorrect answers</h3>${wrongAnswersHTML}`;
+
+        }
+    </script>
+</body>
+</html>

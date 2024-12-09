@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Active and Passive</title>
+    <style>
+        body {
+        .task {
+            margin-bottom: 30px;
+        }
+        .question {
+            margin-bottom: 10px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+    
+	<script>
+        const questions = [
+{ sentence: "He stole the bike.", type: "active", tense: "Past Simple", solution: "The bike was stolen by him." },
+{ sentence: "The hallway is being cleaned by the janitor.", type: "passive", tense: "Present Continuous", solution: "The janitor is cleaning the hallway." },
+{ sentence: "She eats a hamburger.", type: "active", tense: "Present Simple", solution: "The hamburger is eaten by her." },
+{ sentence: "The book is read by him.", type: "passive", tense: "Present Simple", solution: "He reads the book." },
+{ sentence: "They are watching a movie.", type: "active", tense: "Present Continuous", solution: "A movie is being watched by them." },
+{ sentence: "The car is being washed by him.", type: "passive", tense: "Present Continuous", solution: "He is washing the car." },
+{ sentence: "She has written a letter.", type: "active", tense: "Present Perfect", solution: "A letter has been written by her." },
+{ sentence: "The cake has been baked by her.", type: "passive", tense: "Present Perfect", solution: "She has baked the cake." },
+{ sentence: "He played the piano.", type: "active", tense: "Past Simple", solution: "The piano was played by him." },
+{ sentence: "The song was sung by her.", type: "passive", tense: "Past Simple", solution: "She sang the song." },
+{ sentence: "She was painting the fence.", type: "active", tense: "Past Continuous", solution: "The fence was being painted by her." },
+{ sentence: "The room was being cleaned by him.", type: "passive", tense: "Past Continuous", solution: "He was cleaning the room." },
+{ sentence: "He had finished the project.", type: "active", tense: "Past Perfect", solution: "The project had been finished by him." },
+{ sentence: "The homework had been done by her.", type: "passive", tense: "Past Perfect", solution: "She had done the homework." },
+{ sentence: "She will eat the pizza.", type: "active", tense: "Will Future", solution: "The pizza will be eaten by her." },
+{ sentence: "The book will be written by him.", type: "passive", tense: "Will Future", solution: "He will write the book." },
+{ sentence: "They are going to build a house.", type: "active", tense: "going to Future", solution: "A house is going to be built by them." },
+{ sentence: "The project is going to be completed by her.", type: "passive", tense: "going to Future", solution: "She is going to complete the project." },
+{ sentence: "He will have finished the exam.", type: "active", tense: "Future Perfect", solution: "The exam will have been finished by him." },
+{ sentence: "The movie will have been watched by her.", type: "passive", tense: "Future Perfect", solution: "She will have watched the movie." },
+{ sentence: "She eats ice cream.", type: "active", tense: "Present Simple", solution: "Ice cream is eaten by her." },
+{ sentence: "The letter is written by him.", type: "passive", tense: "Present Simple", solution: "He writes the letter." },
+{ sentence: "They are playing football.", type: "active", tense: "Present Continuous", solution: "Football is being played by them." },
+{ sentence: "The house is being built by them.", type: "passive", tense: "Present Continuous", solution: "They are building the house." },
+{ sentence: "She has read the book.", type: "active", tense: "Present Perfect", solution: "The book has been read by her." },
+{ sentence: "The picture has been painted by him.", type: "passive", tense: "Present Perfect", solution: "He has painted the picture." },
+{ sentence: "He sang a song.", type: "active", tense: "Past Simple", solution: "A song was sung by him." },
+{ sentence: "The game was won by her.", type: "passive", tense: "Past Simple", solution: "She won the game." },
+{ sentence: "She was writing a letter.", type: "active", tense: "Past Continuous", solution: "A letter was being written by her." },
+{ sentence: "The essay was being written by him.", type: "passive", tense: "Past Continuous", solution: "He was writing the essay." },
+{ sentence: "He had read the article.", type: "active", tense: "Past Perfect", solution: "The article had been read by him." },
+{ sentence: "The song had been sung by her.", type: "passive", tense: "Past Perfect", solution: "She had sung the song." },
+{ sentence: "She will call him.", type: "active", tense: "Will Future", solution: "He will be called by her." },
+{ sentence: "The cake will be baked by her.", type: "passive", tense: "Will Future", solution: "She will bake the cake." },
+{ sentence: "They are going to win the match.", type: "active", tense: "going to Future", solution: "The match is going to be won by them." },
+{ sentence: "The lesson is going to be taught by him.", type: "passive", tense: "going to Future", solution: "He is going to teach the lesson." },
+{ sentence: "He will have learned the lesson.", type: "active", tense: "Future Perfect", solution: "The lesson will have been learned by him." },
+{ sentence: "The house will have been built by them.", type: "passive", tense: "Future Perfect", solution: "They will have built the house." },
+{ sentence: "She drinks coffee.", type: "active", tense: "Present Simple", solution: "Coffee is drunk by her." },
+{ sentence: "The car is driven by him.", type: "passive", tense: "Present Simple", solution: "He drives the car." },
+{ sentence: "They are cooking dinner.", type: "active", tense: "Present Continuous", solution: "Dinner is being cooked by them." },
+{ sentence: "The project is being managed by her.", type: "passive", tense: "Present Continuous", solution: "She is managing the project." },
+{ sentence: "She has eaten the cake.", type: "active", tense: "Present Perfect", solution: "The cake has been eaten by her." },
+{ sentence: "The assignment has been completed by him.", type: "passive", tense: "Present Perfect", solution: "He has completed the assignment." },
+{ sentence: "He drove the car.", type: "active", tense: "Past Simple", solution: "The car was driven by him." },
+{ sentence: "The letter was written by her.", type: "passive", tense: "Past Simple", solution: "She wrote the letter." },
+{ sentence: "She was reading a book.", type: "active", tense: "Past Continuous", solution: "A book was being read by her." },
+{ sentence: "The wall was being painted by him.", type: "passive", tense: "Past Continuous", solution: "He was painting the wall." },
+{ sentence: "He had written a story.", type: "active", tense: "Past Perfect", solution: "A story had been written by him." },
+{ sentence: "The novel had been read by her.", type: "passive", tense: "Past Perfect", solution: "She had read the novel." },
+{ sentence: "She will buy the dress.", type: "active", tense: "Will Future", solution: "The dress will be bought by her." },
+{ sentence: "The concert will be organized by him.", type: "passive", tense: "Will Future", solution: "He will organize the concert." },
+{ sentence: "She dances at the party.", type: "active", tense: "Present Simple", solution: "The party is danced at by her." },
+{ sentence: "The book is given by him.", type: "passive", tense: "Present Simple", solution: "He gives the book." },
+{ sentence: "They are singing a song.", type: "active", tense: "Present Continuous", solution: "A song is being sung by them." },
+{ sentence: "The car is being repaired by him.", type: "passive", tense: "Present Continuous", solution: "He is repairing the car." },
+{ sentence: "She has opened the door.", type: "active", tense: "Present Perfect", solution: "The door has been opened by her." },
+{ sentence: "The message has been sent by him.", type: "passive", tense: "Present Perfect", solution: "He has sent the message." },
+{ sentence: "He wrote a letter.", type: "active", tense: "Past Simple", solution: "A letter was written by him." },
+{ sentence: "The picture was painted by her.", type: "passive", tense: "Past Simple", solution: "She painted the picture." },
+{ sentence: "She was playing the guitar.", type: "active", tense: "Past Continuous", solution: "The guitar was being played by her." },
+{ sentence: "The building was being constructed by them.", type: "passive", tense: "Past Continuous", solution: "They were constructing the building." },
+{ sentence: "He had completed the task.", type: "active", tense: "Past Perfect", solution: "The task had been completed by him." },
+{ sentence: "The cake had been eaten by her.", type: "passive", tense: "Past Perfect", solution: "She had eaten the cake." },
+{ sentence: "She will write the report.", type: "active", tense: "Will Future", solution: "The report will be written by her." },
+{ sentence: "The essay will be submitted by him.", type: "passive", tense: "Will Future", solution: "He will submit the essay." },
+{ sentence: "They are going to start a new project.", type: "active", tense: "going to Future", solution: "A new project is going to be started by them." },
+{ sentence: "The proposal is going to be reviewed by her.", type: "passive", tense: "going to Future", solution: "She is going to review the proposal." },
+{ sentence: "He will have finished the assignment.", type: "active", tense: "Future Perfect", solution: "The assignment will have been finished by him." },
+{ sentence: "The house will have been sold by them.", type: "passive", tense: "Future Perfect", solution: "They will have sold the house." },
+{ sentence: "She drinks tea every morning.", type: "active", tense: "Present Simple", solution: "Tea is drunk by her every morning." },
+{ sentence: "The story is told by him.", type: "passive", tense: "Present Simple", solution: "He tells the story." },
+{ sentence: "They are discussing the plan.", type: "active", tense: "Present Continuous", solution: "The plan is being discussed by them." },
+{ sentence: "The food is being prepared by her.", type: "passive", tense: "Present Continuous", solution: "She is preparing the food." },
+{ sentence: "She has cleaned the house.", type: "active", tense: "Present Perfect", solution: "The house has been cleaned by her." },
+{ sentence: "The email has been written by him.", type: "passive", tense: "Present Perfect", solution: "He has written the email." },
+{ sentence: "He bought a new phone.", type: "active", tense: "Past Simple", solution: "A new phone was bought by him." },
+{ sentence: "The task was completed by her.", type: "passive", tense: "Past Simple", solution: "She completed the task." },
+{ sentence: "She was drawing a picture.", type: "active", tense: "Past Continuous", solution: "A picture was being drawn by her." },
+{ sentence: "The garden was being watered by him.", type: "passive", tense: "Past Continuous", solution: "He was watering the garden." },
+{ sentence: "He had solved the problem.", type: "active", tense: "Past Perfect", solution: "The problem had been solved by him." },
+{ sentence: "The gift had been wrapped by her.", type: "passive", tense: "Past Perfect", solution: "She had wrapped the gift." },
+{ sentence: "She will read the book.", type: "active", tense: "Will Future", solution: "The book will be read by her." },
+{ sentence: "The document will be signed by him.", type: "passive", tense: "Will Future", solution: "He will sign the document." },
+{ sentence: "They are going to clean the park.", type: "active", tense: "going to Future", solution: "The park is going to be cleaned by them." },
+{ sentence: "The project is going to be finished by her.", type: "passive", tense: "going to Future", solution: "She is going to finish the project." },
+{ sentence: "He will have designed the website.", type: "active", tense: "Future Perfect", solution: "The website will have been designed by him." },
+{ sentence: "The song will have been recorded by her.", type: "passive", tense: "Future Perfect", solution: "She will have recorded the song." },
+{ sentence: "She writes emails every day.", type: "active", tense: "Present Simple", solution: "Emails are written by her every day." },
+{ sentence: "The cake is made by him.", type: "passive", tense: "Present Simple", solution: "He makes the cake." },
+{ sentence: "They are driving to the mall.", type: "active", tense: "Present Continuous", solution: "The mall is being driven to by them." },
+{ sentence: "The meeting is being organized by her.", type: "passive", tense: "Present Continuous", solution: "She is organizing the meeting." },
+{ sentence: "She has fixed the car.", type: "active", tense: "Present Perfect", solution: "The car has been fixed by her." },
+{ sentence: "The report has been printed by him.", type: "passive", tense: "Present Perfect", solution: "He has printed the report." },
+{ sentence: "He cooked dinner.", type: "active", tense: "Past Simple", solution: "Dinner was cooked by him." },
+{ sentence: "The homework was completed by her.", type: "passive", tense: "Past Simple", solution: "She completed the homework." },
+{ sentence: "She was sewing a dress.", type: "active", tense: "Past Continuous", solution: "A dress was being sewn by her." },
+{ sentence: "The wall was being painted by him.", type: "passive", tense: "Past Continuous", solution: "He was painting the wall." },
+{ sentence: "He had built a house.", type: "active", tense: "Past Perfect", solution: "A house had been built by him." },
+{ sentence: "The letter had been written by her.", type: "passive", tense: "Past Perfect", solution: "She had written the letter." },
+{ sentence: "She will answer the question.", type: "active", tense: "Will Future", solution: "The question will be answered by her." },
+{ sentence: "The car will be repaired by him.", type: "passive", tense: "Will Future", solution: "He will repair the car." }
+        ];
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function generateTasks() {
+            const shuffledQuestions = shuffle([...questions]);
+            const task1 = document.getElementById('task1');
+            const task2 = document.getElementById('task2');
+            const task3 = document.getElementById('task3');
+            const task4 = document.getElementById('task4');
+            const usedQuestions = new Set();
+
+            function getNextQuestion(type) {
+                let index = 0;
+                while (index < shuffledQuestions.length) {
+                    const question = shuffledQuestions[index];
+                    if (!usedQuestions.has(question) && (type === undefined || question.type === type)) {
+                        usedQuestions.add(question);
+                        return question;
+                    }
+                    index++;
+                }
+                return null;
+            }
+
+// Task 1: Determine if the sentence is active or passive
+for (let i = 0; i < 8; i++) {
+    const question = getNextQuestion();
+    if (question) {
+        const questionElement = document.createElement('div');
+        questionElement.classList.add('question');
+        questionElement.innerHTML = `
+            <p><strong>${question.sentence}</strong></p>
+            <select name="task1_question${i}">
+                <option value="active">Active</option>
+                <option value="passive">Passive</option>
+            </select>
+        `;
+        task1.appendChild(questionElement);
+    }
+}
+
+            // Task 2: Convert active sentences to passive
+            for (let i = 0; i < 8; i++) {
+                const question = getNextQuestion("active");
+                if (question) {
+                    const questionElement = document.createElement('div');
+                    questionElement.classList.add('question');
+                    questionElement.innerHTML = `
+                        <p><strong>${question.sentence}</strong></p>
+                        <input type="text" name="task2_question${i}">
+                    `;
+                    task2.appendChild(questionElement);
+                }
+            }
+
+            // Task 3: Convert passive sentences to active
+            for (let i = 0; i < 8; i++) {
+                const question = getNextQuestion("passive");
+                if (question) {
+                    const questionElement = document.createElement('div');
+                    questionElement.classList.add('question');
+                    questionElement.innerHTML = `
+                        <p><strong>${question.sentence}</strong></p>
+                        <input type="text" name="task3_question${i}">
+                    `;
+                    task3.appendChild(questionElement);
+                }
+            }
+
+            // Task 4: Determine the tense of the sentence
+            for (let i = 0; i < 8; i++) {
+                const question = getNextQuestion();
+                if (question) {
+                    const questionElement = document.createElement('div');
+                    questionElement.classList.add('question');
+                    questionElement.innerHTML = `
+                        <p><strong>${question.sentence}</strong></p>
+                        <select name="task4_question${i}">
+                            <option value="Present Simple">Present Simple</option>
+                            <option value="Present Continuous">Present Continuous</option>
+                            <option value="Present Perfect">Present Perfect</option>
+                            <option value="Past Simple">Past Simple</option>
+                            <option value="Past Continuous">Past Continuous</option>
+                            <option value="Past Perfect">Past Perfect</option>
+                            <option value="Will Future">Will Future</option>
+                            <option value="going to Future">going to Future</option>
+                            <option value="Future Perfect">Future Perfect</option>
+                        </select>
+                    `;
+                    task4.appendChild(questionElement);
+                }
+            }
+        }
+
+        function checkAnswers() {
+            const task1Answers = document.querySelectorAll('[name^="task1_question"]');
+            const task2Answers = document.querySelectorAll('[name^="task2_question"]');
+            const task3Answers = document.querySelectorAll('[name^="task3_question"]');
+            const task4Answers = document.querySelectorAll('[name^="task4_question"]');
+            let correctAnswers = 0;
+            const incorrectAnswers = [];
+
+function checkTask1() {
+    task1Answers.forEach((select, index) => {
+        const questionText = select.closest('.question').querySelector('p').textContent.trim();
+        const question = questions.find(q => q.sentence === questionText);
+        if (question) {
+            if (select.value === question.type) {
+                correctAnswers++;
+            } else {
+                incorrectAnswers.push(`Task 1, Question ${index + 1}: ${question.sentence} - Correct answer: ${question.type}`);
+            }
+        }
+    });
+}
+           
+            function checkTask2() {
+                task2Answers.forEach((input, index) => {
+                    const questionText = input.closest('.question').querySelector('p').textContent.trim();
+                    const question = questions.find(q => q.sentence === questionText && q.type === "active");
+                    if (question) {
+                        if (input.value.trim() === question.solution) {
+                            correctAnswers++;
+                        } else {
+                            incorrectAnswers.push(`Task 2, Question ${index + 1}: ${question.sentence} - Correct answer: ${question.solution}`);
+                        }
+                    } 
+                });
+            }
+
+            function checkTask3() {
+                task3Answers.forEach((input, index) => {
+                    const questionText = input.closest('.question').querySelector('p').textContent.trim();
+                    const question = questions.find(q => q.sentence === questionText && q.type === "passive");
+                    if (question) {
+                        if (input.value.trim() === question.solution) {
+                            correctAnswers++;
+                        } else {
+                            incorrectAnswers.push(`Task 3, Question ${index + 1}: ${question.sentence} - Correct answer: ${question.solution}`);
+                        }
+                    } 
+                });
+            }
+
+            function checkTask4() {
+                task4Answers.forEach((select, index) => {
+                    const questionText = select.closest('.question').querySelector('p').textContent.trim();
+                    const question = questions.find(q => q.sentence === questionText);
+                    if (question) {
+                        if (select.value === question.tense) {
+                            correctAnswers++;
+                        } else {
+                            incorrectAnswers.push(`Task 4, Question ${index + 1}: ${question.sentence} - Correct answer: ${question.tense}`);
+                        }
+                    }
+                });
+            }
+
+            checkTask1();
+            checkTask2();
+            checkTask3();
+            checkTask4();
+
+            const result = document.getElementById('result');
+            result.innerHTML = `
+                <h3>Results</h3>
+		<p>You have answered ${correctAnswers} out of 32 questions correctly.</p>
+                <div class="incorrect-answers">
+                    <h3>Incorrect or Unanswered:</h3>
+                        ${incorrectAnswers.map(ans => `${ans}<br>`).join('')}
+                </div>
+            `;
+        }
+
+        window.onload = generateTasks;
+    </script>
+</head>
+<body>
+    <h1>Test - Active and Passive</h1>
+	<p>There are four tasks in this test. Answer every question.</p>
+	<p>At the end of the test, you will find a button called <strong>Check Answers</strong>. Press <strong>Enter</strong> to activate the button. Your results will then be shown under this button, so make sure to press <strong>arrow down</strong>.
+	<p><strong>BE CAREFUL:</strong> Fusion will read the options in the dropdown list, as well as your sentences in the <span lang="de">Eingabefeld</span> in German. If you want to listen to it in English, you have to press <strong>Control + Windows + L</strong> and then choose <span lang="de"><strong>Englisch (Grossbritanien)</strong></span>.</p>
+<br>
+    <div class="task" id="task1">
+        <h2>Task 1</h2>
+	<p>Determine if the sentence is active or passive.</p>
+    </div>
+    <div class="task" id="task2">
+        <h2>Task 2</h2>
+	<p>Convert active sentences to passive.</p>
+    </div>
+    <div class="task" id="task3">
+        <h2>Task 3</h2>
+	<p>Convert passive sentences to active.</p>
+    </div>
+    <div class="task" id="task4">
+        <h2>Task 4</h2>
+<p>Determine the tense of the sentence.</p>
+    </div>
+    <button onclick="checkAnswers()">Check Answers</button>
+    <div id="result" class="result"></div>
+</body>
+</html>

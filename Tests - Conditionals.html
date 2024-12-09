@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional Sentences Quiz</title>
+    <style>
+        .task { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+<h1>Test - Conditionals</h1>
+<p>There are three tasks in this test. Answer every question.</p>
+<p>At the end of the test, you will find a button called <strong>Check Answers</strong>. Press <strong>Enter</strong> to activate the button. Your results will then be shown under this button, so make sure to press <strong>arrow down</strong>.
+<p><strong>BE CAREFUL:</strong> Fusion will read the options in the dropdown list, as well as your sentences in the <span lang="de">Eingabefeld</span> in German. If you want to listen to it in English, you have to press <strong>Control + Windows + L</strong> and then choose <span lang="de"><strong>Englisch (Grossbritanien)</strong></span>.</p>
+
+<br>
+
+    <div id="task1" class="task">
+        <h2>Task 1</h2>
+	<p>Identify the correct conditional of the sentence.</p>
+    </div>
+    <div id="task2" class="task">
+        <h2>Task 2</h2>
+	<p>Choose the correct option to complete the sentence.</p>
+    </div>
+    <div id="task3" class="task">
+        <h2>Task 3</h2>
+	<p>Choose <strong>True</strong> if the sentence is gramatically correct, or <strong>False</strong> if it is incorrect.</p>
+    </div>
+    <button onclick="checkAnswers()">Check Answers</button>
+    <div id="results"></div>
+
+    <script>
+        const questions = [
+        { 
+            sentence: "You get green if you mix blue and yellow.", 
+            conditional: "zero conditional", 
+            gap: "You _..._ green if you mix blue and yellow.", 
+            option1: "get", 
+            option2: "got", 
+            option3: "getting", 
+            solution: "get", 
+            question: "You would get green if you mix blue and yellow.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "The light turns on if you press the button.", 
+            conditional: "zero conditional", 
+            gap: "The light _..._ on if you press the button.", 
+            option1: "turned", 
+            option2: "turn", 
+            option3: "turns",
+            solution: "turns", 
+            question: "The light turns on if you press the button.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "It turns into ice if you freeze water.", 
+            conditional: "zero conditional", 
+            gap: "It _..._ into ice if you freeze water.", 
+            option1: "turns", 
+            option2: "turn", 
+            option3: "turned", 
+            solution: "turns", 
+            question: "It would turn into ice if you freeze water.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "It boils faster if you add salt to water.", 
+            conditional: "zero conditional", 
+            gap: "It _..._ faster if you add salt to water.", 
+            option1: "boil", 
+            option2: "boils", 
+            option3: "boiled", 
+            solution: "boils", 
+            question: "It boils faster if you add salt to water.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "If you turn the key, the engine starts.", 
+            conditional: "zero conditional", 
+            gap: "If you turn the key, the engine _..._.", 
+            option1: "started",
+            option2: "start", 
+            option3: "starts", 
+            solution: "starts", 
+            question: "If you turn the key, the engine started.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "The sound becomes louder if you turn up the volume.", 
+            conditional: "zero conditional", 
+            gap: "The sound _..._ louder if you turn up the volume.", 
+            option1: "become", 
+            option2: "becomes", 
+            option3: "became", 
+            solution: "becomes", 
+            question: "The sound would have become louder if you turn up the volume.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "The room warms up if you turn on the heater.", 
+            conditional: "zero conditional", 
+            gap: "The room _..._ up if you turn on the heater.", 
+            option1: "warmed", 
+            option2: "warm", 
+            option3: "warms", 
+            solution: "warms", 
+            question: "The room warms up if you turn on the heater.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "If you add baking soda to vinegar, it fizzes.", 
+            conditional: "zero conditional", 
+            gap: "If you add baking soda to vinegar, it _..._.", 
+            option1: "fizzes", 
+            option2: "fizz", 
+            option3: "fizzed", 
+            solution: "fizzes", 
+            question: "If you add baking soda to vinegar, it would fizz.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If you mix sugar into coffee, it sweetens.", 
+            conditional: "zero conditional", 
+            gap: "If you mix sugar into coffee, it _..._.", 
+            option1: "sweeten", 
+            option2: "sweetens", 
+            option3: "sweetened", 
+            solution: "sweetens", 
+            question: "If you mix sugar into coffee, it would sweeten.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If it rains tomorrow, we will stay indoors.", 
+            conditional: "first conditional", 
+            gap: "If it rains tomorrow, we _..._ indoors.", 
+            option1: "will stay", 
+            option2: "would stay", 
+            option3: "should stay", 
+            solution: "will stay", 
+            question: "If it rains tomorrow, we will stay indoors.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "If she calls me, I will answer the phone.", 
+            conditional: "first conditional", 
+            gap: "If she calls me, I _..._ the phone.", 
+            option1: "would have answered", 
+            option2: "would answer", 
+            option3: "will answer", 
+            solution: "will", 
+            question: "If she calls me, I would have answer the phone.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "You will pass the exam if you study hard.", 
+            conditional: "first conditional", 
+            gap: "You _..._ the exam if you study hard.", 
+            option1: "will", 
+            option2: "will pass", 
+            option3: "pass", 
+            solution: "will pass", 
+            question: "You would passed the exam if you study hard.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "We will catch the bus if we leave now.", 
+            conditional: "first conditional", 
+            gap: "We _..._ the bus if we leave now.", 
+            option1: "caught", 
+            option2: "would have caught", 
+            option3: "will catch", 
+            solution: "will catch", 
+            question: "We will catch the bus if we leave now.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "I will be very disappointed if he doesn't come.", 
+            conditional: "first conditional", 
+            gap: " I will be very disappointed if he _..._.", 
+            option1: "wouldn't come", 
+            option2: "doesn't come", 
+            option3: "didn't come", 
+            solution: "doesn't come", 
+            question: "I will be very disappointed if he doesn't come.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "You will feel sick if you eat too much.", 
+            conditional: "first conditional", 
+            gap: "You will feel sick if you _..._ too much.", 
+            option1: "eat", 
+            option2: "ate", 
+            option3: "eaten", 
+            solution: "eat", 
+            question: "You will feel sick if you ate too much.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If she doesn't study, she will fail the test.", 
+            conditional: "first conditional", 
+            gap: "If she doesn't study, she _..._ the test.", 
+            option1: "would fail", 
+            option2: "will fail", 
+            option3: "would have failed", 
+            solution: "will fail", 
+            question: "If she studied, she will fail the test.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "Plants will die if you don't water them.", 
+            conditional: "first conditional", 
+            gap: "Plants will die if you _..._ them.", 
+            option1: "wouldn't water", 
+            option2: "wouldn't have watered", 
+            option3: "don't water", 
+            solution: "don't water", 
+            question: "Plants would die if you don't water them.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "We will avoid the traffic if we get to the airport early.", 
+            conditional: "first conditional", 
+            gap: "We will _..._ the traffic if we get to the airport early.", 
+            option1: "have avoided", 
+            option2: "avoid", 
+            option3: "avoided", 
+            solution: "avoid", 
+            question: "We will avoid the traffic if we get to the airport early.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "If he finishes his work, he will go to the party.", 
+            conditional: "first conditional", 
+            gap: "If he finishes his work, he _..._ to the party.", 
+            option1: "will go", 
+            option2: "will went", 
+            option3: "will gone", 
+            solution: "will go", 
+            question: "If he finished his work, he goes to the party.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "You will get wet if you don't bring your umbrella.", 
+            conditional: "first conditional", 
+            gap: "You will _..._ wet if you don't bring your umbrella.", 
+            option1: "get", 
+            option2: "got", 
+            option3: "gotten", 
+            solution: "get", 
+            question: " You will get wet if you wouldn't have brought your umbrella.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "The prices will be higher if we travel during peak season.", 
+            conditional: "first conditional", 
+            gap: "The prices will be higher if we _..._ during peak season.", 
+            option1: "had travelled", 
+            option2: "travelled", 
+            option3: "travel", 
+            solution: "travel", 
+            question: "The prices will be higher if we travel during peak season.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "I will keep it safe if she tells me her secret.", 
+            conditional: "first conditional", 
+            gap: "I _..._ it safe if she tells me her secret.", 
+            option1: "kept", 
+            option2: "keeps", 
+            option3: "will keep", 
+            solution: "will keep", 
+            question: "I will keep it safe if she would tell me her secret.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If the train is late, I will miss my appointment.", 
+            conditional: "first conditional", 
+            gap: "If the train is late, I _..._ miss my appointment.", 
+            option1: "will", 
+            option2: "would", 
+            option3: "should", 
+            solution: "will", 
+            question: "If the train was late, I will miss my appointment.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If I won the lottery, I would buy a new house.", 
+            conditional: "second conditional", 
+            gap: "If I won the lottery, I _..._ a new house.", 
+            option1: "will buy", 
+            option2: "would buy",
+            option3: "buy", 
+            solution: "would buy", 
+            question: "If I win the lottery, I would buy a new house.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "She would help us if she were here.", 
+            conditional: "second conditional", 
+            gap: "She would help us if she _..._ here.", 
+            option1: "was", 
+            option2: "were", 
+            option3: "had been", 
+            solution: "were", 
+            question: "She would help us if she was here.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "I would travel the world if I had more time.", 
+            conditional: "second conditional", 
+            gap: "I would travel the world if I _..._ more time.", 
+            option1: "have", 
+            option2: "had", 
+            option3: "had had", 
+            solution: "had", 
+            question: "I would travel the world if I had more time.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "They would tell us if they knew the answer.", 
+            conditional: "second conditional", 
+            gap: "They would tell us if they _..._ the answer.", 
+            option1: "know", 
+            option2: "knows", 
+            option3: "knew", 
+            solution: "knew", 
+            question: "They would tell us if they know the answer.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "I would save the world if I were a superhero.", 
+            conditional: "second conditional", 
+            gap: "I would save the world if I _..._ a superhero.", 
+            option1: "was", 
+            option2: "were", 
+            option3: "be", 
+            solution: "were", 
+            question: "I would save the world if I was a superhero.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If she had the chance, she would visit Paris.", 
+            conditional: "second conditional", 
+            gap: "If she had the chance, she _..._ Paris.", 
+            option1: "will visit", 
+            option2: "would visit", 
+            option3: "would have visited", 
+            solution: "would visit", 
+            question: "If she had the chance, she would visit Paris.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "I would take that job offer if I were you.", 
+            conditional: "second conditional", 
+            gap: "I _..._ that job offer if I were you.", 
+            option1: "would have taken", 
+            option2: "will take", 
+            option3: "would take", 
+            solution: "would take",
+            question: "I take that job offer if I was you.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If she knew the address, she would come to the party.", 
+            conditional: "second conditional", 
+            gap: "If she _..._ the address, she would come to the party.", 
+            option1: "knows", 
+            option2: "knew", 
+            option3: "known", 
+            solution: "knew", 
+            question: "If she knows the address, she would come to the party.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If they spoke English, they would communicate better.", 
+            conditional: "second conditional", 
+            gap: "If they _..._ English, they would communicate better.", 
+            option1: "speak", 
+            option2: "spoke", 
+            option3: "spoken", 
+            solution: "spoke", 
+            question: "If they spoke English, they would communicate better.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "We would go sailing if we had a boat.", 
+            conditional: "second conditional", 
+            gap: "We would go _..._ if we had a boat.", 
+            option1: "to sail", 
+            option2: "sail", 
+            option3: "sailing", 
+            solution: "sailing", 
+            question: "We would go sailing if we have a boat.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If you ate less junk food, you would feel healthier.", 
+            conditional: "second conditional", 
+            gap: "If you ate less junk food, you _..._ healthier.", 
+            option1: "would feel", 
+            option2: "will feel", 
+            option3: "feel", 
+            solution: "would feel", 
+            question: "If you ate less junk food, you would feel healthier.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "They would finish tasks faster if they were more organized.", 
+            conditional: "second conditional", 
+            gap: "They would finish tasks faster if they _..._ more organized.", 
+            option1: "are", 
+            option2: "were", 
+            option3: "will be", 
+            solution: "were", 
+            question: "They finish tasks faster if they were more organized.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "I would have attended the meeting if I had known about it.", 
+            conditional: "third conditional", 
+            gap: "I _..._ the meeting if I had known about it.", 
+            option1: "would have attended", 
+            option2: "would attend", 
+            option3: "will have attended", 
+            solution: "would have attended", 
+            question: "I would have attended the meeting if I had known about it.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "If she had studied harder, she would have passed the exam.", 
+            conditional: "third conditional", 
+            gap: "If she had studied harder, she _..._ the exam.", 
+            option1: "will pass", 
+            option2: "would pass", 
+            option3: "would have passed", 
+            solution: "would have passed", 
+            question: "If she had studied harder, she would pass the exam.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "We would have missed the traffic if we had left earlier.", 
+            conditional: "third conditional", 
+            gap: "We would have missed the traffic if we _..._ earlier.", 
+            option1: "have left", 
+            option2: "had left", 
+            option3: "would have left", 
+            solution: "had left", 
+            question: "We would have missed the traffic if we had left earlier.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "I would have talked to her if I had seen her at the party.", 
+            conditional: "third conditional", 
+            gap: "I would have talked to her if I had _..._ her at the party.", 
+            option1: "see", 
+            option2: "saw", 
+            option3: "seen", 
+            solution: "seen", 
+            question: "He would has talked to her if he had seen her at the party.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If they had known the rules, they would have played the game correctly.", 
+            conditional: "third conditional", 
+            gap: "If they _..._ the rules, they would have played the game correctly.", 
+            option1: "have known", 
+            option2: "had known", 
+            option3: "having known", 
+            solution: "had known", 
+            question: "If they had known the rules, they would have played the game correctly.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "He would have arrived on time if he had taken the earlier flight.", 
+            conditional: "third conditional", 
+            gap: "He _..._ on time if he had taken the earlier flight.", 
+            option1: "would have arrived", 
+            option2: "will have arrived", 
+            option3: "will arrive", 
+            solution: "would have arrived", 
+            question: " He would arrive on time if he has taken the earlier flight.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If I had known you were coming, I would have prepared dinner.", 
+            conditional: "third conditional", 
+            gap: "If I had known you were coming, I _..._ dinner.", 
+            option1: "would have prepared", 
+            option2: "would prepare", 
+            option3: "will prepare", 
+            solution: "would have prepared", 
+            question: "If I had known you were coming, I would have prepared dinner.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "They would have avoided the storm if they had listened to the weather report.", 
+            conditional: "third conditional", 
+            gap: "They would have avoided the storm if they _..._ to the weather report.", 
+            option1: "have listened", 
+            option2: "had listened", 
+            option3: "listened", 
+            solution: "had listened", 
+            question: "They will avoid the storm if they had listened to the weather report.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If she had bought the tickets earlier, she would have got a discount.", 
+            conditional: "third conditional", 
+            gap: "If she had bought the tickets earlier, she _..._ a discount.", 
+            option1: "will get", 
+            option2: "would get", 
+            option3: "would have got", 
+            solution: "would have got", 
+            question: "If she had bought the tickets earlier, she would have gotten a discount.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "We would have studied if we had known the test was today.", 
+            conditional: "third conditional", 
+            gap: "We would have studied if we _..._ the test was today.", 
+            option1: "had know", 
+            option2: "had knew", 
+            option3: "had known", 
+            solution: "had known", 
+            question: "We will study if we had known the test was today.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "If I had heard the alarm, I would have woken up.", 
+            conditional: "third conditional", 
+            gap: "If I had heard the alarm, I _..._ up.", 
+            option1: "would have woken", 
+            option2: "would wake", 
+            option3: "will have", 
+            solution: "would have woken", 
+            question: "If I hear the alarm, I would have woken up.", 
+            answer: "false" 
+        },
+        { 
+            sentence: "I would have come to the meeting if you had told me earlier.", 
+            conditional: "third conditional", 
+            gap: "I would have come to the meeting _..._ you had told me earlier.", 
+            option1: "when", 
+            option2: "because", 
+            option3: "if", 
+            solution: "if", 
+            question: "I would have come to the meeting if you had told me earlier.", 
+            answer: "true" 
+        },
+        { 
+            sentence: "If we had not checked the map, we would have been lost.", 
+            conditional: "third conditional", 
+            gap: "If we _..._ the map, we would have been lost.", 
+            option1: "not have checked", 
+            option2: "have checked not", 
+            option3: "had not checked", 
+            solution: "had not checked", 
+            question: "If we didn't check the map, we were lost.", 
+            answer: "false" 
+        }
+        ];
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function createTasks() {
+            const usedQuestions = [];
+            shuffle(questions);
+
+            // Task 1
+            const task1Questions = questions.filter(q => !usedQuestions.includes(q)).slice(0, 8);
+            usedQuestions.push(...task1Questions);
+            const task1Div = document.getElementById('task1');
+            task1Questions.forEach((q, index) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <p><strong>${q.sentence}</strong></p>
+                    <select id="task1-question${index}">
+                        <option value="">Select conditional</option>
+                        <option value="zero conditional">Zero Conditional</option>
+                        <option value="first conditional">First Conditional</option>
+                        <option value="second conditional">Second Conditional</option>
+                        <option value="third conditional">Third Conditional</option>
+                    </select>
+                `;
+                task1Div.appendChild(div);
+            });
+
+            // Task 2
+            const task2Questions = questions.filter(q => !usedQuestions.includes(q)).slice(0, 8);
+            usedQuestions.push(...task2Questions);
+            const task2Div = document.getElementById('task2');
+            task2Questions.forEach((q, index) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <p><strong>${q.gap}</strong></p>
+                    <input type="radio" name="task2-question${index}" value="${q.option1}"> ${q.option1}
+                    <input type="radio" name="task2-question${index}" value="${q.option2}"> ${q.option2}
+                    <input type="radio" name="task2-question${index}" value="${q.option3}"> ${q.option3}
+                `;
+                task2Div.appendChild(div);
+            });
+
+            // Task 3
+            const task3Questions = questions.filter(q => !usedQuestions.includes(q)).slice(0, 8);
+            usedQuestions.push(...task3Questions);
+            const task3Div = document.getElementById('task3');
+            task3Questions.forEach((q, index) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <p><strong>${q.question}</strong></p>
+                    <input type="radio" name="task3-question${index}" value="true"> True
+                    <input type="radio" name="task3-question${index}" value="false"> False
+                `;
+                task3Div.appendChild(div);
+            });
+
+            // Store the selected questions for each task
+            window.selectedTask1Questions = task1Questions;
+            window.selectedTask2Questions = task2Questions;
+            window.selectedTask3Questions = task3Questions;
+        }
+
+        function checkAnswers() {
+            let correctAnswers = 0;
+            let resultHtml = '';
+
+            // Retrieve the selected questions for each task
+            const task1Questions = window.selectedTask1Questions;
+            const task2Questions = window.selectedTask2Questions;
+            const task3Questions = window.selectedTask3Questions;
+
+            let task1IncorrectHtml = '';
+            let task2IncorrectHtml = '';
+            let task3IncorrectHtml = '';
+
+            // Task 1
+            task1Questions.forEach((q, index) => {
+                const userAnswer = document.getElementById(`task1-question${index}`).value;
+                if (userAnswer === q.conditional) {
+                    correctAnswers++;
+                } else {
+                    task1IncorrectHtml += `
+                        <div class="incorrect">
+                            <p><strong>Question:</strong> ${q.sentence}</p>
+                            <p><strong>Your Answer:</strong> ${userAnswer || 'No answer selected'}</p>
+                            <p><strong>Correct Answer:</strong> ${q.conditional}</p>
+<br>
+                        </div>
+                    `;
+                }
+            });
+
+            // Task 2
+            task2Questions.forEach((q, index) => {
+                const userAnswer = document.querySelector(`input[name="task2-question${index}"]:checked`);
+                if (userAnswer && userAnswer.value === q.solution) {
+                    correctAnswers++;
+                } else {
+                    task2IncorrectHtml += `
+                        <div class="incorrect">
+                            <p><strong>Question:</strong> ${q.gap}</p>
+                            <p><strong>Your Answer:</strong> ${userAnswer ? userAnswer.value : 'No answer selected'}</p>
+                            <p><strong>Correct Answer:</strong> ${q.solution}</p>
+<br>
+                        </div>
+                    `;
+                }
+            });
+
+            // Task 3
+            task3Questions.forEach((q, index) => {
+                const userAnswer = document.querySelector(`input[name="task3-question${index}"]:checked`);
+                if (userAnswer && userAnswer.value === q.answer) {
+                    correctAnswers++;
+                } else {
+                    task3IncorrectHtml += `
+                        <div class="incorrect">
+                            <p><strong>Question:</strong> ${q.question}</p>
+                            <p><strong>Your Answer:</strong> ${userAnswer ? userAnswer.value : 'No answer selected'}</p>
+                            <p><strong>Correct Answer:</strong> ${q.answer}</p>
+<br>
+                        </div>
+                    `;
+                }
+            });
+
+            resultHtml = `
+                <h2>Results</h2>
+		<p>You got ${correctAnswers} out of 24 questions correct.</p>
+                <h3>Task 1</h3>
+                ${task1IncorrectHtml}
+                <h3>Task 2</h3>
+                ${task2IncorrectHtml}
+                <h3>Task 3</h3>
+                ${task3IncorrectHtml}
+            `;
+
+            document.getElementById('results').innerHTML = resultHtml;
+        }
+
+        window.onload = createTasks;
+    </script>
+</body>
+</html>

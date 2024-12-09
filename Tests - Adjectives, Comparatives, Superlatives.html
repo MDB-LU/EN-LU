@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Adjectives</title>
+    <style>
+        body
+        .task { margin-bottom: 20px; }
+        .question { margin-bottom: 20px; }
+        .question label { display: block; margin-bottom: 5px; }
+        input[type="text"] { width: 200px; margin-top: 5px; }
+        select { margin-top: 5px; }
+        .incorrect { color: red; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Test - Adjectives (Comparatives & Superlatives)</h1>
+	<p>There are three tasks in this test. Answer every question.</p>
+	<p>At the end of the test, you will find a button called <strong>Check Answers</strong>. Press <strong>Enter</strong> to activate the button. Your results will then be shown below, so make sure to press <strong>arrow down</strong>.
+	<p><strong>BE CAREFUL:</strong> Fusion will read the options in the dropdown list, as well as your words in the <span lang="de">Eingabefeld</span> in German. If you want to listen to it in English, you have to press <strong>Control + Windows + L</strong> and then choose <span lang="de"><strong>Englisch (Grossbritanien)</strong></span>.</p>
+<br>
+    <div id="task1" class="task">
+        <h2>Task 1</h2>
+        <p>Write down the <strong>comparative</strong> form for the adjective given.</p>
+        <div id="task1-questions"></div>
+    </div>
+
+    <div id="task2" class="task">
+        <h2>Task 2</h2>
+        <p>Write down the <strong>superlative</strong> form for the adjective given.</p>
+        <div id="task2-questions"></div>
+    </div>
+
+    <div id="task3" class="task">
+        <h2>Task 3</h2>
+        <p>If you think a sentence is grammatically correct, then choose <strong>true</strong>. If you think it is incorrect, then choose <strong>false</strong>.</p>
+        <div id="task3-questions"></div>
+    </div>
+
+    <button onclick="checkAnswers()">Check Answers</button>
+    <div id="result"></div>
+
+    <script>
+        const questions = [
+            { adjective: "big", comparative: "bigger", superlative: "biggest", sentence: "My house is bigger than your house.", solution: "true" },
+            { adjective: "small", comparative: "smaller", superlative: "smallest", sentence: "This box is the smallest than that one.", solution: "false" },
+            { adjective: "happy", comparative: "happier", superlative: "happiest", sentence: "She is happier than anyone I know.", solution: "true" },
+            { adjective: "good", comparative: "better", superlative: "best", sentence: "This is the better pizza I've ever had.", solution: "false" },
+            { adjective: "bad", comparative: "worse", superlative: "worst", sentence: "This pizza is worse than the one I had yesterday.", solution: "true" },
+            { adjective: "tall", comparative: "taller", superlative: "tallest", sentence: "He is the taller in the group.", solution: "false" },
+            { adjective: "short", comparative: "shorter", superlative: "shortest", sentence: "This building is shorter than the others.", solution: "true" },
+            { adjective: "fast", comparative: "faster", superlative: "fastest", sentence: "His car is fastest than in the race.", solution: "false" },
+            { adjective: "slow", comparative: "slower", superlative: "slowest", sentence: "He runs the slowest in the team.", solution: "true" },
+            { adjective: "bright", comparative: "brighter", superlative: "brightest", sentence: "The sun is brightest than any other star.", solution: "false" },
+            { adjective: "dark", comparative: "darker", superlative: "darkest", sentence: "This room is the darkest in the house.", solution: "true" },
+            { adjective: "young", comparative: "younger", superlative: "youngest", sentence: "She is youngest member of the team.", solution: "false" },
+            { adjective: "old", comparative: "older", superlative: "oldest", sentence: "This building is the oldest in the neighborhood.", solution: "true" },
+            { adjective: "long", comparative: "longer", superlative: "longest", sentence: "This river is longer the other rivers.", solution: "false" },
+            { adjective: "intelligent", comparative: "more intelligent", superlative: "most intelligent", sentence: "My brother is intelligenter than my sister.", solution: "false" },
+            { adjective: "expensive", comparative: "more expensive", superlative: "most expensive", sentence: "Paris is the most expensivest city in the world.", solution: "false" },
+	    { adjective: "rich", comparative: "richer", superlative: "richest", sentence: "He is the richest person in the world.", solution: "true" },
+	    { adjective: "poor", comparative: "poorer", superlative: "poorest", sentence: "This is poorest country I've visited.", solution: "false" },
+	    { adjective: "clean", comparative: "cleaner", superlative: "cleanest", sentence: "This is the cleanest room in my apartment.", solution: "true" },
+	    { adjective: "dirty", comparative: "dirtier", superlative: "dirtiest", sentence: "This is the dirtiest place than in the city.", solution: "false" },
+	    { adjective: "strong", comparative: "stronger", superlative: "strongest", sentence: "He is stronger than anyone else in the gym.", solution: "true" },
+	    { adjective: "weak", comparative: "weaker", superlative: "weakest", sentence: "This is weakest argument I've heard.", solution: "false" },
+	    { adjective: "wide", comparative: "wider", superlative: "widest", sentence: "This street is wider than the others.", solution: "true" },
+	    { adjective: "deep", comparative: "deeper", superlative: "deepest", sentence: "This lake is deeper than the other one.", solution: "true" },
+	    { adjective: "high", comparative: "higher", superlative: "highest", sentence: "This mountain is the highest in the region.", solution: "true" },
+	    { adjective: "low", comparative: "lower", superlative: "lowest", sentence: "This valley is lowest point in the country.", solution: "false" },
+	    { adjective: "cheap", comparative: "cheaper", superlative: "cheapest", sentence: "This is the cheapest item in the store.", solution: "true" },
+	    { adjective: "cosmopolitan", comparative: "more cosmopolitan", superlative: "most cosmopolitan", sentence: "New York is cosmopolitaner than many other cities.", solution: "false" },
+	    { adjective: "modern", comparative: "more modern", superlative: "most modern", sentence: "This building is the most modern in the city.", solution: "true" },
+	    { adjective: "important", comparative: "more important", superlative: "most important", sentence: "Education is important than entertainment.", solution: "false" },
+	    { adjective: "difficult", comparative: "more difficult", superlative: "most difficult", sentence: "This is the most difficult exam I've taken.", solution: "true" },
+	    { adjective: "beautiful", comparative: "more beautiful", superlative: "most beautiful", sentence: "She is the beautiful woman I've ever seen.", solution: "false" },
+	    { adjective: "interesting", comparative: "more interesting", superlative: "most interesting", sentence: "This book is more interesting than the last one.", solution: "true" },
+	    { adjective: "famous", comparative: "more famous", superlative: "most famous", sentence: "He is the more famous actor in Hollywood.", solution: "false" },
+	    { adjective: "comfortable", comparative: "more comfortable", superlative: "most comfortable", sentence: "This chair is more comfortable than that one.", solution: "true" },
+	    { adjective: "dangerous", comparative: "more dangerous", superlative: "most dangerous", sentence: "This is the dangerousest road in the city.", solution: "false" },
+	    { adjective: "expensive", comparative: "more expensive", superlative: "most expensive", sentence: "This car is expensive than that one.", solution: "false" },
+	    { adjective: "creative", comparative: "more creative", superlative: "most creative", sentence: "She is the most creative person in our team.", solution: "true" },
+	    { adjective: "peaceful", comparative: "more peaceful", superlative: "most peaceful", sentence: "This place is more peaceful than the city.", solution: "true" },
+	    { adjective: "reliable", comparative: "more reliable", superlative: "most reliable", sentence: "He is the reliablest person I know.", solution: "false" },
+	    { adjective: "responsible", comparative: "more responsible", superlative: "most responsible", sentence: "She is the most responsible person in the office.", solution: "true" },
+	    { adjective: "successful", comparative: "more successful", superlative: "most successful", sentence: "He is the successful businessman in the area.", solution: "false" },
+	    { adjective: "useful", comparative: "more useful", superlative: "most useful", sentence: "This tool is most useful than the other one.", solution: "false" },
+	    { adjective: "valuable", comparative: "more valuable", superlative: "most valuable", sentence: "This is the most valuable asset we have.", solution: "true" },
+	    { adjective: "wonderful", comparative: "more wonderful", superlative: "most wonderful", sentence: "This place is most wonderful than I expected.", solution: "false" },
+	    { adjective: "complex", comparative: "more complex", superlative: "most complex", sentence: "This problem is complex than it seems.", solution: "false" },
+	    { adjective: "simple", comparative: "simpler", superlative: "simplest", sentence: "This is simplest solution to the problem.", solution: "false" },
+	    { adjective: "brave", comparative: "braver", superlative: "bravest", sentence: "He is braver than anyone else I know.", solution: "true" },
+	    { adjective: "calm", comparative: "calmer", superlative: "calmest", sentence: "This place is calmer than the city.", solution: "true" },
+	    { adjective: "close", comparative: "closer", superlative: "closest", sentence: "He is closest to me than my brother.", solution: "false" },
+	    { adjective: "cold", comparative: "colder", superlative: "coldest", sentence: "This winter is colder than last year.", solution: "true" },
+	    { adjective: "cool", comparative: "cooler", superlative: "coolest", sentence: "This room is cooler than the other one.", solution: "true" },
+	    { adjective: "cute", comparative: "cuter", superlative: "cutest", sentence: "This puppy is the cutest I've ever seen.", solution: "true" },
+	    { adjective: "easy", comparative: "easier", superlative: "easiest", sentence: "This test is easier the previous one.", solution: "false" },
+	    { adjective: "hard", comparative: "harder", superlative: "hardest", sentence: "This wall is harder the other.", solution: "false" },
+	    { adjective: "hot", comparative: "hotter", superlative: "hottest", sentence: "This summer is the hottest on record.", solution: "true" },
+	    { adjective: "hungry", comparative: "hungrier", superlative: "hungriest", sentence: "He is the hungrier after the game.", solution: "false" },
+	    { adjective: "large", comparative: "larger", superlative: "largest", sentence: "This box is larger than the other one.", solution: "true" },
+	    { adjective: "loud", comparative: "louder", superlative: "loudest", sentence: "This noise is louder than the previous one.", solution: "true" },
+	    { adjective: "new", comparative: "newer", superlative: "newest", sentence: "This is newest model of the car.", solution: "false" },
+	    { adjective: "polite", comparative: "more polite", superlative: "most polite", sentence: "She is politest person in the group.", solution: "false" }
+        ];
+
+        let task1Questions, task2Questions, task3Questions;
+
+        function getRandomQuestions() {
+            let shuffled = questions.sort(() => 0.5 - Math.random());
+            task1Questions = shuffled.slice(0, 8);
+            task2Questions = shuffled.slice(8, 16);
+            task3Questions = shuffled.slice(16, 24);
+        }
+
+        function renderQuestions() {
+            getRandomQuestions();
+
+            const task1Container = document.getElementById('task1-questions');
+            const task2Container = document.getElementById('task2-questions');
+            const task3Container = document.getElementById('task3-questions');
+
+            task1Questions.forEach((q, index) => {
+                task1Container.innerHTML += `
+                    <div class="question">
+                        <label><strong>${q.adjective}</strong></label>
+                        <input type="text" id="task1-${index}" />
+                    </div>
+                `;
+            });
+
+            task2Questions.forEach((q, index) => {
+                task2Container.innerHTML += `
+                    <div class="question">
+                        <label><strong>${q.adjective}</strong></label>
+                        <input type="text" id="task2-${index}" />
+                    </div>
+                `;
+            });
+
+            task3Questions.forEach((q, index) => {
+                task3Container.innerHTML += `
+                    <div class="question">
+                        <label><strong>${q.sentence}</strong></label>
+                        <select id="task3-${index}">
+                            <option value="true">True</option>
+                            <option value="false">False</option>
+                        </select>
+                    </div>
+                `;
+            });
+        }
+
+        function checkAnswers() {
+            let correct = 0;
+            let incorrectAnswers = {
+                task1: [],
+                task2: [],
+                task3: []
+            };
+
+            task1Questions.forEach((q, index) => {
+                const answer = document.getElementById(`task1-${index}`).value.trim().toLowerCase();
+                if (answer === q.comparative) {
+                    correct++;
+                } else {
+                    incorrectAnswers.task1.push({
+                        question: q.adjective,
+                        userAnswer: answer,
+                        correctAnswer: q.comparative
+                    });
+                }
+            });
+
+            task2Questions.forEach((q, index) => {
+                const answer = document.getElementById(`task2-${index}`).value.trim().toLowerCase();
+                if (answer === q.superlative) {
+                    correct++;
+                } else {
+                    incorrectAnswers.task2.push({
+                        question: q.adjective,
+                        userAnswer: answer,
+                        correctAnswer: q.superlative
+                    });
+                }
+            });
+
+            task3Questions.forEach((q, index) => {
+                const answer = document.getElementById(`task3-${index}`).value;
+                if (answer === q.solution) {
+                    correct++;
+                } else {
+                    incorrectAnswers.task3.push({
+                        question: q.sentence,
+                        userAnswer: answer,
+                        correctAnswer: q.solution
+                    });
+                }
+            });
+
+            const totalQuestions = 8 * 3;
+            const percentage = (correct / totalQuestions) * 100;
+            let resultText = `<h3>Result</h3><p>You answered ${correct} out of ${totalQuestions} questions correctly.</p>`;
+
+            if (incorrectAnswers.task1.length > 0) {
+                resultText += '<h3>Task 1 - Comparative Adjectives</h3>';
+                incorrectAnswers.task1.forEach(ia => {
+                    resultText += `
+                            <strong>Question:</strong> ${ia.question}<br>
+                            <strong>Your Answer:</strong> ${ia.userAnswer}<br>
+                            <strong>Correct Answer:</strong> ${ia.correctAnswer}<br><br>
+                        `;
+                });
+                resultText += '';
+            }
+
+            if (incorrectAnswers.task2.length > 0) {
+                resultText += '<h3>Task 2 - Superlative Adjectives</h3>';
+                incorrectAnswers.task2.forEach(ia => {
+                    resultText += `
+                            <strong>Question:</strong> ${ia.question}<br>
+                            <strong>Your Answer:</strong> ${ia.userAnswer}<br>
+                            <strong>Correct Answer:</strong> ${ia.correctAnswer}<br><br>
+                        `;
+                });
+                resultText += '';
+            }
+
+            if (incorrectAnswers.task3.length > 0) {
+                resultText += '<h3>Task 3 - Sentence Corrections</h3>';
+                incorrectAnswers.task3.forEach(ia => {
+                    resultText += `
+                            <strong>Question:</strong> ${ia.question}<br>
+                            <strong>Your Answer:</strong> ${ia.userAnswer}<br>
+                            <strong>Correct Answer:</strong> ${ia.correctAnswer}<br><br>
+                        `;
+                });
+                resultText += '';
+            }
+
+            document.getElementById('result').innerHTML = resultText;
+        }
+
+        window.onload = renderQuestions;
+    </script>
+</body>
+</html>

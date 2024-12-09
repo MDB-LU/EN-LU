@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Present Simple</title>
+    <style>
+        body
+        .question {
+            margin-bottom: 20px;
+        }
+        .button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test - Present Simple</h1>
+<p>There are four tasks in this test. Answer every question.</p>
+<p>At the end of the test, you will find a button called <strong>Check Answers</strong>. Press <strong>Enter</strong> to activate the button. Your results will then be shown under this button, so make sure to press <strong>arrow down</strong>.
+<p><strong>BE CAREFUL:</strong> Fusion will read the options in the dropdown list, as well as your sentences in the <span lang="de">Eingabefeld</span> in German. If you want to listen to it in English, you have to press <strong>Control + Windows + L</strong> and then choose <span lang="de"><strong>Englisch (Grossbritanien)</strong></span>.</p>
+
+<br>
+
+    <form id="testForm">
+        <!-- Task 1 -->
+        <div id="task1">
+            <h2>Task 1</h2>
+	<p>Are the following sentences gramatically correct or not? Choose <strong>True</strong> if it is correct or <strong>False</strong> if it is incorrect.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Task 2 -->
+        <div id="task2">
+            <h2>Task 2</h2>
+	<p>Turn the positive sentences into negative sentences. Only use the Present Simple.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Task 3 -->
+        <div id="task3">
+            <h2>Task 3</h2>
+	<p>Choose the correct auxiliary verb for the following questions.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Task 4 -->
+        <div id="task4">
+            <h2>Task 4</h2>
+	<p>Turn the negative sentences into positive sentences. Only use the Present Simple.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <button type="button" class="button" onclick="checkAnswers()">Check Answers</button>
+    </form>
+
+    <div id="result"></div>
+    <div id="wrongAnswers"></div>
+
+    <script>
+        const data = [
+            { positive: "I play football.", negative: "I don't play football.", rightwrong: "She play football.", rightwrongsol: "false", questiongap: "_..._ she play football?", answer: "does" },
+            { positive: "I read books.", negative: "I don't read books.", rightwrong: "He reads books.", rightwrongsol: "true", questiongap: "_..._ he read books?", answer: "does" },
+            { positive: "She writes letters.", negative: "She doesn't write letters.", rightwrong: "They writes letters.", rightwrongsol: "false", questiongap: "_..._ they write letters?", answer: "do" },
+            { positive: "He cooks dinner.", negative: "He doesn't cook dinner.", rightwrong: "You cook dinner.", rightwrongsol: "true", questiongap: "_..._ you cook dinner?", answer: "do" },
+            { positive: "They watch movies.", negative: "They don't watch movies.", rightwrong: "She watch movies.", rightwrongsol: "false", questiongap: "_..._ she watch movies?", answer: "does" },
+            { positive: "We travel often.", negative: "We don't travel often.", rightwrong: "He travels a lot.", rightwrongsol: "true", questiongap: "_..._ he travel often?", answer: "does" },
+            { positive: "You paint pictures.", negative: "You don't paint pictures.", rightwrong: "She paint pictures.", rightwrongsol: "false", questiongap: "_..._ she paint pictures?", answer: "does" },
+            { positive: "She sings beautifully.", negative: "She doesn't sing beautifully.", rightwrong: "They sing beautifully.", rightwrongsol: "true", questiongap: "_..._ they sing beautifully?", answer: "do" },
+	{ positive: "He drives carefully.", negative: "He doesn't drive carefully.", rightwrong: "You drives carefully.", rightwrongsol: "false", questiongap: "_..._ you drive carefully?", answer: "do" },
+	{ positive: "They swim daily.", negative: "They don't swim daily.", rightwrong: "She swims daily.", rightwrongsol: "true", questiongap: "_..._ she swim daily?", answer: "does" },
+	{ positive: "We study hard.", negative: "We don't study hard.", rightwrong: "He study hard.", rightwrongsol: "false", questiongap: "_..._ he study hard?", answer: "does" },
+	{ positive: "You teach math.", negative: "You don't teach math.", rightwrong: "She teaches math.", rightwrongsol: "true", questiongap: "_..._ she teach math?", answer: "does" },
+	{ positive: "She plays piano.", negative: "She doesn't play piano.", rightwrong: "They plays piano.", rightwrongsol: "false", questiongap: "_..._ they play piano?", answer: "do" },
+	{ positive: "He reads news.", negative: "He doesn't read news.", rightwrong: "You read news.", rightwrongsol: "true", questiongap: "_..._ you read news?", answer: "do" },
+	{ positive: "They dance well.", negative: "They don't dance well.", rightwrong: "She dance well.", rightwrongsol: "false", questiongap: "_..._ she dance well?", answer: "does" },
+	{ positive: "We exercise daily.", negative: "We don't exercise daily.", rightwrong: "He exercises daily.", rightwrongsol: "true", questiongap: "_..._ he exercise daily?", answer: "does" },
+	{ positive: "You shop online.", negative: "You don't shop online.", rightwrong: "She shop online.", rightwrongsol: "false", questiongap: "_..._ she shop online?", answer: "does" },
+	{ positive: "She listens to music.", negative: "She doesn't listen to music.", rightwrong: "They listen music.", rightwrongsol: "false", questiongap: "_..._ they listen to music?", answer: "do" },
+	{ positive: "He speaks French.", negative: "He doesn't speak French.", rightwrong: "You speak French.", rightwrongsol: "true", questiongap: "_..._ you speak French?", answer: "do" },
+	{ positive: "They write emails.", negative: "They don't write emails.", rightwrong: "She write emails.", rightwrongsol: "false", questiongap: "_..._ she write emails?", answer: "does" },
+	{ positive: "We visit museums.", negative: "We don't visit museums.", rightwrong: "He visits museums.", rightwrongsol: "true", questiongap: "_..._ he visit museums?", answer: "does" },
+	{ positive: "You draw pictures.", negative: "You don't draw pictures.", rightwrong: "She draw pictures.", rightwrongsol: "false", questiongap: "_..._ she draw pictures?", answer: "does" },
+	{ positive: "She cleans the house.", negative: "She doesn't clean the house.", rightwrong: "They clean the house.", rightwrongsol: "true", questiongap: "_..._ they clean the house?", answer: "do" },
+	{ positive: "He repairs cars.", negative: "He doesn't repair cars.", rightwrong: "You repairs cars.", rightwrongsol: "false", questiongap: "_..._ you repair cars?", answer: "do" },
+	{ positive: "They cook meals.", negative: "They don't cook meals.", rightwrong: "She cooks meals.", rightwrongsol: "true", questiongap: "_..._ she cook meals?", answer: "does" },
+	{ positive: "We play games.", negative: "We don't play games.", rightwrong: "He play games.", rightwrongsol: "false", questiongap: "_..._ he play games?", answer: "does" },
+	{ positive: "She bakes cakes.", negative: "She doesn't bake cakes.", rightwrong: "They bakes cakes.", rightwrongsol: "false", questiongap: "_..._ they bake cakes?", answer: "do" },
+	{ positive: "He catches the bus.", negative: "He doesn't catch the bus.", rightwrong: "You catch the bus.", rightwrongsol: "true", questiongap: "_..._ you catch the bus?", answer: "do" },
+	{ positive: "They play chess.", negative: "They don't play chess.", rightwrong: "She play chess.", rightwrongsol: "false", questiongap: "_..._ she play chess?", answer: "does" },
+	{ positive: "We visit friends.", negative: "We don't visit friends.", rightwrong: "He visits friends.", rightwrongsol: "true", questiongap: "_..._ he visit friends?", answer: "does" },
+	{ positive: "You enjoy music.", negative: "You don't enjoy music.", rightwrong: "She enjoy music.", rightwrongsol: "false", questiongap: "_..._ she enjoy music?", answer: "does" },
+	{ positive: "She teaches history.", negative: "She doesn't teach history.", rightwrong: "They teach history.", rightwrongsol: "true", questiongap: "_..._ they teach history?", answer: "do" },
+	{ positive: "He fixes computers.", negative: "He doesn't fix computers.", rightwrong: "You fixes computers.", rightwrongsol: "false", questiongap: "_..._ you fix computers?", answer: "do" },
+	{ positive: "They grow vegetables.", negative: "They don't grow vegetables.", rightwrong: "She grows vegetables.", rightwrongsol: "true", questiongap: "_..._ she grow vegetables?", answer: "does" },
+	{ positive: "We organize events.", negative: "We don't organize events.", rightwrong: "He organize events.", rightwrongsol: "false", questiongap: "_..._ he organize events?", answer: "does" },
+	{ positive: "You watch TV.", negative: "You don't watch TV.", rightwrong: "She watches TV.", rightwrongsol: "true", questiongap: "_..._ she watch TV?", answer: "does" },
+	{ positive: "She knits scarves.", negative: "She doesn't knit scarves.", rightwrong: "They knits scarves.", rightwrongsol: "false", questiongap: "_..._ they knit scarves?", answer: "do" },
+	{ positive: "He studies law.", negative: "He doesn't study law.", rightwrong: "You study law.", rightwrongsol: "true", questiongap: "_..._ you study law?", answer: "do" },
+	{ positive: "They climb mountains.", negative: "They don't climb mountains.", rightwrong: "She climb mountains.", rightwrongsol: "false", questiongap: "_..._ she climb mountains?", answer: "does" },
+	{ positive: "We paint walls.", negative: "We don't paint walls.", rightwrong: "He paints walls.", rightwrongsol: "true", questiongap: "_..._ he paint walls?", answer: "does" },
+	{ positive: "You drive fast.", negative: "You don't drive fast.", rightwrong: "She drive fast.", rightwrongsol: "false", questiongap: "_..._ she drive fast?", answer: "does" },
+	{ positive: "She prepares breakfast.", negative: "She doesn't prepare breakfast.", rightwrong: "They prepare breakfast.", rightwrongsol: "true", questiongap: "_..._ they prepare breakfast?", answer: "do" },
+	{ positive: "He washes dishes.", negative: "He doesn't wash dishes.", rightwrong: "You washes dishes.", rightwrongsol: "false", questiongap: "_..._ you wash dishes?", answer: "do" },
+	{ positive: "They hike trails.", negative: "They don't hike trails.", rightwrong: "She hikes trails.", rightwrongsol: "true", questiongap: "_..._ she hike trails?", answer: "does" },
+	{ positive: "We read newspapers.", negative: "We don't read newspapers.", rightwrong: "He read newspapers.", rightwrongsol: "false", questiongap: "_..._ he read newspapers?", answer: "does" },
+	{ positive: "You feed birds.", negative: "You don't feed birds.", rightwrong: "She feeds birds.", rightwrongsol: "true", questiongap: "_..._ she feed birds?", answer: "does" },
+	{ positive: "She learns Spanish.", negative: "She doesn't learn Spanish.", rightwrong: "They learns Spanish.", rightwrongsol: "false", questiongap: "_..._ they learn Spanish?", answer: "do" },
+	{ positive: "He drives trucks.", negative: "He doesn't drive trucks.", rightwrong: "You drive trucks.", rightwrongsol: "true", questiongap: "_..._ you drive trucks?", answer: "do" },
+	{ positive: "They visit parks.", negative: "They don't visit parks.", rightwrong: "She visit parks.", rightwrongsol: "false", questiongap: "_..._ she visit parks?", answer: "does" },
+	{ positive: "We play tennis.", negative: "We don't play tennis.", rightwrong: "He plays tennis.", rightwrongsol: "true", questiongap: "_..._ he play tennis?", answer: "does" },
+	{ positive: "You clean rooms.", negative: "You don't clean rooms.", rightwrong: "She clean rooms.", rightwrongsol: "false", questiongap: "_..._ she clean rooms?", answer: "does" },
+	{ positive: "She waters plants.", negative: "She doesn't water plants.", rightwrong: "They water plants.", rightwrongsol: "true", questiongap: "_..._ they water plants?", answer: "do" },
+	{ positive: "He sings songs.", negative: "He doesn't sing songs.", rightwrong: "You sings songs.", rightwrongsol: "false", questiongap: "_..._ you sing songs?", answer: "do" },
+	{ positive: "They play volleyball.", negative: "They don't play volleyball.", rightwrong: "She plays volleyball.", rightwrongsol: "true", questiongap: "_..._ she play volleyball?", answer: "does" },
+	{ positive: "We bake bread.", negative: "We don't bake bread.", rightwrong: "He bake bread.", rightwrongsol: "false", questiongap: "_..._ he bake bread?", answer: "does" },
+	{ positive: "You study biology.", negative: "You don't study biology.", rightwrong: "She studies biology.", rightwrongsol: "true", questiongap: "_..._ she study biology?", answer: "does" },
+	{ positive: "I am happy.", negative: "I am not happy.", rightwrong: "He am happy.", rightwrongsol: "false", questiongap: "_..._ I happy?", answer: "am" },
+	{ positive: "She is a doctor.", negative: "She isn't a doctor.", rightwrong: "He is a doctor.", rightwrongsol: "true", questiongap: "_..._ she a doctor?", answer: "is" },
+	{ positive: "He is tired.", negative: "He isn't tired.", rightwrong: "You is tired.", rightwrongsol: "false", questiongap: "_..._ he tired?", answer: "is" },
+	{ positive: "They are friends.", negative: "They aren't friends.", rightwrong: "We are friends.", rightwrongsol: "true", questiongap: "_..._ they friends?", answer: "are" },
+	{ positive: "We are ready.", negative: "We aren't ready.", rightwrong: "He are ready.", rightwrongsol: "false", questiongap: "_..._ we ready?", answer: "are" },
+	{ positive: "You are kind.", negative: "You aren't kind.", rightwrong: "She is kind.", rightwrongsol: "true", questiongap: "_..._ you kind?", answer: "are" },
+	{ positive: "She is busy.", negative: "She isn't busy.", rightwrong: "They is busy.", rightwrongsol: "false", questiongap: "_..._ she busy?", answer: "is" },
+	{ positive: "He is strong.", negative: "He isn't strong.", rightwrong: "You are strong.", rightwrongsol: "true", questiongap: "_..._ he strong?", answer: "is" },
+	{ positive: "They are here.", negative: "They aren't here.", rightwrong: "She are here.", rightwrongsol: "false", questiongap: "_..._ they here?", answer: "are" },
+	{ positive: "We are excited.", negative: "We aren't excited.", rightwrong: "I am excited.", rightwrongsol: "true", questiongap: "_..._ we excited?", answer: "are" },
+	{ positive: "You are funny.", negative: "You aren't funny.", rightwrong: "She are funny.", rightwrongsol: "false", questiongap: "_..._ you funny?", answer: "are" },
+	{ positive: "She is smart.", negative: "She isn't smart.", rightwrong: "You are smart.", rightwrongsol: "true", questiongap: "_..._ she smart?", answer: "is" },
+	{ positive: "He is polite.", negative: "He isn't polite.", rightwrong: "You is polite.", rightwrongsol: "false", questiongap: "_..._ he polite?", answer: "is" },
+	{ positive: "They are talented.", negative: "They aren't talented.", rightwrong: "She is talented.", rightwrongsol: "true", questiongap: "_..._ they talented?", answer: "are" },
+	{ positive: "We are happy.", negative: "We aren't happy.", rightwrong: "He are happy.", rightwrongsol: "false", questiongap: "_..._ we happy?", answer: "are" },
+	{ positive: "You are calm.", negative: "You aren't calm.", rightwrong: "I am calm.", rightwrongsol: "true", questiongap: "_..._ you calm?", answer: "are" },
+	{ positive: "She is brave.", negative: "She isn't brave.", rightwrong: "They is brave.", rightwrongsol: "false", questiongap: "_..._ she brave?", answer: "is" },
+	{ positive: "He is careful.", negative: "He isn't careful.", rightwrong: "I am careful.", rightwrongsol: "true", questiongap: "_..._ he careful?", answer: "is" },
+	{ positive: "They are helpful.", negative: "They aren't helpful.", rightwrong: "She are helpful.", rightwrongsol: "false", questiongap: "_..._ they helpful?", answer: "are" },
+	{ positive: "We are generous.", negative: "We aren't generous.", rightwrong: "He is generous.", rightwrongsol: "true", questiongap: "_..._ we generous?", answer: "are" }
+   ];
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        shuffle(data);
+
+        const task1Questions = data.slice(0, 6);
+        const task2Questions = data.slice(6, 12);
+        const task3Questions = data.slice(12, 18);
+        const task4Questions = data.slice(18, 24);
+
+        const task1Div = document.getElementById('task1');
+        const task2Div = document.getElementById('task2');
+        const task3Div = document.getElementById('task3');
+        const task4Div = document.getElementById('task4');
+
+        task1Questions.forEach((q, index) => {
+            task1Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.rightwrong}</strong></p>
+                    <input type="radio" id="task1q${index}true" name="task1q${index}" value="true">
+                    <label for="task1q${index}true">True</label>
+                    <input type="radio" id="task1q${index}false" name="task1q${index}" value="false">
+                    <label for="task1q${index}false">False</label>
+                </div>
+            `;
+        });
+
+        task2Questions.forEach((q, index) => {
+            task2Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.positive}</strong></p>
+                    <input type="text" id="task2q${index}" name="task2q${index}">
+                </div>
+            `;
+        });
+
+        task3Questions.forEach((q, index) => {
+            task3Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.questiongap}</strong></p>
+                    <select id="task3q${index}" name="task3q${index}">
+                        <option value="do">Do</option>
+                        <option value="does">Does</option>
+                        <option value="am">Am</option>
+                        <option value="is">Is</option>
+                        <option value="are">Are</option>
+                    </select>
+                </div>
+            `;
+        });
+
+        task4Questions.forEach((q, index) => {
+            task4Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.negative}</strong></p>
+                    <input type="text" id="task4q${index}" name="task4q${index}">
+                </div>
+            `;
+        });
+
+        function checkAnswers() {
+            let correctAnswers = 0;
+            const totalQuestions = task1Questions.length + task2Questions.length + task3Questions.length + task4Questions.length;
+            let wrongAnswersHTML = '';
+
+            // Check Task 1 Answers
+            task1Questions.forEach((q, index) => {
+                const userAnswer = document.querySelector(`input[name="task1q${index}"]:checked`);
+                if (userAnswer && userAnswer.value === q.rightwrongsol) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 1:</strong><br> ${q.rightwrong} <br> Your answer: ${userAnswer ? userAnswer.value : 'No answer'} <br> Correct answer: ${q.rightwrongsol}</p>`;
+                }
+            });
+
+            // Check Task 2 Answers
+            task2Questions.forEach((q, index) => {
+                const userAnswer = document.getElementById(`task2q${index}`).value.trim();
+                if (userAnswer === q.negative) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 2:</strong> <br> ${q.positive} <br> Your answer: "${userAnswer}" <br> Correct answer: "${q.negative}"</p>`;
+                }
+            });
+
+            // Check Task 3 Answers
+            task3Questions.forEach((q, index) => {
+                const userAnswer = document.getElementById(`task3q${index}`).value;
+                if (userAnswer === q.answer) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 3:</strong><br> ${q.questiongap} <br> Your answer: "${userAnswer}" <br> Correct answer: "${q.answer}"</p>`;
+                }
+            });
+
+            // Check Task 4 Answers
+            task4Questions.forEach((q, index) => {
+                const userAnswer = document.getElementById(`task4q${index}`).value.trim();
+                if (userAnswer === q.positive) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 4:</strong><br> ${q.negative}<br>Your answer: "${userAnswer}"<br> Correct answer: "${q.positive}"</p>`;
+                }
+            });
+
+	    document.getElementById('result').innerHTML = `<h3>Results</h3><p>You have answered ${correctAnswers} out of ${totalQuestions} questions correctly.</p>`;
+            document.getElementById('wrongAnswers').innerHTML = `<h3>Incorrect answers</h3>${wrongAnswersHTML}`;
+
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Present Pefect</title>
+   <style>
+    body 
+    .question {
+        margin-bottom: 20px;
+    }
+    .button {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+    <h1>Test - Present Perfect</h1>
+<p>There are five tasks in this test. Answer every question.</p>
+<p>At the end of the test, you will find a button called <strong>Check Answers</strong>. Press <strong>Enter</strong> to activate the button. Your results will then be shown under this button, so make sure to press <strong>arrow down</strong>.
+<p><strong>BE CAREFUL:</strong> Fusion will read the options in the dropdown list, as well as your sentences in the <span lang="de">Eingabefeld</span> in German. If you want to listen to it in English, you have to press <strong>Control + Windows + L</strong> and then choose <span lang="de"><strong>Englisch (Grossbritanien)</strong></span>.</p>
+
+<br>
+
+    <form id="testForm">
+        <!-- Task 1 -->
+        <div id="task1">
+            <h2>Task 1</h2>
+	<p>Are the following sentences gramatically correct or not? Choose <strong>True</strong> if it is correct or <strong>False</strong> if it is incorrect.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Task 2 -->
+        <div id="task2">
+            <h2>Task 2</h2>
+	<p>Turn the positive sentences into negative sentences. Only use the Present Perfect.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Task 3 -->
+        <div id="task3">
+            <h2>Task 3</h2>
+	<p>Choose the correct auxiliary verb for the following questions.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Task 4 -->
+        <div id="task4">
+            <h2>Task 4</h2>
+	<p>Turn the negative sentences into positive sentences. Only use the Present Perfect.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+        
+        <!-- Task 5 -->
+        <div id="task5">
+            <h2>Task 5</h2>
+	<p>Put the words below into the correct order to create a sentence or a question in the Present Perfect.</p>
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <button type="button" class="button" onclick="checkAnswers()">Check Answers</button>
+    </form>
+
+    <div id="result"></div>
+    <div id="wrongAnswers"></div>
+
+    <script>
+        const data = [
+           { positive: "He has just eaten a hamburger.", negative: "He hasn't eaten a hamburger.", rightwrong: "I has eaten a hamburger.", rightwrongsol: "false", questiongap: "_..._ you ever eaten a hamburger?", answer: "have", scramble: "a hamburger, you, eaten, ever, have", solutions: "Have you ever eaten a hamburger?" },
+	{ positive: "She has finished her homework.", negative: "She hasn't finished her homework.", rightwrong: "She has finish her homework.", rightwrongsol: "false", questiongap: "_..._ you finished your homework?", answer: "have", scramble: "finished, have, your, homework, you", solutions: "Have you finished your homework?" },
+    { positive: "We have travelled to Spain.", negative: "We haven't travelled to Spain.", rightwrong: "He has travelled to Spain.", rightwrongsol: "true", questiongap: "_..._ he ever been to Spain?", answer: "has", scramble: "been, to, ever, he, has, Spain", solutions: "Has he ever been to Spain?" },
+    { positive: "I have met her before.", negative: "I haven't met her before.", rightwrong: "I have never met her before.", rightwrongsol: "true", questiongap: "_..._ you met her before?", answer: "have", scramble: "you, her, have, met, before", solutions: "Have you met her before?" },
+    { positive: "They have bought a new car.", negative: "They haven't bought a new car.", rightwrong: "They have buyed a new car.", rightwrongsol: "false", questiongap: "_..._ they bought a new car?", answer: "have", scramble: "they, a, new, car, have, bought", solutions: "Have they bought a new car?" },
+    { positive: "He has left.", negative: "He hasn't left.", rightwrong: "He hasn't left yet.", rightwrongsol: "true", questiongap: "_..._ he left already?", answer: "has", scramble: "left, has, he, already", solutions: "Has he left already?" },
+    { positive: "We have seen that movie.", negative: "We haven't seen that movie.", rightwrong: "We have seen that movie.", rightwrongsol: "true", questiongap: "_..._ you seen that movie?", answer: "have", scramble: "that, seen, have, you, movie", solutions: "Have you seen that movie?" },
+    { positive: "They have lived here for ten years.", negative: "They haven't lived here for ten years.", rightwrong: "They have lived here for ten years.", rightwrongsol: "true", questiongap: "_..._ they lived here for twenty years?", answer: "have", scramble: "here, for, you, lived, have, twenty, years", solutions: "Have you lived here for twenty years?" },
+    { positive: "She has called me.", negative: "She hasn't called me.", rightwrong: "She has just call me.", rightwrongsol: "false", questiongap: "_..._ you just called?", answer: "have", scramble: "you, have, just, called", solutions: "Have you just called?" },
+    { positive: "He has done his homework.", negative: "He hasn't done his homework.", rightwrong: "He hasn't done his homework yesterday.", rightwrongsol: "false", questiongap: "I _..._ already done all of my homework for this week.", answer: "have", scramble: "done, his, has, homework, he", solutions: "Has he done his homework?" },
+    { positive: "We have been to Paris.", negative: "We haven't been to Paris.", rightwrong: "We have never been to Paris.", rightwrongsol: "true", questiongap: "Paris? I _..._ never been there?", answer: "have", scramble: "to, been, you, have, ever, Paris", solutions: "Have you ever been to Paris?" },
+    { positive: "They have played football.", negative: "They haven't played football.", rightwrong: "They have play football.", rightwrongsol: "false", questiongap: "_..._ they played football?", answer: "have", scramble: "played, have, football, they", solutions: "Have they played football?" },
+    { positive: "She has read the book.", negative: "She hasn't read the book.", rightwrong: "She has read the book.", rightwrongsol: "true", questiongap: "She _..._ already read that book.", answer: "has", scramble: "read, have, you, the, book", solutions: "Have you read the book?" },
+    { positive: "He has taken the test.", negative: "He hasn't taken the test.", rightwrong: "He has took the test.", rightwrongsol: "false", questiongap: "They _..._ just taken the test.", answer: "have", scramble: "test, the, taken, he, has", solutions: "Has he taken the test?" },
+    { positive: "We have cooked dinner.", negative: "We haven't cooked dinner.", rightwrong: "We has cooked dinner.", rightwrongsol: "true", questiongap: "_..._ you cooked something for dinner?", answer: "have", scramble: "cooked, you, have, dinner", solutions: "Have you cooked dinner?" },
+    { positive: "They have cleaned the house.", negative: "They haven't cleaned the house.", rightwrong: "They has cleaned the house.", rightwrongsol: "false", questiongap: "Oh, I see that you _..._ already cleaned the house.", answer: "have", scramble: "cleaned, they, have, house, the", solutions: "Have they cleaned the house?" },
+    { positive: "She has washed the car.", negative: "She hasn't washed the car.", rightwrong: "She has washed the car.", rightwrongsol: "true", questiongap: "I _..._ never washed my car.", answer: "have", scramble: "washed, car, the, you, have", solutions: "Have you washed the car?" },
+    { positive: "He has fixed the bike.", negative: "He hasn't fixed the bike.", rightwrong: "He have fix the bike.", rightwrongsol: "false", questiongap: "_..._ he fixed the bike?", answer: "has", scramble: "fixed, he, bike, the, has", solutions: "Has he fixed the bike?" },
+  { positive: "We have written a letter.", negative: "We haven't written a letter.", rightwrong: "He has written a letter.", rightwrongsol: "true", questiongap: "I _..._ already written the letter.", answer: "have", scramble: "written, letter, you, have, the", solutions: "Have you written the letter?" },
+    { positive: "They have made a cake.", negative: "They haven't made a cake.", rightwrong: "They making a cake.", rightwrongsol: "false", questiongap: "She _..._ never made a cake.", answer: "has", scramble: "made, she, has, cake, a, ever", solutions: "Has she ever made a cake?" },
+    { positive: "She has taken a shower.", negative: "She hasn't taken a shower.", rightwrong: "She has taken a shower.", rightwrongsol: "true", questiongap: "_..._ the children all taken a shower yet?", answer: "have", scramble: "taken, have, a, shower, you", solutions: "Have you taken a shower?" },
+    { positive: "He has gone to the store.", negative: "He hasn't gone to the store.", rightwrong: "He has gone to the store.", rightwrongsol: "true", questiongap: "I _..._ just come back from the store.", answer: "has", scramble: "store, the, gone, he, has, to", solutions: "Has he gone to the store?" },
+    { positive: "We have fed the dog.", negative: "We haven't fed the dog.", rightwrong: "We have feeding the dog.", rightwrongsol: "false", questiongap: "My brother _..._ fed the dog.", answer: "has", scramble: "fed, you, dog, have, the", solutions: "Have you fed the dog?" },
+    { positive: "They have cleaned their room.", negative: "They haven't cleaned their room.", rightwrong: "They have cleaned their room.", rightwrongsol: "true", questiongap: "He _..._ just cleaned his room.", answer: "have", scramble: "cleaned, they, have, room, their", solutions: "Have they cleaned their room?" },
+    { positive: "She has watered the plants.", negative: "She hasn't watered the plants.", rightwrong: "She have watered the plants.", rightwrongsol: "false", questiongap: "_..._ you watered the plants?", answer: "have", scramble: "watered, you, plants, have, the", solutions: "Have you watered the plants?" },
+   { positive: "He has started his project.", negative: "He hasn't started his project.", rightwrong: "He has started his project.", rightwrongsol: "true", questiongap: "_..._ he started his project?", answer: "has", scramble: "started, he, his, project, has", solutions: "Has he started his project?" },
+{ positive: "She has moved to a new house.", negative: "She hasn't moved to a new house.", rightwrong: "She has move to a new house.", rightwrongsol: "false", gap: "_..._ you moved to a new house?", answer: "have", scramble: "moved, have, you, new, a, house, to", solutions: "Have you moved to a new house?" },
+    { positive: "He has learned how to swim.", negative: "He hasn't learned how to swim.", rightwrong: "He hasn't learned how to swim yet.", rightwrongsol: "true", gap: "My son _..._ just learned how to swim.", answer: "has", scramble: "he, how, swim, to, learned, yet, has", solutions: "Has he learned how to swim yet?" },
+    { positive: "We have visited the museum.", negative: "We haven't visited the museum.", rightwrong: "We visited have the museum.", rightwrongsol: "false", gap: "I _..._ never visited a museum?", answer: "have", scramble: "visited, have, museum, you, the", solutions: "Have you visited the museum?" },
+    { positive: "They have completed the project.", negative: "They haven't completed the project.", rightwrong: "They have completed the project.", rightwrongsol: "true", gap: "We _..._ completed the project.", answer: "have", scramble: "completed, have, the, project, they", solutions: "Have they completed the project?" },
+    { positive: "She has attended the meeting.", negative: "She hasn't attended the meeting.", rightwrong: "She have attended the meeting.", rightwrongsol: "false", gap: "_..._ you attended the meeting?", answer: "have", scramble: "attended, have, meeting, the, you", solutions: "Have you attended the meeting?" },
+    { positive: "He has cooked breakfast.", negative: "He hasn't cooked breakfast.", rightwrong: "He hasn't cooked breakfast yet.", rightwrongsol: "true", gap: "So far, he _..._ not cooked breakfast.", answer: "has", scramble: "he, cooked, breakfast, has", solutions: "Has he cooked breakfast?" },
+    { positive: "We have chosen a name.", negative: "We haven't chosen a name.", rightwrong: "Have you chosen a name yet?.", rightwrongsol: "true", gap: "_..._ she chosen a name yet?", answer: "has", scramble: "she, name, a, chosen, has", solutions: "Has she chosen a name?" },
+    { positive: "They have sold their house.", negative: "They haven't sold their house.", rightwrong: "Has they sold their house?", rightwrongsol: "false", gap: "_..._ they sold their house?", answer: "have", scramble: "sold, they, have, their, house", solutions: "Have they sold their house?" },
+    { positive: "She has painted the room.", negative: "She hasn't painted the room.", rightwrong: "She haven't painted the room.", rightwrongsol: "false", gap: "My sister and her brother _..._ painted the room.", answer: "have", scramble: "painted, have, you, the, room", solutions: "Have you painted the room?" },
+    { positive: "He has fixed the car.", negative: "He hasn't fixed the car.", rightwrong: "He has fixed the car.", rightwrongsol: "true", gap: "The man in the garage _..._ fixed the car.", answer: "has", scramble: "fixed, he, has, the, car", solutions: "Has he fixed the car?" },
+    { positive: "We have adopted a dog.", negative: "We haven't adopted a dog.", rightwrong: "We have adopted a dog.", rightwrongsol: "true", gap: "_..._ you adopted a dog?", answer: "have", scramble: "adopted, have, you, a, dog", solutions: "Have you adopted a dog?" },
+    { positive: "They have booked the tickets.", negative: "They haven't booked the tickets.", rightwrong: "Have they booked the tickets yet?", rightwrongsol: "true", gap: "Since our last concert, I _..._ not bought any tickets.", answer: "have", scramble: "booked, they, yet, have, tickets, the", solutions: "Have they booked the tickets yet?" },
+    { positive: "She has arranged a meeting.", negative: "She hasn't arranged a meeting.", rightwrong: "She has arrange the meeting.", rightwrongsol: "false", gap: "_..._ you arranged a meeting?", answer: "have", scramble: "arranged, have, a, meeting, you", solutions: "Have you arranged a meeting?" },
+    { positive: "He has updated the software.", negative: "He hasn't updated the software.", rightwrong: "He has not update the software yet.", rightwrongsol: "true", gap: "The software engineer _..._ updated the application.", answer: "has", scramble: "the, yet, updated, they, have, software", solutions: "Have they updated the software yet?" },
+    { positive: "We have planted a tree.", negative: "We haven't planted a tree.", rightwrong: "We has planted a tree.", rightwrongsol: "false", gap: "_..._ you planted a tree?", answer: "have", scramble: "planted, have, you, a, tree", solutions: "Have you planted a tree?" },
+    { positive: "They have organized the event.", negative: "They haven't organized the event.", rightwrong: "They have already organized the event.", rightwrongsol: "true", gap: "_..._ they organized the event?", answer: "have", scramble: "organized, they, event, the, have", solutions: "Have they organized the event?" },
+    { positive: "She has completed the assignment.", negative: "She hasn't completed the assignment.", rightwrong: "She has completed the assignment.", rightwrongsol: "true", gap: "All the students _..._ completed the assignment.", answer: "have", scramble: "completed, you, assignment, the, have", solutions: "Have you completed the assignment?" },
+    { positive: "He has started a new job.", negative: "He hasn't started a new job.", rightwrong: "He not has started a new job.", rightwrongsol: "false", gap: "_..._ he started a new job?", answer: "has", scramble: "started, he, a, new, has, job", solutions: "Has he started a new job?" },
+    { positive: "They have attended the workshop.", negative: "They haven't attended the workshop.", rightwrong: "They has attended the workshop.", rightwrongsol: "false", gap: "_..._ they attended the workshop?", answer: "have", scramble: "attended, she, workshop, the, has", solutions: "Has she attended the workshop?" },
+    { positive: "She has washed the dishes.", negative: "She hasn't washed the dishes.", rightwrong: "She has washed the dishes.", rightwrongsol: "true", gap: "I _..._ not washed the dishes yet?", answer: "have", scramble: "washed, you, dishes, the, have", solutions: "Have you washed the dishes?" },
+    { positive: "He has repaired the roof.", negative: "He hasn't repaired the roof.", rightwrong: "He have repaired the roof.", rightwrongsol: "false", gap: "The workers _..._ repaired the roof.", answer: "has", scramble: "repaired, they, have, roof, the", solutions: "Have they repaired the roof?" },
+    { positive: "They have joined the club.", negative: "They haven't joined the club.", rightwrong: "They have joined the club.", rightwrongsol: "true", gap: "_..._ they joined the club?", answer: "have", scramble: "joined, you, have, club, the", solutions: "Have you joined the club?" },
+    { positive: "She has called her friend.", negative: "She hasn't called her friend.", rightwrong: "She haven't called her friend yet.", rightwrongsol: "false", gap: "Maria _..._ not called her sister yet.", answer: "has", scramble: "called, you, your, have, friend", solutions: "Have you called your friend?" },
+{ positive: "She has bought a new laptop.", negative: "She hasn't bought a new laptop.", rightwrong: "She have bought a new laptop.", rightwrongsol: "false", gap: "_..._ you bought a new laptop?", answer: "have", scramble: "bought, you, have, a, laptop, new", solutions: "Have you bought a new laptop?" },
+    { positive: "He has seen a whale.", negative: "He hasn't seen a whale.", rightwrong: "He has just seen a whale for the first time.", rightwrongsol: "true", gap: "I _..._ never seen a whale.", answer: "have", scramble: "seen, a, have, you, whale, ever", solutions: "Have you ever seen a whale?" },
+    { positive: "We have cleaned the windows.", negative: "We haven't cleaned the windows.", rightwrong: "We have cleaned the windows.", rightwrongsol: "true", gap: "We _..._ cleaned the windows.", answer: "have", scramble: "cleaned, you, have, the, windows", solutions: "Have you cleaned the windows?" },
+    { positive: "She has learned a new language.", negative: "She hasn't learned a new language.", rightwrong: "She have learned a new language.", rightwrongsol: "false", gap: "My mother _..._ learned a new language.", answer: "has", scramble: "learned, new, have, you, a, language", solutions: "Have you learned a new language?" },
+    { positive: "He has lost his keys.", negative: "He hasn't lost his keys.", rightwrong: "He has losen his keys.", rightwrongsol: "false", gap: "_..._ he lost his keys?", answer: "has", scramble: "lost, he, keys, his, has", solutions: "Has he lost his keys?" },
+    { positive: "They have received the package.", negative: "They haven't received the package.", rightwrong: "They have received the package.", rightwrongsol: "true", gap: "The neighbours _..._ not received their package.", answer: "have", scramble: "received, they, package, have, the", solutions: "Have they received the package?" },
+    { positive: "She has planned a surprise party.", negative: "She hasn't planned a surprise party.", rightwrong: "Has she plan a surprise party?", rightwrongsol: "false", gap: "My friends _..._ planned a surprise party.", answer: "have", scramble: "planned, have, you, a, party, surprise", solutions: "Have you planned a surprise party?" },
+    { positive: "He has written a novel.", negative: "He hasn't written a novel.", rightwrong: "He has written a novel.", rightwrongsol: "true", gap: "Stephen King _..._ written a new novel.", answer: "has", scramble: "written, he, a, novel, has", solutions: "Has he written a novel?" },
+    { positive: "She has opened a restaurant.", negative: "She hasn't opened a restaurant.", rightwrong: "She has opened a restaurant.", rightwrongsol: "true", gap: "_..._ you opened a restaurant?", answer: "have", scramble: "opened, you, have, restaurant, a", solutions: "Have you opened a restaurant?" },
+    { positive: "She has taught English.", negative: "She hasn't taught English.", rightwrong: "She has teached English.", rightwrongsol: "false", gap: "My teacher _..._ taught English her whole life.", answer: "has", scramble: "taught, you, English, have", solutions: "Have you taught English?" },
+    { positive: "We have discussed the plan.", negative: "We haven't discussed the plan.", rightwrong: "We have discussed the plan.", rightwrongsol: "true", gap: "_..._ you discussed the plan?", answer: "have", scramble: "discussed, have, you, the, plan", solutions: "Have you discussed the plan?" },
+    { positive: "They have built a shed.", negative: "They haven't built a shed.", rightwrong: "They have built a shed.", rightwrongsol: "true", gap: "_..._ they built a shed?", answer: "have", scramble: "built, they, have, shed, a", solutions: "Have they built a shed?" }
+   ];
+
+ function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        shuffle(data);
+
+        const task1Questions = data.slice(0, 5);
+        const task2Questions = data.slice(5, 10);
+        const task3Questions = data.slice(10, 15);
+        const task4Questions = data.slice(15, 20);
+        const task5Questions = data.slice(20, 25);
+
+        const task1Div = document.getElementById('task1');
+        const task2Div = document.getElementById('task2');
+        const task3Div = document.getElementById('task3');
+        const task4Div = document.getElementById('task4');
+	const task5Div = document.getElementById('task5');
+
+        task1Questions.forEach((q, index) => {
+            task1Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.rightwrong}</strong></p>
+                    <input type="radio" id="task1q${index}true" name="task1q${index}" value="true">
+                    <label for="task1q${index}true">True</label>
+                    <input type="radio" id="task1q${index}false" name="task1q${index}" value="false">
+                    <label for="task1q${index}false">False</label>
+                </div>
+            `;
+        });
+
+        task2Questions.forEach((q, index) => {
+            task2Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.positive}</strong></p>
+                    <input type="text" id="task2q${index}" name="task2q${index}">
+                </div>
+            `;
+        });
+
+        task3Questions.forEach((q, index) => {
+            task3Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.questiongap}</strong></p>
+                    <select id="task3q${index}" name="task3q${index}">
+                        <option value="has">has</option>
+                        <option value="have">have</option>
+                        <option value="did">did</option>
+                    </select>
+                </div>
+            `;
+        });
+
+        task4Questions.forEach((q, index) => {
+            task4Div.innerHTML += `
+                <div class="question">
+                    <p><strong>${q.negative}</strong></p>
+                    <input type="text" id="task4q${index}" name="task4q${index}">
+                </div>
+            `;
+        });
+
+      task5Questions.forEach((q, index) => {
+    task5Div.innerHTML += `
+        <div class="question">
+            <p><strong>${q.scramble}</strong></p>
+            <input type="text" id="task5q${index}" name="task5q${index}">
+        </div>
+    `;
+});
+
+
+        function checkAnswers() {
+            let correctAnswers = 0;
+            const totalQuestions = task1Questions.length + task2Questions.length + task3Questions.length + task4Questions.length + task5Questions.length;
+            let wrongAnswersHTML = '';
+
+            // Check Task 1 Answers
+            task1Questions.forEach((q, index) => {
+                const userAnswer = document.querySelector(`input[name="task1q${index}"]:checked`);
+                if (userAnswer && userAnswer.value === q.rightwrongsol) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 1:</strong><br> ${q.rightwrong} <br> Your answer: ${userAnswer ? userAnswer.value : 'No answer'} <br> Correct answer: ${q.rightwrongsol}</p>`;
+                }
+            });
+
+            // Check Task 2 Answers
+            task2Questions.forEach((q, index) => {
+                const userAnswer = document.getElementById(`task2q${index}`).value.trim();
+                if (userAnswer === q.negative) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 2:</strong> <br> ${q.positive} <br> Your answer: "${userAnswer}" <br> Correct answer: "${q.negative}"</p>`;
+                }
+            });
+
+            // Check Task 3 Answers
+            task3Questions.forEach((q, index) => {
+                const userAnswer = document.getElementById(`task3q${index}`).value;
+                if (userAnswer === q.answer) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 3:</strong><br> ${q.questiongap} <br> Your answer: "${userAnswer}" <br> Correct answer: "${q.answer}"</p>`;
+                }
+            });
+
+            // Check Task 4 Answers
+            task4Questions.forEach((q, index) => {
+                const userAnswer = document.getElementById(`task4q${index}`).value.trim();
+                if (userAnswer === q.positive) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 4:</strong><br> ${q.negative}<br>Your answer: "${userAnswer}"<br> Correct answer: "${q.positive}"</p>`;
+                }
+            });
+
+        // Check Task 5 Answers
+            task5Questions.forEach((q, index) => {
+                const userAnswer = document.getElementById(`task5q${index}`).value.trim();
+                if (userAnswer === q.solutions) {
+                    correctAnswers++;
+                } else {
+                    wrongAnswersHTML += `<p><strong>Task 5:</strong><br> ${q.scramble}<br>Your answer: "${userAnswer}"<br> Correct answer: "${q.solutions}"</p>`;
+                }
+            });
+
+
+	    document.getElementById('result').innerHTML = `<h3>Results</h3><p>You have answered ${correctAnswers} out of ${totalQuestions} questions correctly.</p>`;
+            document.getElementById('wrongAnswers').innerHTML = `<h3>Incorrect answers</h3>${wrongAnswersHTML}`;
+
+        }
+    </script>
+</body>
+</html>
