@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <input type="text" id="deutsch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+<button onclick="switchMode()">Lernmodus Wechseln</button>
+<button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"abstract painting": "abstraktes Gemälde",
+"art collector": "Kunstsammler",
+"art gallery": "Kunstgalerie",
+"artist": "Künstler",
+"exhibition": "Ausstellung",
+"landscape": "Landschaft",
+"painter": "Maler",
+"portrait": "Porträt",
+"portrait gallery": "Porträtgalerie",
+"priceless painting": "unbezahlbares Gemälde",
+"ballerina": "Ballerina",
+"ballet dancer": "Balletttänzer",
+"choreographer": "Choreograf",
+"ballet": "Ballett",
+"author": "Autor",
+"biography": "Biografie",
+"novel": "Roman",
+"novelist": "Schriftsteller",
+"publisher": "Verlag",
+"short story": "Kurzgeschichte",
+"writer": "Verfasser",
+"cellist": "Cellist",
+"pianist": "Pianist",
+"violinist": "Violinist",
+"classical music": "klassische Musik",
+"composer": "Komponist",
+"conductor": "Dirigent",
+"concert hall": "Konzerthalle",
+"musician": "Musiker",
+"open-air concert": "Freiluft-Konzert",
+"orchestra": "Orchester",
+"cast": "Besetzung",
+"director": "Regisseur",
+"opera house": "Opernhaus",
+"opera singer": "Opernsänger",
+"soprano": "Sopran",
+"tenor": "Tenor",
+"sculptor": "Bildhauer",
+"sculpture": "Skulptur",
+"statue": "Statue",
+"actor": "Schauspieler",
+"audience": "Publikum",
+"performance": "Vorstellung",
+"play": "Theaterstück",
+"playwright": "Bühnenautor",
+"rehearsal": "Probe",
+"stage": "Bühne",
+"owl": "Eule",
+"sparrow": "Spatz",
+"peacock": "Pfau",
+"pigeon": "Taube",
+"cow": "Kuh",
+"goat": "Ziege",
+"lamb": "Lamm",
+"mule": "Maultier",
+"pig": "Schwein",
+"sheep": "Schaf",
+"trout": "Forelle",
+"shark": "Hai",
+"cat": "Katze",
+"dog": "Hund",
+"hamster": "Hamster",
+"parrot": "Papagei",
+"ant": "Ameise",
+"bee": "Biene",
+"fly": "Fliege",
+"wasp": "Wespe",
+"bat": "Fledermaus",
+"bear": "Bär",
+"fox": "Fuchs",
+"frog": "Frosch",
+"lion": "Löwe",
+"mouse": "Maus",
+"rat": "Ratte",
+"fin": "Flosse",
+"gills": "Kiemen",
+"scales": "Schuppen",
+"beak": "Schnabel",
+"feathers": "Federn",
+"tail": "Schwanz",
+"wings": "Flügel",
+"claws": "Krallen",
+"fur": "Fell",
+"paws": "Pfoten",
+"whiskers": "Schnurrhaare",
+"hooves": "Hufe",
+"mane": "Mähne"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const deutsch = document.getElementById("deutsch").value.trim();
+            const englisch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[englisch];
+            const result = (deutsch.toLowerCase() === correctTranslation.toLowerCase()) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (deutsch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(englisch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(englisch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+            document.getElementById("deutsch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 13 B2 - MC.html";
+        }
+
+function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 13 B2 - TM.html";
+        }
+
+        // Set a random initial word
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="B2 Unit 13.docx" target="_blank"><span lang="en">Ready for First (B2) Unit 13</span></a></p>
+<br>
+<br>
+</body>
+</html>

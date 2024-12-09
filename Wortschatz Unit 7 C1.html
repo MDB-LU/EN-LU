@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <input type="text" id="deutsch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+<button onclick="switchMode()">Lernmodus Wechseln</button>
+<button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"aching": "schmerzen",
+"blocked nose": "eine verstopfte Nase",
+"bruised ribs": "verstauchte Rippen",
+"chipped tooth": "beschädigter Zahn",
+"dislocated shoulder": "ausgekugelte Schulter",
+"sprained ankle": "verstauchter Knöchel",
+"swollen": "geschwollen",
+"torn": "gerissen",
+"upset stomach": "Magenverstimmung",
+"blinding headache": "blendende Kopfschmerzen",
+"high blood pressure": "hoher Blutdruck",
+"mild fever": "leichtes Fieber",
+"highly infectious": "hoch ansteckend",
+"medical": "medizinisch",
+"serious illness": "ernste Krankheit",
+"diagnose somebody with": "jemanden diagnostizieren mit",
+"fall ill with something": "krank werden mit",
+"undergo an operation": "eine Operation haben",
+"prescribe medicine": "Medikamente verschreiben",
+"relieve pain": "Schmerz lindern",
+"break out in a rash": "einen Hautausschlag bekommen",
+"a disease breaks out": "eine Krankheit bricht aus",
+"bring somebody round": "jemanden zurückholen",
+"carry out tests": "Tests durchführen",
+"come through a serious illness": "eine ernste Krankheit überstehen",
+"come up with a cure": "eine Heilung finden",
+"pain eases off": "Schmerz lässt nach",
+"get over an illness": "eine Krankheit überwinden",
+"pass on an illness": "eine Krankheit weitergeben",
+"pass out": "ohnmächtig werden",
+"pick up an illness": "eine Krankheit auflesen",
+"put one's back out": "sich den Rücken ausrenken",
+"wear off": "nachlassen",
+"wear somebody out": "abnutzen",
+"adverse": "ungünstig",
+"beneficial": "vorteilhaft",
+"catastrophic": "katastrophal",
+"damaging": "schädlich",
+"dramatic": "dramatisch",
+"far-reaching": "weitreichend",
+"good": "gut",
+"harmful": "schädlich",
+"immediate": "sofortig",
+"important": "wichtig",
+"lasting": "bleibend",
+"limited": "begrenzt",
+"long-term": "Langzeit",
+"minimal": "minimal",
+"noticeable": "beachtlich",
+"significant": "signifikant",
+"short-term": "Kurzzeit"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const deutsch = document.getElementById("deutsch").value.trim();
+            const englisch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[englisch];
+            const result = (deutsch.toLowerCase() === correctTranslation.toLowerCase()) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (deutsch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(englisch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(englisch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+            document.getElementById("deutsch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 7 C1 - MC.html";
+        }
+
+function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 7 C1 - TM.html";
+        }
+
+        // Set a random initial word
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="C1 Unit 7.docx" target="_blank"><span lang="en">Ready for Advanced (C1) Unit 7</span></a></p>
+<br>
+<br>
+</body>
+</html>

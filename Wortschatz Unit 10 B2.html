@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <input type="text" id="deutsch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+<button onclick="switchMode()">Lernmodus Wechseln</button>
+<button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"arson": "Brandstiftung",
+"arsonist": "Brandstifter",
+"assassination": "Attentat",
+"assassin": "Attentäter",
+"blackmail": "Erpressung",
+"blackmailer": "Erpresser",
+"burglary": "Einbruch",
+"burglar": "Einbrecher",
+"drink-driving": "Trunkenheit am Steuer",
+"drink-driver": "Trunkenfahrer",
+"drug trafficking": "Drogenschmuggel",
+"drug trafficker": "Drogenschmuggler",
+"espionage": "Spionage",
+"spy": "Spion",
+"hijacking": "Entführung",
+"hijacker": "Entführer",
+"identity fraud": "Identitätsbetrug",
+"identity fraudster": "Identitätsbetrüger",
+"kidnapping": "Entführung",
+"kidnapper": "Entführer",
+"mugging": "Strassenraub",
+"mugger": "Strassenräuber",
+"murder": "Mord",
+"murderer": "Mörder",
+"pickpocketing": "Taschendiebstahl",
+"pickpocket": "Taschendieb",
+"robbery": "Raub",
+"robber": "Räuber",
+"shoplifting": "Ladendiebstahl",
+"shoplifter": "Ladendieb",
+"smuggling": "Schmuggeln",
+"smuggler": "Schmuggler",
+"theft": "Diebstahl",
+"thief": "Dieb",
+"vandalism": "Vandalismus",
+"vandal": "Vandale",
+"accuse somebody": "jemanden beschuldigen",
+"acquit somebody": "jemanden freisprechen",
+"arrest somebody": "jemanden verhaften",
+"deter somebody from something": "jemanden von etwas abhalten",
+"committing a crime": "ein Verbrechen begehen",
+"find somebody guilty of": "jemanden für schuldig befinden",
+"a crime": "ein Verbrechen",
+"community service": "Gemeindedienst",
+"rob a bank": "eine Bank ausrauben",
+"sentence somebody to": "jemanden verurteilen zu",
+"imprisonment": "Haftstrafe",
+"steal money": "Geld stehlen"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const deutsch = document.getElementById("deutsch").value.trim();
+            const englisch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[englisch];
+            const result = (deutsch.toLowerCase() === correctTranslation.toLowerCase()) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (deutsch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(englisch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(englisch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+            document.getElementById("deutsch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 10 B2 - MC.html";
+        }
+
+function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 10 B2 - TM.html";
+        }
+
+        // Set a random initial word
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="B2 Unit 10.docx" target="_blank"><span lang="en">Ready for First (B2) Unit 10</span></a></p>
+<br>
+<br>
+</body>
+</html>

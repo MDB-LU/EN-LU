@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <input type="text" id="deutsch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+<button onclick="switchMode()">Lernmodus Wechseln</button>
+<button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"accomplished": "versiert",
+"born": "geboren",
+"competent": "kompetent",
+"experienced": "erfahren",
+"expert": "fachkundig",
+"gifted": "talentiert",
+"proficient": "sachkundig",
+"promising": "versprechend",
+"skilful": "geschickt",
+"skilled": "qualifiziert",
+"strong": "stark",
+"talented": "talentiert",
+"brilliant": "brillant",
+"hopeless": "hoffnungslos",
+"weak": "schwach",
+"terrible": "fürchterlich",
+"bright": "intelligent",
+"a child prodigy": "ein Wunderkind",
+"be an ace at": "ein Ass sein in",
+"have a flair for": "ein Flair haben für",
+"have a gift for": "ein Talent haben für",
+"have an ear for": "ein Ohr haben für",
+"have an eye for detail": "ein Auge fürs Detail haben",
+"have a head for figures": "einen Kopf für Zahlen haben",
+"have a good memory": "ein gutes Gedächtnis haben",
+"academically": "akademisch",
+"exceptionally": "aussergewöhnlich",
+"highly": "äusserst",
+"intellectually": "intellektuell",
+"musically": "musikalisch",
+"naturally": "von Natur aus",
+"talented": "talentiert",
+"enormously": "enorm",
+"hugely": "immens",
+"outstandingly": "hervorragend",
+"intelligent": "intelligent",
+"incredibly": "unglaublich",
+"remarkably": "beachtenswert",
+"extremely": "extrem",
+"very": "sehr",
+"action-packed": "actionreich",
+"atmospheric": "stimmungsvoll",
+"clichéd": "klischeehaft",
+"compelling": "mitreissend",
+"credible": "glaubhaft",
+"disappointing": "enttäuschend",
+"entertaining": "unterhaltend",
+"excruciating": "entsetzlich",
+"exhilarating": "belebend",
+"fast-moving": "schnelllebig",
+"gripping": "fesselnd",
+"implausible": "unglaubwürdig",
+"impressive": "beeindruckend",
+"innovative": "innovativ",
+"memorable": "denkwürdig",
+"moving": "bewegend",
+"overhyped": "hochgejubelt",
+"powerful": "kraftvoll",
+"predictable": "vorhersehbar",
+"sentimental": "sentimental",
+"stunning": "atemberaubend",
+"tedious": "mühsam",
+"unconvincing": "nicht überzeugend",
+"a considerable difference": "ein erheblicher Unterschied",
+"a slight difference": "ein kleiner Unterschied",
+"a huge difference": "eine grosse Differenz",
+"a remarkable similarity": "eine erstaunliche Ähnlichkeit",
+"a striking similarity": "eine verblüffende Ähnlichkeit",
+"be very much alike": "sich sehr ähnlich sein",
+"bear a strong resemblance to": "eine starke Ähnlichkeit aufweisen mit",
+"differ from": "sich unterscheiden von",
+"resemble each other": "jemanden gleichen",
+"have a great deal in common": "eine Menge gemeinsam haben",
+"have little in common": "ein wenig gemeinsam haben",
+"what sets it apart from others is": "was es von anderen hervorhebt",
+"sleep": "schlafen",
+"badly": "schlecht",
+"fitfully": "unruhig",
+"heavily": "schwer",
+"lightly": "leicht",
+"peacefully": "friedlich",
+"rough": "hart",
+"soundly": "fest",
+"well": "gut",
+"be a light sleeper": "einen leichten Schlaf haben",
+"be fast asleep": "tief schlafen",
+"feel wide awake": "sich hellwach fühlen",
+"doze off": "eindösen",
+"fall asleep": "einschlafen",
+"fall into a deep sleep": "in einen tiefen Schlaf fallen",
+"get a good night's sleep": "fest schlafen",
+"get to sleep": "schlafen gehen",
+"take a nap": "ein Nickerchen machen",
+"have a sleepless night": "eine schlaflose Nacht haben",
+"have an animal put to sleep": "ein Tier einschläfern",
+"keep somebody awake": "jemanden wach halten",
+"stay awake": "wach bleiben",
+"lose sleep over something": "sich über etwas den Kopf zerbrechen",
+"my arm went to sleep": "mein Arm ist eingeschlafen",
+"send somebody to sleep": "jemanden zum Schlafen schicken",
+"sleep like a log": "wie ein Stein schlafen",
+"sleep on it": "eine Nacht drüber schlafen",
+"sleep through the night": "die Nacht durchschlafen",
+"sleep through a storm": "einen Sturm verschlafen",
+"snooze": "schlummern",
+"stay up": "aufbleiben",
+"suffer from insomnia": "an Schlafstörungen leiden",
+"toss and turn": "sich hin und her wälzen",
+"wake up to the fact that": "sich klarmachen dass"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const deutsch = document.getElementById("deutsch").value.trim();
+            const englisch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[englisch];
+            const result = (deutsch.toLowerCase() === correctTranslation.toLowerCase()) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (deutsch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(englisch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(englisch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+            document.getElementById("deutsch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 6 C1 - MC.html";
+        }
+
+function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 6 C1 - TM.html";
+        }
+
+        // Set a random initial word
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="C1 Unit 6.docx" target="_blank"><span lang="en">Ready for Advanced (C1) Unit 6</span></a></p>
+<br>
+<br>
+</body>
+</html>

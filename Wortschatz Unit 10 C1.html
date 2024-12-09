@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <input type="text" id="deutsch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+<button onclick="switchMode()">Lernmodus Wechseln</button>
+<button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"bright": "hell",
+"cheerful": "fröhlich",
+"cramped": "vollgestopft",
+"cluttered": "überladen",
+"dark": "dunkel",
+"dingy": "düster",
+"airy": "luftig",
+"neat": "ordentlich",
+"tidy": "sauber",
+"warm": "warm",
+"cosy": "gemütlich",
+"colourful": "farbenfroh",
+"dull": "langweilig",
+"elegant": "elegant",
+"gaudy": "kitschig",
+"spacious": "geräumig",
+"tasteful": "geschmackvoll",
+"tasteless": "geschmacklos",
+"badly": "schlecht",
+"newly": "neu",
+"poorly": "mangelhaft",
+"solidly": "solide",
+"lavishly": "grosszügig",
+"richly": "üppig",
+"tastefully": "geschmackvoll",
+"comfortably": "bequem",
+"dimly": "trübe",
+"centrally": "zentral",
+"elegantly": "elegant",
+"simply": "einfach",
+"sparsely": "spärlich",
+"furnished": "möbliert",
+"lit": "beleuchtet",
+"conveniently": "praktisch",
+"ideally": "idealerweise",
+"pleasantly": "angenehm",
+"situated": "situiert",
+"located": "gelegen",
+"sound": "Geräusch",
+"voice": "Stimme",
+"booming": "dröhnend",
+"deep": "tief",
+"hesitant": "zögerlich",
+"high-pitched": "hoch",
+"hoarse": "heiser",
+"hushed": "gedämpft",
+"loud": "laut",
+"low": "leise",
+"monotonous": "monoton",
+"rough": "rau",
+"shrill": "schrill",
+"squeaky": "quietschend",
+"your voice": "deine Stimme",
+"lose": "verlieren",
+"lower": "senken",
+"raise": "erheben",
+"buzzing": "summend",
+"crashing": "krachend",
+"creaking": "knarrend",
+"distant": "entfernt",
+"distinctive": "eindeutig",
+"faint": "undeutlich",
+"muffled": "dumpf",
+"rumbling": "polternd",
+"rustling": "raschelnd",
+"unmistakable": "unverkennbar",
+"detect": "aufspüren",
+"emit": "ausstossen",
+"make": "machen",
+"produce": "produzieren",
+"utter": "äussern",
+"noise": "Lärm",
+"background": "Hintergrund",
+"banging": "pochend",
+"constant": "konstant",
+"continuous": "andauernd",
+"excessive": "übertrieben",
+"incessant": "permanent",
+"loud": "laut",
+"traffic": "Verkehr",
+"dies down": "erlöschen",
+"fades away": "ausklingen",
+"grows": "wachsen",
+"increases": "ansteigen",
+"reverberates": "nachhallen",
+"applause": "Applaus",
+"cheer": "jubeln",
+"piercing": "durchdringend",
+"crowd": "Menge",
+"rowdy": "laut",
+"bells": "Glocken",
+"chime": "läuten",
+"ring": "klingeln",
+"tinkle": "klimpern",
+"deafening": "betäubend",
+"music": "Musik",
+"roar": "brüllen",
+"cry": "weinen",
+"scream": "schreien",
+"shriek": "kreischen",
+"whistle": "pfeifen",
+"fans": "Fans",
+"bark": "bellen",
+"growl": "knurren",
+"whimper": "winseln",
+"whine": "jammern",
+"blare out": "herausposaunen"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const deutsch = document.getElementById("deutsch").value.trim();
+            const englisch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[englisch];
+            const result = (deutsch.toLowerCase() === correctTranslation.toLowerCase()) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (deutsch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(englisch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(englisch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+            document.getElementById("deutsch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 10 C1 - MC.html";
+        }
+
+function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 10 C1 - TM.html";
+        }
+
+        // Set a random initial word
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="C1 Unit 10.docx" target="_blank"><span lang="en">Ready for Advanced (C1) Unit 10</span></a></p>
+<br>
+<br>
+</body>
+</html>

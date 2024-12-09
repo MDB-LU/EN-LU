@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        .option {
+            display: block;
+            margin: 5px 0;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <div id="options"></div>
+<br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+    <button onclick="switchMode()">Lernmodus Wechseln</button>
+<button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"arid landscape": "ausgetrocknete Landschaft",
+"desert": "Wüste",
+"island": "Insel",
+"exquisite views": "vorzügliche Aussichten",
+"climb": "klettern",
+"gruelling hike": "zermürbende Wanderung",
+"idyllic spot": "idyllischer Platz",
+"intrepid voyage": "furchtlose Reise",
+"swirling water": "wirbelndes Wasser",
+"conditions": "Begebenheiten",
+"run into somebody": "in jemanden hineinrennen",
+"kick in": "eintreten",
+"ring out": "erklingen",
+"run into trouble": "auf Schwierigkeiten stossen",
+"set off": "aufbrechen",
+"set out to do something": "sich daranmachen etwas zu tun",
+"turn out to be": "sich als etwas enttarnen",
+"win through": "hindurchfinden",
+"argument": "Auseinandersetzung",
+"debate": "diskutieren",
+"discussion": "Diskussion",
+"heated": "erhitzt",
+"sudden outburst of temper": "plötzlicher Wutausbruch",
+"be seething with anger": "wuterfüllt sein",
+"be furious with somebody": "wütend auf jemanden sein",
+"be cross with somebody": "auf jemanden böse sein",
+"become irate": "wütend werden",
+"indignation": "Empörung",
+"rage": "Wut",
+"blow a fuse": "eine Sicherung durchbrennen",
+"calm down": "sich beruhigen",
+"get worked up about something": "sich in etwas hineinsteigern",
+"go mad": "verrückt werden",
+"let off steam": "Dampf ablassen",
+"lose one's temper": "die Beherrschung verlieren",
+"maintain one's composure": "die Nerven nicht verlieren",
+"make one's blood boil": "das Blut zum Kochen bringen",
+"stamp one's feet": "mit den Füssen stampfen",
+"throw a tantrum": "ausflippen",
+"come under criticism": "unter Kritik geraten",
+"arouse": "aufrütteln",
+"attract": "anziehen",
+"be impervious to": "immun sein gegen",
+"be upset by": "sich aufregen über",
+"draw": "anlocken",
+"express": "ausdrücken",
+"give rise to": "zu etwas führen",
+"ignore": "ignorieren",
+"overcome": "überstehen",
+"respond to": "antworten auf",
+"voice": "aussprechen",
+"criticism": "Kritik",
+"considerable": "erheblich",
+"constructive": "konstruktiv",
+"fierce": "heftig",
+"growing": "wachsend",
+"mounting": "zunehmend",
+"severe": "ernst",
+"strong": "stark",
+"unjust": "ungerecht",
+"valid": "berechtigt",
+"widespread": "umfassend"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+        let usedWords = [];
+        let wordList = Object.keys(wörterbuch);
+
+        function getRandomWord() {
+            if (wordList.length === 0) {
+                // Reset the word list if all words have been used
+                wordList = Object.keys(wörterbuch);
+                usedWords = [];
+            }
+
+            const randomIndex = Math.floor(Math.random() * wordList.length);
+            const word = wordList.splice(randomIndex, 1)[0];
+            usedWords.push(word);
+
+            return word;
+        }
+
+        function getRandomOptions(correctTranslation) {
+            const translations = Object.values(wörterbuch);
+            const options = new Set([correctTranslation]);
+
+            while (options.size < 4) {
+                const randomTranslation = translations[Math.floor(Math.random() * translations.length)];
+                options.add(randomTranslation);
+            }
+
+            return Array.from(options);
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+            }
+            return array;
+        }
+
+        function displayOptions(correctTranslation) {
+            const options = getRandomOptions(correctTranslation);
+            const shuffledOptions = shuffleArray(options); // Shuffle options
+            const optionsContainer = document.getElementById('options');
+
+            optionsContainer.innerHTML = ''; // Clear previous options
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option, correctTranslation);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption, correctTranslation) {
+            const result = (selectedOption === correctTranslation) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (selectedOption === correctTranslation) {
+                correctCount++;
+                correctWords.push(document.getElementById("wordToTranslate").textContent.trim());
+            } else {
+                incorrectCount++;
+                incorrectWords.push(document.getElementById("wordToTranslate").textContent.trim());
+            }
+
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            const englisch = getRandomWord();
+            const correctTranslation = wörterbuch[englisch];
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${englisch}</span>`;
+            displayOptions(correctTranslation);
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 9 C1.html";
+        }
+
+function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 9 C1 - TM.html";
+        }
+
+        // Initiales Setzen der Frage
+        nextQuestion();
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="C1 Unit 9.docx" target="_blank"><span lang="en">Ready for Advanced (C1) Unit 9</span></a></p>
+<br>
+<br>
+</body>
+</html>

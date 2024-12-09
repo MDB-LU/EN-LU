@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <input type="text" id="deutsch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+<button onclick="switchMode()">Lernmodus Wechseln</button>
+<button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"baker's": "Bäcker",
+"bookshop": "Buchladen",
+"butcher's": "Metzger",
+"chemist's": "Apotheke",
+"clothes shop": "Kleiderladen",
+"department store": "Kaufhaus",
+"florist's": "Florist",
+"gift shop": "Souvenirladen",
+"greengrocer's": "Gemüsehändler",
+"grocer's": "Lebensmittelhändler",
+"hardware shop": "Eisenwarenhandlung",
+"jeweller's": "Juwelier",
+"local corner shop": "lokaler Eckladen",
+"newsagent": "Kiosk",
+"sports shop": "Sportladen",
+"supermarket": "Supermarkt",
+"aisle": "Gang",
+"cashier": "Kassierer",
+"cash register": "Kasse",
+"counter": "Ladentheke",
+"checkout": "Kasse",
+"receipt": "Beleg",
+"shelves": "Regale",
+"shopping basket": "Einkaufskorb",
+"shopping trolley": "Einkaufswagen",
+"alcoholic drinks": "alkoholische Getränke",
+"bakery": "Bäckerei",
+"confectionery": "Konditorei",
+"dairy products": "Milchprodukte",
+"foodstuffs": "Nahrungsmittel",
+"freezer goods": "Gefrierwaren",
+"vegetables": "Gemüse",
+"fresh fruit": "frische Früchte",
+"meat": "Fleisch",
+"fish": "Fisch",
+"household goods": "Haushaltswaren",
+"own-brand products": "Eigenmarke",
+"pre-packed meat": "vorverpacktes Fleisch",
+"soft drinks": "Erfrischungsgetränke",
+"frozen": "gefroren",
+"toiletries": "Toilettenartikel",
+"well-known brands": "bekannte Marken",
+"a bargain": "ein Schnäppchen",
+"a discount": "ein Rabatt",
+"a guarantee": "eine Garantie",
+"a special offer": "ein Spezialangebot",
+"ask for a refund": "nach einer Rückerstattung fragen",
+"be faulty": "fehlerhaft sein",
+"be good value for": "preiswert sein",
+"money": "Geld",
+"past its sell date": "über dem Verkaufsdatum",
+"buy something on impulse": "etwas aus der Laune heraus kaufen",
+"have something in stock": "etwas auf Lager haben",
+"make a purchase": "einen Kauf tätigen",
+"apartment block": "Wohnblock",
+"building site": "Baustelle",
+"caravan site": "Campingplatz",
+"conservation area": "Naturschutzgebiet",
+"historic site": "historischer Ort",
+"housing estate": "Häuserkomplex",
+"industrial estate": "Gewerbegebiet",
+"in the city centre": "im Stadtzentrum",
+"leisure centre": "Freizeitzentrum",
+"local amenities": "Nahversorgung",
+"office block": "Bürogebäude",
+"one-way street": "Einbahnstrasse",
+"on the outskirts": "am Stadtrand",
+"rented": "gemietet",
+"accommodation": "Unterkunft",
+"residential area": "Siedlung",
+"rural area": "Landgebiet",
+"shopping centre": "Einkaufszentrum",
+"sports facilities": "Sportanlagen",
+"skyscraper": "Wolkenkratzer",
+"tower block": "Hochhaus",
+"within easy walking distance": "in Gehdistanz",
+"bustling": "umtriebig",
+"depressing": "deprimierend",
+"dull": "langweilig",
+"leafy": "belaubt",
+"lively": "lebhaft",
+"picturesque": "anschaulich",
+"pleasant": "angenehm",
+"prosperous": "blühend",
+"quaint": "idyllisch",
+"run-down": "heruntergekommen",
+"shabby": "schäbig",
+"vibrant": "lebhaft"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const deutsch = document.getElementById("deutsch").value.trim();
+            const englisch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[englisch];
+            const result = (deutsch.toLowerCase() === correctTranslation.toLowerCase()) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (deutsch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(englisch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(englisch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+            document.getElementById("deutsch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 7 B2 - MC.html";
+        }
+
+function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 7 B2 - TM.html";
+        }
+
+
+        // Set a random initial word
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="B2 Unit 7.docx" target="_blank"><span lang="en">Ready for First (B2) Unit 7</span></a></p>
+<br>
+<br>
+</body>
+</html>

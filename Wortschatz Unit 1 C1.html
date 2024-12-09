@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <input type="text" id="deutsch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+<button onclick="switchMode()">Lernmodus Wechseln</button>
+<button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"a problem": "ein Problem",
+"combat": "bekämpfen",
+"come up against": "treffen auf",
+"confront": "konfrontieren",
+"encounter": "begegnen",
+"face": "entgegentreten",
+"face up to something": "etwas ins Auge blicken",
+"resolve": "lösen",
+"rise above": "herauswachsen",
+"run into": "hineinrennen",
+"sort out": "beheben",
+"tackle": "angehen",
+"common": "häufig",
+"major": "bedeutend",
+"minor": "unbedeutend",
+"potential": "potenziell",
+"recurrent": "wiederkehrend",
+"serious": "ernsthaft",
+"tough": "hart",
+"trivial": "trivial",
+"unexpected": "unerwartet",
+"urgent": "dringend",
+"challenge": "Herausforderung",
+"accept": "akzeptieren",
+"pose": "darlegen",
+"present": "präsentieren",
+"take up": "anfangen",
+"daunting": "beängstigend",
+"exciting": "spannend",
+"formidable": "beeindruckend",
+"new": "neu",
+"motivation": "Motivation",
+"improve": "verbessern",
+"increase": "erhöhen",
+"lack": "Mangel",
+"lose": "verlieren",
+"strengthen": "verstärken",
+"strong": "stark",
+"poor": "arm",
+"personal": "persönlich",
+"political": "politisch",
+"staff": "Personal",
+"student": "Student",
+"success": "Erfolg",
+"achieve": "erreichen",
+"be assured of something": "sich etwas sicher sein",
+"deserve": "verdienen",
+"enjoy": "geniessen",
+"guarantee": "garantieren",
+"meet with": "sich treffen mit",
+"failure": "Versagen",
+"admit": "zugeben",
+"be doomed to": "verdammt sein",
+"be resigned to": "sich abfinden",
+"end in": "enden in",
+"result in": "resultieren in",
+"ambition": "Ehrgeiz",
+"burning": "brennend",
+"my greatest": "mein grösster",
+"lifelong": "lebenslang",
+"main": "haupt",
+"secret": "geheim",
+"complete": "komplett",
+"continued": "kontinuierlich",
+"dismal": "trostlos",
+"inevitable": "unvermeidbar",
+"total": "total",
+"achievement": "Erfolg",
+"great": "grossartig",
+"outstanding": "hervorragend",
+"remarkable": "bemerkenswert",
+"scientific": "wissenschaftlich",
+"sporting": "sportlich",
+"technological": "technologisch",
+"success": "Erfolg",
+"huge": "riesig",
+"overnight": "über Nacht",
+"resounding": "durchschlagend",
+"roaring": "tosend",
+"achieve": "erreichen",
+"fulfil": "erfüllen",
+"have": "haben",
+"pursue": "verfolgen",
+"realize": "realisieren"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const deutsch = document.getElementById("deutsch").value.trim();
+            const englisch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[englisch];
+            const result = (deutsch.toLowerCase() === correctTranslation.toLowerCase()) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (deutsch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(englisch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(englisch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+            document.getElementById("deutsch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 1 C1 - MC.html";
+        }
+
+function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 1 C1 - TM.html";
+        }
+
+        // Set a random initial word
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="C1 Unit 1.docx" target="_blank"><span lang="en">Ready for Advanced (C1) Unit 1</span></a></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <input type="text" id="deutsch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+<button onclick="switchMode()">Lernmodus Wechseln</button>
+<button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"eat up": "aufessen",
+"drink up": "austrinken",
+"wolf down": "herunterschlingen",
+"finish off": "fertig essen",
+"gulp": "schlucken",
+"munch": "mampfen",
+"nibble": "knabbern",
+"pick at": "herumstochern",
+"sip": "schlürfen",
+"swallow": "schlucken",
+"swig": "saufen",
+"favourite dish": "Lieblingsessen",
+"side dish": "Beilage",
+"soft drink": "Erfrischungsgetränk",
+"big eater": "guter Esser",
+"fussy eater": "heikler Esser",
+"be peckish": "hungrig",
+"a full stomach": "ein voller Bauch",
+"an empty stomach": "ein leerer Bauch",
+"eat into one's time": "Zeit auffressen",
+"eat like a bird": "nur wenig essen",
+"eat one's words": "zurücknehmen, was man gesagt hat",
+"feel faint with hunger": "ganz schwach vor Hunger sein",
+"hardly touch one's food": "das Essen kaum berühren",
+"have a sweet tooth": "eine Vorliebe für Süsses haben",
+"lose one's appetite": "den Appetit verlieren",
+"quench one's thirst": "den Durst stillen",
+"satisfy one's hunger": "den Hunger stillen",
+"work up an appetite": "sich hungrig spielen",
+"deceptive": "irreführend",
+"fraudulent claims": "unaufrichtige Anschuldigungen",
+"misleading impression": "irreführenden Eindruck",
+"misleading statement": "irreführendes Aussage",
+"deceptively easy": "täuschend einfach",
+"credit card fraud": "Kreditkartenbetrug",
+"fraud": "Betrug",
+"tax fraud": "Steuerbetrug",
+"be fooled by somebody": "von jemanden getäuscht werden",
+"be deceived by somebody": "sich von jemandem täuschen lassen",
+"be tricked by somebody": "von jemanden ausgetrickst werden",
+"cheat at something": "bei etwas betrügen",
+"deceive somebody into doing something": "jemanden dazu täuschen etwas zu tun",
+"fall for something": "auf etwas reinfallen",
+"see through somebody's lies": "durch die Lügen von jemandem sehen",
+"swindle": "schwindeln",
+"take somebody for a ride": "jemanden verarschen",
+"tell a lie": "eine Lüge erzählen",
+"acutely aware": "überaus bewusst",
+"bitterly disappointing": "bitter enttäuscht",
+"deeply suspicious": "hoch verdächtig",
+"deeply concerned": "zutiefst betroffen",
+"desperately worried": "hoffnungslos besorgt",
+"entirely different": "ganz anders",
+"entirely new": "ganz neu",
+"fully aware": "in voller Kenntnis",
+"fully equipped": "voll ausgestattet",
+"highly gifted": "hoch talentiert",
+"highly influential": "äusserst einflussreich",
+"hugely popular": "sehr populär",
+"perfectly capable": "absolut fähig",
+"perfectly acceptable": "absolut akzeptabel",
+"perfectly safe": "absolut sicher",
+"seriously injured": "ernsthaft verletzt",
+"seriously affected": "ernsthaft betroffen",
+"totally different": "total anders",
+"totally unnecessary": "total unnötig",
+"utterly disgraceful": "absolut beschämend",
+"utterly ridiculous": "absolut lächerlich",
+"wholly inadequate": "völlig unangemessen",
+"wholly unexpected": "völlig unerwartet"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const deutsch = document.getElementById("deutsch").value.trim();
+            const englisch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[englisch];
+            const result = (deutsch.toLowerCase() === correctTranslation.toLowerCase()) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (deutsch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(englisch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(englisch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+            document.getElementById("deutsch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 13 C1 - MC.html";
+        }
+
+function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 13 C1 - TM.html";
+        }
+
+        // Set a random initial word
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="C1 Unit 13.docx" target="_blank"><span lang="en">Ready for Advanced (C1) Unit 13</span></a></p>
+<br>
+<br>
+</body>
+</html>

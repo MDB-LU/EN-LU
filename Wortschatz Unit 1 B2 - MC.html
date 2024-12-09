@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        .option {
+            display: block;
+            margin: 5px 0;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <div id="options"></div>
+<br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+    <button onclick="switchMode()">Lernmodus Wechseln</button>
+    <button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"alternative": "Alternative",
+"busy": "beschäftigt",
+"chaotic": "chaotisch",
+"comfortable": "bequem",
+"exciting": "aufregend",
+"healthy": "gesund",
+"luxurious": "luxuriös",
+"quiet": "ruhig",
+"relaxing": "entspannend",
+"sedentary": "sitzend",
+"simple": "einfach",
+"stressful": "stressig",
+"belt": "Gürtel",
+"blazer": "Sportjacke",
+"blouse": "Bluse",
+"boots": "Stiefel",
+"bow-tie": "Fliege",
+"cap": "Kappe",
+"cardigan": "Strickjacke",
+"jacket": "Jacke",
+"dress": "Kleid",
+"evening dress": "Abendkleid",
+"fancy dress": "Ausgehkleid",
+"hat": "Hut",
+"helmet": "Helm",
+"high-heeled shoes": "hochhackige Schuhe",
+"jeans": "Jeans",
+"jumper": "Pullover",
+"sweater": "Pullover",
+"overcoat": "Mantel",
+"raincoat": "Regenmantel",
+"scarf": "Halstuch",
+"shirt": "Shirt",
+"shoes": "Schuhe",
+"shorts": "kurze Hosen",
+"skirt": "Rock",
+"slippers": "Pantoffeln",
+"socks": "Socken",
+"suit": "Anzug",
+"sweatshirt": "Trainingspullover",
+"swimming costume": "Badehose",
+"t-shirt": "T-Shirt",
+"tie": "Krawatte",
+"tights": "Strumpfhose",
+"top": "Top",
+"tracksuit": "Trainingsanzug",
+"trainers": "Turnschuhe",
+"trousers": "Hosen",
+"waistcoat": "Weste",
+"bracelet": "Armband",
+"brooch": "Brosche",
+"earrings": "Ohrringe",
+"necklace": "Halskette",
+"ring": "Ring",
+"checked": "kariert",
+"flowery": "blumig",
+"patterned": "gemustert",
+"plain": "schlicht",
+"spotted": "gepunktet",
+"striped": "gestreift",
+"baggy": "schlabbrig",
+"casual": "simpel",
+"colourful": "farbig",
+"designer": "Designer",
+"formal": "höflich",
+"long-sleeved": "langarm",
+"loose-fitting": "locker sitzend",
+"scruffy": "ungepflegt",
+"second-hand": "aus zweiter Hand",
+"shabby": "schäbig",
+"short-sleeved": "kurzarm",
+"sleeveless": "ärmellos",
+"smart": "modisch",
+"tasteful": "geschmackvoll",
+"tight-fitting": "eng anliegend",
+"trendy": "trendig",
+"fashionable": "modisch",
+"waterproof": "wasserfest",
+"worn out": "ausgelaufen",
+"cotton": "Baumwolle",
+"denim": "Jeansstoff",
+"leather": "Leder",
+"silk": "Seide",
+"woollen": "wollig",
+"dress up as": "sich verkleiden als",
+"fit": "passend",
+"get dressed": "sich anziehen",
+"go with": "gehen mit",
+"match": "passen",
+"put on": "anziehen",
+"suit": "passen",
+"take off": "ausziehen",
+"wear": "tragen",
+"audience": "Publikum",
+"bride": "Braut",
+"candidate": "Kandidat",
+"competitor": "Wettstreiter",
+"doctor": "Doktor",
+"groom": "Bräutigam",
+"guest": "Gast",
+"host": "Gastgeber",
+"invigilator": "Aufsicht",
+"opponent": "Gegner",
+"patient": "Patient",
+"performer": "Darsteller",
+"spectator": "Zuschauer",
+"star": "Star",
+"witness": "Zeuge"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+        let usedWords = [];
+        let wordList = Object.keys(wörterbuch);
+
+        function getRandomWord() {
+            if (wordList.length === 0) {
+                // Reset the word list if all words have been used
+                wordList = Object.keys(wörterbuch);
+                usedWords = [];
+            }
+
+            const randomIndex = Math.floor(Math.random() * wordList.length);
+            const word = wordList.splice(randomIndex, 1)[0];
+            usedWords.push(word);
+
+            return word;
+        }
+
+        function getRandomOptions(correctTranslation) {
+            const translations = Object.values(wörterbuch);
+            const options = new Set([correctTranslation]);
+
+            while (options.size < 4) {
+                const randomTranslation = translations[Math.floor(Math.random() * translations.length)];
+                options.add(randomTranslation);
+            }
+
+            return Array.from(options);
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+            }
+            return array;
+        }
+
+        function displayOptions(correctTranslation) {
+            const options = getRandomOptions(correctTranslation);
+            const shuffledOptions = shuffleArray(options); // Shuffle options
+            const optionsContainer = document.getElementById('options');
+
+            optionsContainer.innerHTML = ''; // Clear previous options
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option, correctTranslation);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption, correctTranslation) {
+            const result = (selectedOption === correctTranslation) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (selectedOption === correctTranslation) {
+                correctCount++;
+                correctWords.push(document.getElementById("wordToTranslate").textContent.trim());
+            } else {
+                incorrectCount++;
+                incorrectWords.push(document.getElementById("wordToTranslate").textContent.trim());
+            }
+
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            const englisch = getRandomWord();
+            const correctTranslation = wörterbuch[englisch];
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${englisch}</span>`;
+            displayOptions(correctTranslation);
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 1 B2.html";
+        }
+
+        function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 1 B2 - TM.html";
+        }
+
+
+        // Initiales Setzen der Frage
+        nextQuestion();
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="B2 Unit 1.docx" target="_blank"><span lang="en">Ready for First (B2) Unit 1</span></a></p>
+<br>
+<br>
+</body>
+</html>

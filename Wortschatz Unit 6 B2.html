@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <input type="text" id="deutsch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+<button onclick="switchMode()">Lernmodus Wechseln</button>
+<button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"adventurous": "abenteuerlich",
+"affectionate": "liebevoll",
+"ambitious": "ehrgeizig",
+"bad-tempered": "schlecht gelaunt",
+"bossy": "rechthaberisch",
+"brave": "mutig",
+"calm": "ruhig",
+"caring": "fürsorglich",
+"cheerful": "fröhlich",
+"clumsy": "tollpatschig",
+"confident": "selbstbewusst",
+"creative": "kreativ",
+"decisive": "entscheidungsfreudig",
+"determined": "entschlossen",
+"dull": "langweilig",
+"easy-going": "gelassen",
+"energetic": "energetisch",
+"enthusiastic": "enthusiastisch",
+"even-tempered": "ausgeglichen",
+"fair": "fair",
+"foolish": "albern",
+"fussy": "kleinlich",
+"generous": "grosszügig",
+"hardworking": "hart arbeitend",
+"honest": "ehrlich",
+"kind": "nett",
+"lazy": "faul",
+"lively": "lebhaft",
+"loyal": "loyal",
+"mature": "erwachsen",
+"mean": "gemein",
+"miserable": "unglücklich",
+"moody": "launisch",
+"nervous": "nervös",
+"outgoing": "kontaktfreudig",
+"patient": "geduldig",
+"polite": "höflich",
+"practical": "praktisch",
+"reliable": "verlässlich",
+"reserved": "reserviert",
+"responsible": "verantwortungsbewusst",
+"rude": "gemein",
+"selfish": "eigensinnig",
+"selfless": "selbstlos",
+"sensible": "vernünftig",
+"sensitive": "sensibel",
+"shy": "schüchtern",
+"silly": "dumm",
+"sincere": "aufrichtig",
+"sociable": "gesellig",
+"stubborn": "stur",
+"sweet-tempered": "gutmütig",
+"talkative": "gesprächig",
+"tolerant": "tolerant",
+"curly": "lockig",
+"dyed": "gefärbt",
+"shoulder-length": "schulterlang",
+"straight": "gerade",
+"thinning": "verdünnen",
+"untidy": "verstrubbelt",
+"wavy": "wellig",
+"be bald": "eine Glatze haben",
+"have a beard": "einen Bart haben",
+"expressive": "ausdrucksstark",
+"freckled": "sommersprossig",
+"round": "rund",
+"smiling": "lachend",
+"tanned": "gebräunt",
+"wrinkled": "faltig",
+"dark": "dunkel",
+"healthy": "gesund",
+"pale": "blass",
+"smooth": "weich",
+"spotty": "pickelig",
+"overweight": "übergewichtig",
+"plump": "mollig",
+"thin": "dünn",
+"slim": "schlank",
+"skinny": "mager",
+"stocky": "stämmig",
+"well-built": "gutgebaut"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const deutsch = document.getElementById("deutsch").value.trim();
+            const englisch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[englisch];
+            const result = (deutsch.toLowerCase() === correctTranslation.toLowerCase()) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (deutsch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(englisch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(englisch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+            document.getElementById("deutsch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 6 B2 - MC.html";
+        }
+
+function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 6 B2 - TM.html";
+        }
+
+
+        // Set a random initial word
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="B2 Unit 6.docx" target="_blank"><span lang="en">Ready for First (B2) Unit 6</span></a></p>
+<br>
+<br>
+</body>
+</html>
