@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Simple - Irregular Verbs</title>
+</head>
+<body>
+
+	<p><h1>Past Simple - Irregular Verbs</h1></p>
+	<p>In the Past Simple, there are regular and irregular verbs. In this lesson, we will focus on the irregular ones.</p>
+<br>
+	<p><h2>Be -<span lang=de> Das Verb "sein"</span></h2></p>
+	<p>The verb <strong>be</strong> is one of the most important verbs in English. It is also the only verb in the Past Simple, that has two different forms.</p>
+	<p>I was</p>
+	<p>You were</p>
+	<p>He was / She was / It was</p>
+	<p>We were</p>
+	<p>You were</p>
+	<p>They were</p>	
+<br>
+	<p><h2>Do</h2></p>
+	<p>The verb <strong>do</strong> is another important verb in English. It is often used as an auxiliary verb if we want to make questions or negative sentences.</p>
+	<p>The Past Simple of <strong>do</strong> is <strong>did</strong>. It is the same in every person.</p>
+<br>
+	<p><h2>Have</h2></p>
+	<p>The verb <strong>have</strong> is the third important verb in English. It can also be used as an auxiliary verb, especially in the Perfect tenses.</p>
+	<p>The Past Simple of <strong>have</strong> is <strong>had</strong>. It is the same in every person.</p>
+<br>
+	<p><h2>Irregular Verb List</h2></p>
+	<p>Download the following document in which you will find a list of the most common irregular verbs in the Past Simple. Go through the list and learn the base form (infinitive) and the Past Simple form before you continue with this lesson.</p>
+	<p><a href="Past Simple - Irregular Verb List.docx" target="_blank">Past Simple - Irregular Verb List</a></p>
+<br>
+	<p><h2>Practice</h2></p>
+	<p>Before you take on the quizzes, make sure you have looked at the Irregular Verb List.</p>
+	
+
+	<p><h3>Quiz 1</h3></p>
+	<p>1. Select the Past Simple form of the verb <strong>tell</strong>:</p>
+	<input type="radio" name="Q1" lang="de">telled
+	<input type="radio" name="Q1" id="correct1" lang="de">told
+	<input type="radio" name="Q1" lang="de">telt
+
+	<p>2. Select the Past Simple form of the verb <strong>drink</strong>:</p>
+	<input type="radio" name="Q2" id="correct2" lang="de">drank
+	<input type="radio" name="Q2" lang="de">drunk
+	<input type="radio" name="Q2" lang="de">dronk
+
+	<p>3. Select the Past Simple form of the verb <strong>become</strong>:</p>
+	<input type="radio" name="Q3" lang="de">become
+	<input type="radio" name="Q3" lang="de">becomed
+	<input type="radio" name="Q3" id="correct3" lang="de">became
+
+	<p>4. Select the Past Simple form of the verb <strong>forget</strong>:</p>
+	<input type="radio" name="Q4" lang="de">forgetted
+	<input type="radio" name="Q4" id="correct4" lang="de">forgot
+	<input type="radio" name="Q4" lang="de">forgotten
+
+	<p>5. Select the Past Simple form of the verb <strong>wear</strong>:</p>
+	<input type="radio" name="Q5" lang="de">wared
+	<input type="radio" name="Q5" lang="de">worn
+	<input type="radio" name="Q5" id="correct5" lang="de">wore<br>
+<br>
+<input type="button" value="Antworten prüfen" onclick="result1()" lang="de">
+
+<script type="text/javascript">
+    function result1() {
+        var score = 0;
+
+        if (document.getElementById('correct1').checked) {
+            score++;
+        }
+        if (document.getElementById('correct2').checked) {
+            score++;
+        }
+        if (document.getElementById('correct3').checked) {
+            score++;
+        }
+        if (document.getElementById('correct4').checked) {
+            score++;
+        }
+        if (document.getElementById('correct5').checked) {
+            score++;
+        }
+        alert("Richtige Antworten: " + score);
+    }
+</script>
+<br>
+	<p><h3>Quiz 2</h3></p>
+	<p>Write down the Past Simple forms of the following verbs.</p>
+
+        <p>1. know</p>
+	<input type="text" id="know"> 
+        <button onclick="toggleSolution('know')" lang="de">Lösung anzeigen</button>
+    	<div id="know_solution" style="display: none;">knew</div>
+<br>
+	<p>2. run</p>
+	<input type="text" id="run"> 
+        <button onclick="toggleSolution('run')" lang="de">Lösung anzeigen</button>
+	<div id="run_solution" style="display: none;">ran</div>
+<br>
+	<p>3. buy</p>
+	<input type="text" id="buy">
+        <button onclick="toggleSolution('buy')" lang="de">Lösung anzeigen</button>
+	<div id="buy_solution" style="display: none;">bought</div>
+<br>
+	<p>4. hold</p>
+	<input type="text" id="hold"> 
+        <button onclick="toggleSolution('hold')" lang="de">Lösung anzeigen</button>
+	<div id="hold_solution" style="display: none;">held</div>
+<br>
+	<p>5. grow</p>
+	<input type="text" id="grow"> 
+        <button onclick="toggleSolution('grow')" lang="de">Lösung anzeigen</button>
+	<div id="grow_solution" style="display: none;">grew</div>
+<br>
+    <script>
+        function toggleSolution(id) {
+            var solution = document.getElementById(id + "_solution");
+            if (solution.style.display === "none") {
+                solution.style.display = "inline";
+            } else {
+                solution.style.display = "none";
+            }
+        }
+    </script>
+<br>
+	<p><h3>Quiz 3</h3></p>
+	<p>Choose the correct sentence.</p>
+	<p>1.</p>
+	<input type="radio" name="Q11" lang="de">I go for a walk yesterday.
+	<input type="radio" name="Q11" id="correct11" lang="de">I went for a walk yesterday.
+
+	<p>2.</p>
+	<input type="radio" name="Q22" id="correct22" lang="de">Last year, I bought a new house.
+	<input type="radio" name="Q22" lang="de">Last year, I buyed a new house.
+
+	<p>3.</p>
+	<input type="radio" name="Q33" lang="de">He plays the guitar when he was young.
+	<input type="radio" name="Q33" id="correct33" lang="de">He played the guitar every day when he was young.
+
+	<p>4.</p>
+	<input type="radio" name="Q44" lang="de">My girlfriend and I was in Canada last February.
+	<input type="radio" name="Q44" id="correct44" lang="de">My girlfirend and I were in Canada last February.
+
+	<p>5.</p>
+	<input type="radio" name="Q55" id="correct55" lang="de">I came, I saw, I conquered.
+	<input type="radio" name="Q55" lang="de">I come, I seen, I conquert.
+<br>
+<br>
+<input type="submit" name="Antworten prüfen" value="Antworten prüfen" onclick="result2()" lang="de">
+
+<script type="text/javascript" lang="de">
+	var score=0;
+	function result2() {
+	if (document.getElementById('correct11').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct22').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct33').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct44').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct55').checked)
+	{
+	score++;
+	}
+	alert("Richtige Antworten:"+score);
+	}
+</script>
+<br>	
+<br>
+<p>You have reached the end of this lesson. If you want to find out, how we make questions or negative sentences in the Past Simple, then click the respective link.</p>
+<p><a href="Past Simple - Questions.html" target="_blank">Past Simple - Fragen</a></p>
+<p><a href="Past Simple - Negatives.html" target="_blank">Past Simple - Negativ</a></p>
+<br>
+	<p><h2>Test</h2></p>
+	<p>If you would like to do a test about the Past Simple (regular and irregular verbs), you can click the following link. The test will give you instant feedback.</p>
+	<p><a href="Tests - Past Simple.html" target="_blank" lang="de">Test Past Simple</a></p>
+<br>
+</body>
+</html>

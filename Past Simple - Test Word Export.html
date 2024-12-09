@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Simple - Test</title>
+</head>
+
+<body>
+    <h2>Past Simple - Test</h2>
+    <form id="pastSimpleForm">
+        <span lang="en"><label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <p><h2>Exercise 1:</h2></p>
+        <label for="Q1">1. What is the auxiliary verb in the Past Simple if we want to make a negative sentence?</label><br>
+        <select id="Q1" name="Q1">
+            <option value="don't">don't</option>
+            <option value="doesn't">doesn't</option>
+            <option value="didn't">didn't</option>
+            <option value="hadn't">hadn't</option>
+            <option value="aren't">aren't</option>
+        </select><br><br>
+
+        <label for="Q2">2. What auxiliary verb do we use in most questions in the Past Simple?</label><br>
+        <select id="Q2" name="Q2">
+            <option value="do">do</option>
+            <option value="does">does</option>
+            <option value="did">did</option>
+            <option value="have">have</option>
+            <option value="are">are</option>
+        </select><br><br>
+
+        <p><h2>Exercise 2:</h2></p>
+        <label for="Q3">3. Select the Past Simple form of the verb <strong>keep</strong>:</label><br>
+        <input type="radio" id="Q3" name="Q3" value="keeped" lang="de">keeped
+        <input type="radio" id="Q3" name="Q3" value="kept" lang="de">kept
+        <input type="radio" id="Q3" name="Q3" value="keept" lang="de">keept<br><br>
+
+        <label for="Q4">4. Select the Past Simple form of the verb <strong>sing</strong>:</label><br>
+        <input type="radio" id="Q4" name="Q4" value="sang" lang="de">sang
+        <input type="radio" id="Q4" name="Q4" value="sung" lang="de">sung
+        <input type="radio" id="Q4" name="Q4" value="song" lang="de">song<br><br>
+
+        <label for="Q5">5. Select the Past Simple form of the verb <strong>write</strong>:</label><br>
+        <input type="radio" id="Q5" name="Q5" value="wrote" lang="de">wrote
+        <input type="radio" id="Q5" name="Q5" value="written" lang="de">written
+        <input type="radio" id="Q5" name="Q5" value="writed" lang="de">writed<br><br>
+
+        <label for="Q6">6. Select the Past Simple form of the verb <strong>know</strong>:</label><br>
+        <input type="radio" id="Q6" name="Q6" value="known" lang="de">known
+        <input type="radio" id="Q6" name="Q6" value="knew" lang="de">knew
+        <input type="radio" id="Q6" name="Q6" value="knows" lang="de">knows<br><br>
+
+        <p><h2>Exercise 3:</h2></p>
+        <p>Write down the Past Simple forms of the following verbs.</p>
+        <label for="Q7">7. catch</label><br>
+        <input type="text" id="Q7" name="Q7"><br><br>
+
+        <label for="Q8">8. drive</label><br>
+        <input type="text" id="Q8" name="Q8"><br><br>
+
+        <label for="Q9">9. spend</label><br>
+        <input type="text" id="Q9" name="Q9"><br><br>
+
+        <label for="Q10">10. fly</label><br>
+        <input type="text" id="Q10" name="Q10"><br><br>
+
+        <p><h2>Exercise 4:</h2></p>
+        <label for="Q11">Write a text about your last holiday. In your text, you should answer these questions.<br>
+	<p>Where were you? How long were you there for? What did you do there? Did you go alone or with someone else? Would you like to go there again?</p>
+        <span lang="en"><textarea id="Q11" name="Q11" rows="4" cols="50"></textarea></span><br><br>
+
+<p>You have reached the end of the test. If you press the following button, your answers will be downloaded into a Word document. Send this Word document to Mr Du Buisson (marc.dubuisson@sibu.ch)</p>
+<br>
+
+        <span lang="de"><input type="button" value="Antworten als Word-Datei herunterladen" onclick="saveToWord()"></span>
+    </form>
+
+    <script>
+    function saveToWord() {
+        var name = document.getElementById("name").value;
+        if (!name) {
+            alert("Bitte geben Sie Ihren Namen ein.");
+            return;
+        }
+
+        // Antworten für Exercise 1
+        var Q1 = document.getElementById("Q1").value || "Nicht beantwortet";
+        var Q2 = document.getElementById("Q2").value || "Nicht beantwortet";
+
+        // Antworten für Exercise 2
+        var Q3 = document.querySelector('input[name="Q3"]:checked') ? document.querySelector('input[name="Q3"]:checked').value : "Nicht beantwortet";
+        var Q4 = document.querySelector('input[name="Q4"]:checked') ? document.querySelector('input[name="Q4"]:checked').value : "Nicht beantwortet";
+        var Q5 = document.querySelector('input[name="Q5"]:checked') ? document.querySelector('input[name="Q5"]:checked').value : "Nicht beantwortet";
+        var Q6 = document.querySelector('input[name="Q6"]:checked') ? document.querySelector('input[name="Q6"]:checked').value : "Nicht beantwortet";
+
+        // Antworten für Exercise 3
+        var Q7 = document.getElementById("Q7").value || "Nicht beantwortet";
+        var Q8 = document.getElementById("Q8").value || "Nicht beantwortet";
+        var Q9 = document.getElementById("Q9").value || "Nicht beantwortet";
+        var Q10 = document.getElementById("Q10").value || "Nicht beantwortet";
+
+        // Antwort für Exercise 4
+        var Q11 = document.getElementById("Q11").value || "Nicht beantwortet";
+
+        // Erstelle den Inhalt für die Word-Datei
+        var content = "Name: " + name + "\n\n";
+
+        content += "Exercise 1:\n";
+        content += "1. What is the auxiliary verb in the Past Simple if we want to make a negative sentence? " + Q1 + "\n";
+        content += "2. What auxiliary verb do we use in most questions in the Past Simple? " + Q2 + "\n\n";
+
+        content += "Exercise 2:\n";
+        content += "3. keep: " + Q3 + "\n";
+        content += "4. sing: " + Q4 + "\n";
+        content += "5. write: " + Q5 + "\n";
+        content += "6. know: " + Q6 + "\n\n";
+
+        content += "Exercise 3:\n";
+        content += "7. catch: " + Q7 + "\n";
+        content += "8. drive: " + Q8 + "\n";
+        content += "9. spend: " + Q9 + "\n";
+        content += "10. fly: " + Q10 + "\n\n";
+
+        content += "Exercise 4:\n";
+        content += Q11 + "\n";
+
+        // Erstelle eine Blob mit dem Inhalt
+        var blob = new Blob([content], {type: 'application/msword'});
+
+        // Erstelle einen Download-Link
+        var downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = 'Past_Simple_Test_Answers.doc';
+        downloadLink.click();
+    }
+    </script>
+</body>
+</html>

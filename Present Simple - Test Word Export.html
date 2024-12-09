@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Simple - Test</title>
+</head>
+<body>
+    <p><h2>Present Simple - Test</h2></p>
+    <form id="myForm">
+        <span lang="en"><label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <p><h2>Exercise 1:</h2></p>
+        <label for="Q1"></label><br>1. In the Present Simple, we can use the base form (infinitive) of the verb in every person except one. Which one?
+        <br><br>
+        <input type="radio" id="Q1" name="Q1" value="first person singular" lang="de"><label>first person singular</label>
+        <input type="radio" id="Q1" name="Q1" value="second person plural" lang="de"><label>second person plural</label>
+        <input type="radio" id="Q1" name="Q1" value="third person singular" lang="de"><label>third person singular</label><br><br>
+
+        <label for="Q2"></label><br>2. Which letter do we have to add to the end of the verb in the third person singular?
+        <br><br>
+        <input type="radio" id="Q2" name="Q2" value="d" lang="de"><label>d</label>
+        <input type="radio" id="Q2" name="Q2" value="s" lang="de"><label>s</label>
+        <input type="radio" id="Q2" name="Q2" value="y" lang="de"><label>y</label><br><br>
+
+        <label for="Q3"></label><br>3. Which auxiliary verbs do we need in negative sentences and questions in the third person singular?
+        <br><br>
+        <input type="radio" id="Q3" name="Q3" value="do and don't" lang="de"><label>do and don't</label>
+        <input type="radio" id="Q3" name="Q3" value="does and doesn't" lang="de"><label>does and doesn't</label>
+        <input type="radio" id="Q3" name="Q3" value="did and didn't" lang="de"><label>did and didn't</label><br><br>
+
+        <p><h2>Exercise 2:</h2></p>
+        <p>Write down the correct form of the verb given.</p>
+
+        <label for="Q4"><p>Example:</p>
+        <p>4. eat</p></label>
+        <p>My brother <strong>EATS</strong> a lot.<br><br>
+
+        <label for="Q5">5. stay</label><br>
+        <p>We always <input type="text" id="Q5" name="Q5"> in a hotel when we are on holiday.</p><br>
+
+        <label for="Q6">6. fight</label><br>
+        <p>Tom and Jerry <input type="text" id="Q6" name="Q6"> all the time.</p><br>
+
+        <label for="Q7">7. buy</label><br>
+        <p>Jennifer always <input type="text" id="Q7" name="Q7"> new clothes.</p><br>
+
+        <label for="Q8">8. play</label><br>
+        <p>Does he <input type="text" id="Q8" name="Q8"> computer games?</p><br>
+
+        <label for="Q9">9. live</label><br>
+        <p>My parents <input type="text" id="Q9" name="Q9"> in a big house.</p><br>
+
+        <label for="Q10">10. like</label><br>
+        <p>My sister <input type="text" id="Q10" name="Q10"> chocolate.</p><br>
+
+        <p><h2>Exercise 3:</h2></p>
+        <label for="Q11">Write a text about your best friend. In your text, you should answer these questions:
+        <p>What is your best friend's name? Why is this person your best friend? What does your best friend like to do? What are the hobbies of your best friend?</p></label><br>
+        <textarea id="Q11" name="Q11" rows="4" cols="50"></textarea><br><br>
+
+        <p><h2>Exercise 4:</h2></p>
+        <p>Choose the correct auxiliary verb.</p>
+
+        <label for="Q12">12.</label><br>
+        <select id="Q12" name="Q12">
+            <option value="Do">Do</option>
+            <option value="Does">Does</option>
+        </select> you like tennis?<br><br>
+
+        <label for="Q13">13.</label><br>
+        <select id="Q13" name="Q13">
+            <option value="Do">Do</option>
+            <option value="Does">Does</option>
+        </select> your brother have a girlfriend?<br><br>
+
+        <label for="Q14">14.</label><br>
+        My father 
+        <select id="Q14" name="Q14">
+            <option value="don't">don't</option>
+            <option value="doesn't">doesn't</option>
+        </select> eat meat.<br><br>
+
+        <label for="Q15">15.</label><br>
+        The bookshop in the centre of town
+        <select id="Q15" name="Q15">
+            <option value="don't">don't</option>
+            <option value="doesn't">doesn't</option>
+        </select> sell comic books.<br><br>
+
+        <label for="Q16">16.</label><br>
+        Her parents 
+        <select id="Q16" name="Q16">
+            <option value="don't">don't</option>
+            <option value="doesn't">doesn't</option>
+        </select> leave the house a lot.<br><br>
+<br>
+<p>You have reached the end of the test. If you press the following button, your answers will be downloaded into a Word document. Send this Word document to Mr Du Buisson (marc.dubuisson@sibu.ch)</p>
+<br>
+        <span lang="de"><input type="button" value="Antworten als Word-Datei herunterladen" onclick="saveToWord()"></span>
+    </form>
+<br>
+
+<script>
+function saveToWord() {
+    var name = document.getElementById("name").value;
+    if (!name) {
+        alert("Bitte geben Sie Ihren Namen ein.");
+        return;
+    }
+
+    // Antworten für Exercise 1
+    var Q1 = document.querySelector('input[name="Q1"]:checked') ? document.querySelector('input[name="Q1"]:checked').value : "Not answered";
+    var Q2 = document.querySelector('input[name="Q2"]:checked') ? document.querySelector('input[name="Q2"]:checked').value : "Not answered";
+    var Q3 = document.querySelector('input[name="Q3"]:checked') ? document.querySelector('input[name="Q3"]:checked').value : "Not answered";
+
+    // Antworten für Exercise 2
+    var Q5 = document.getElementById("Q5").value || "Not answered";
+    var Q6 = document.getElementById("Q6").value || "Not answered";
+    var Q7 = document.getElementById("Q7").value || "Not answered";
+    var Q8 = document.getElementById("Q8").value || "Not answered";
+    var Q9 = document.getElementById("Q9").value || "Not answered";
+    var Q10 = document.getElementById("Q10").value || "Not answered";
+
+    // Antwort für Exercise 3
+    var Q11 = document.getElementById("Q11").value || "Not answered";
+
+    // Antworten für Exercise 4
+    var Q12 = document.getElementById("Q12").value || "Not answered";
+    var Q13 = document.getElementById("Q13").value || "Not answered";
+    var Q14 = document.getElementById("Q14").value || "Not answered";
+    var Q15 = document.getElementById("Q15").value || "Not answered";
+    var Q16 = document.getElementById("Q16").value || "Not answered";
+
+    // Erstelle den Inhalt für die Word-Datei
+    var content = "Name: " + name + "\n\n";
+    
+    content += "Exercise 1:\n";
+    content += "1. In the Present Simple, we can use the base form (infinitive) of the verb in every person except one. Which one? " + Q1 + "\n";
+    content += "2. Which letter do we have to add to the end of the verb in the third person singular? " + Q2 + "\n";
+    content += "3. Which auxiliary verbs do we need in negative sentences and questions in the third person singular? " + Q3 + "\n\n";
+
+    content += "Exercise 2:\n";
+    content += "5. stay: We always " + Q5 + " in a hotel when we are on holiday.\n";
+    content += "6. fight: Tom and Jerry " + Q6 + " all the time.\n";
+    content += "7. buy: Jennifer always " + Q7 + " new clothes.\n";
+    content += "8. play: Does he " + Q8 + " play computer games?\n";
+    content += "9. live: My parents " + Q9 + " in a big house.\n";
+    content += "10. like: My sister " + Q10 + " chocolate.\n\n";
+
+    content += "Exercise 3:\n";
+    content += Q11 + "\n\n";
+
+    content += "Exercise 4:\n";
+    content += "12. " + Q12 + " you like tennis?\n";
+    content += "13. " + Q13 + " your brother have a girlfriend?\n";
+    content += "14. My father " + Q14 + " eat meat.\n";
+    content += "15. The bookshop in the centre of town " + Q15 + " sell comic books.\n";
+    content += "16. Her parents " + Q16 + " leave the house a lot.\n";
+
+    // Erstelle eine Blob mit dem Inhalt
+    var blob = new Blob([content], {type: 'application/msword'});
+
+    // Erstelle einen Download-Link
+    var downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = 'Present_Simple_Test_Answers.doc';
+    downloadLink.click();
+}
+</script>
+
+</body>
+</html>
