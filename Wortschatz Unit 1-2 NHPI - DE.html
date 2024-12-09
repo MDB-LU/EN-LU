@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+            "geniessen": "enjoy",
+            "einen Abschluss machen": "graduate",
+            "Übersetzer": "translator",
+            "jedenfalls": "anyway",
+            "tragen": "wear",
+            "Lieferwagen": "van",
+            "austragen": "deliver",
+            "Unterschied": "difference",
+            "unterschiedlich": "different",
+            "Art und Weise": "way",
+            "Mitteilung": "message",
+            "einschliesslich": "including",
+            "austauschen": "exchange",
+            "Geräusch": "sound",
+            "zeigen": "show",
+            "Zorn": "anger",
+            "verglichen mit": "compared to",
+            "Poesie": "poetry",
+            "einen Witz erzählen": "tell a joke",
+            "ein Versprechen geben": "make a promise",
+            "erklären": "explain",
+            "überzeugen": "persuade",
+            "die Wahrheit sagen": "tell the truth",
+            "lügen": "tell lies",
+            "wichtig": "important",
+            "Entwicklung": "development",
+            "antik": "ancient",
+            "Gesellschaft": "society",
+            "verwandeln": "transform",
+            "öffentliche Rede": "public speaking",
+            "entwickeln": "develop",
+            "einzigartig": "unique",
+            "Regierung": "government",
+            "abhängig von": "depend on",
+            "Jahrhundert": "century",
+            "riesig": "huge",
+            "Einfluss": "influence",
+            "unendlich": "infinite",
+            "erwähnen": "mention",
+            "menschlich": "human",
+            "passieren": "happen",
+            "einziehen": "move into",
+            "einladen": "invite",
+            "sich vorstellen": "introduce",
+            "gehören zu": "belong to",
+            "Bevölkerung": "population",
+            "nur": "just",
+            "hauptsächlich": "mainly",
+            "Herkunft": "descent",
+            "Ureinwohner": "Aborigine",
+            "Klima": "climate",
+            "berühmt": "famous",
+            "entweder … oder": "either ... or",
+            "Haustier": "pet",
+            "Beruf": "occupation",
+            "sich fertig machen": "get ready",
+            "Hinterhof": "backyard",
+            "beinahe": "nearly",
+            "Nachkömmling": "descendant",
+            "Verwandte": "relative",
+            "erfolgreich": "successful",
+            "Zögern": "hesitation",
+            "sicherlich": "certainly",
+            "nehmen": "take",
+            "Gelegenheit": "opportunity",
+            "sich anschliessen": "join",
+            "entscheiden": "decide",
+            "fremd": "strange",
+            "Tatsache": "fact",
+            "Unabhängigkeit": "independence",
+            "Entscheidungen treffen": "make decisions",
+            "ähnlich wie": "similar to",
+            "öffentliche Verkehrsmittel": "public transportation",
+            "Platz": "space",
+            "Garten": "yard",
+            "überfüllt": "crowded",
+            "gemeinsam": "in common",
+            "Mitglied": "member",
+            "vermissen": "miss",
+            "im Ausland": "abroad",
+            "Ausländer": "foreigner",
+            "jemanden verrückt machen": "drive somebody mad",
+            "jemanden ärgern": "annoy somebody",
+            "unordentlich": "untidy",
+            "pünktlich": "on time",
+            "ärgerlich": "annoying",
+            "Gewohnheit": "habit",
+            "aufräumen": "tidy up",
+            "Unordnung": "mess",
+            "feucht": "wet",
+            "schrecklich": "horrible",
+            "unglücklich": "miserable",
+            "sich gewöhnen an": "get used to",
+            "Spion": "spy"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 1-2 NHPI - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 1-2 NHPI - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="Unit 1-2 NHPI.docx" target="_blank"><span lang="en">New Headway Pre-Intermediate Units 1-2</span></a></p>
+<br>
+<br>
+</body>
+</html>

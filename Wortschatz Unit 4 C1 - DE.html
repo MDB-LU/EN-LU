@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+  "im Gesicht geschrieben sein": "written all over one's face",
+  "Fuss fassen": "find one's feet",
+  "mit dem falschen Fuss aufstehen": "get off on the wrong foot",
+  "aus dem Ruder laufen": "get out of hand",
+  "jemanden die kalte Schulter zeigen": "give somebody the cold shoulder",
+  "über jemandes Horizont gehen": "go over somebody's head",
+  "mit weichen Knien": "go weak at the knees",
+  "einen Kopf haben fürs Geschäft": "have a good head for business",
+  "die Ohren aufsperren": "keep one's ear to the ground",
+  "mit jemandem einer Meinung sein": "see eye to eye with somebody",
+  "aus dem Stehgreif": "off the top of one's head",
+  "jemanden ausfragen": "pick somebody's brains",
+  "mit dem Finger auf jemanden zeigen": "point the finger at somebody",
+  "hinter ihrem Rücken reden": "talk about somebody behind their back",
+  "ein Auge zudrücken": "turn a blind eye to something",
+  "Zeit zuweisen": "allocate time",
+  "unter Zeitdruck stehen": "be pressed for time",
+  "Zeit widmen": "devote time",
+  "Zeit finden": "find time",
+  "Zeit freimachen": "free up time",
+  "Zeit investieren": "invest time",
+  "Zeit totschlagen": "kill time",
+  "Zeit managen": "manage time",
+  "in Zeitnot geraten": "run out of time",
+  "Zeit beiseitelegen": "put aside time",
+  "Zeit auffressen": "take up time",
+  "Zeit vergeuden": "waste time",
+  "Freizeit": "free time",
+  "Freizeit": "spare time",
+  "Halbzeit": "half-time",
+  "Ankunft": "arrival",
+  "Abfahrt": "departure",
+  "Öffnung": "opening",
+  "Schliessung": "closing",
+  "Ernte": "harvest",
+  "sich freinehmen": "take time off work",
+  "die Zeit ist gegen dich": "time is against you",
+  "eine Frage der Zeit": "a matter of time",
+  "für sich Zeit nehmen": "make time for oneself",
+  "in der vorhandenen Zeit": "in the time available"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 4 C1 - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 4 C1 - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="C1 Unit 4.docx" target="_blank"><span lang="en">Ready for Advanced (C1) Unit 4</span></a></p>
+<br>
+<br>
+</body>
+</html>

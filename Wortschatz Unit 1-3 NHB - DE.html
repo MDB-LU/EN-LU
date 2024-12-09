@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+            "und": "and",
+    "Tasche": "bag",
+    "Buch": "book",
+    "Kamera": "camera",
+    "Auto": "car",
+    "Computer": "computer",
+    "gut": "fine",
+    "Hamburger": "hamburger",
+    "Hallo": "hello",
+    "Haus": "house",
+    "Wie geht es dir?": "How are you?",
+    "mein": "my",
+    "Name": "name",
+    "Nummer": "number",
+    "Foto": "photograph",
+    "Student": "student",
+    "Fernseher": "television",
+    "Danke": "thank you",
+    "dieser": "this",
+    "sehr gut": "very well",
+    "was": "what",
+    "dein": "your",
+    "Zentrum": "centre",
+    "Stadt": "city",
+    "Land": "country",
+    "Arzt": "doctor",
+    "von": "from",
+    "ihr": "her",
+    "sein": "his",
+    "Krankenhaus": "hospital",
+    "in": "in",
+    "es": "it",
+    "Karte": "map",
+    "verheiratet": "married",
+    "Schule": "school",
+    "Lehrer": "teacher",
+    "auch": "too",
+    "Stadt": "town",
+    "wo": "where",
+    "Welt": "world",
+    "Adresse": "address",
+    "Nachmittag": "afternoon",
+    "Alter": "age",
+    "alles gut": "all right",
+    "am": "at",
+    "Geschäftsmann": "businessman",
+    "Wörterbuch": "dictionary",
+    "Abend": "evening",
+    "gut": "good",
+    "Aufwiedersehen": "goodbye",
+    "grossartig": "great",
+    "Hausaufgaben": "homework",
+    "Hotel": "hotel",
+    "Wie alt bist du?": "how old are you?",
+    "Ich weiss es nicht": "I don't know",
+    "Ich verstehe nicht": "I don't understand",
+    "Job": "job",
+    "Reise": "journey",
+    "Morgen": "morning",
+    "Nacht": "night",
+    "Krankenschwester": "nurse",
+    "von": "of",
+    "auf Tour": "on tour",
+    "Seite": "page",
+    "persönliche Informationen": "personal information",
+    "Telefonnummer": "phone number",
+    "Polizist": "police officer",
+    "gut schlafen": "sleep well",
+    "Strasse": "street",
+    "Taxifahrer": "taxi driver"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 1-3 NHB - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 1-3 NHB - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="Unit 1-3 NHB.docx" target="_blank"><span lang="en">New Headway Beginner Units 1-3</span></a></p>
+<br>
+<br>
+</body>
+</html>

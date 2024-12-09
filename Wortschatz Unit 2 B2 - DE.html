@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"Blasinstrument": "wind instrument",
+  "Cello": "cello",
+  "Klarinette": "clarinet",
+  "Schlagzeug": "drums",
+  "Flöte": "flute",
+  "Gitarre": "guitar",
+  "Keyboard": "keyboards",
+  "Orgel": "organ",
+  "Klavier": "piano",
+  "Saxophon": "saxophone",
+  "Posaune": "trombone",
+  "Trompete": "trumpet",
+  "Violine": "violin",
+  "Saiteninstrument": "stringed instrument",
+  "Perkussionsinstrument": "percussion instrument",
+  "Begleitsänger": "backing vocalist",
+  "Leadsänger": "lead singer",
+  "Studiomusiker": "session musician",
+  "Darbietung": "performance",
+  "Musikfestival": "music festival",
+  "im Einklang sein": "be in tune",
+  "ein Konzert geben": "give a concert",
+  "Hitparade": "charts",
+  "auf Tour": "on tour",
+  "auf der Bühne": "on stage",
+  "im Radio": "on the radio",
+  "ein Lied singen": "sing a song",
+  "Lied": "song",
+  "Aerobic": "aerobics",
+  "Leichtathletik": "athletics",
+  "Gymnastik": "gymnastics",
+  "Radfahren": "cycling",
+  "tauchen": "diving",
+  "reiten": "horse-riding",
+  "Joggen": "jogging",
+  "Laufen": "running",
+  "Segeln": "sailing",
+  "Ski fahren": "skiing",
+  "Snowboarden": "snowboarding",
+  "Schwimmen": "swimming",
+  "Windsurfen": "windsurfing",
+  "Badminton": "badminton",
+  "Baseball": "baseball",
+  "Basketball": "basketball",
+  "Fussball": "football",
+  "Gold": "golf",
+  "Handball": "handball",
+  "Eishockey": "hockey",
+  "Rugby": "rugby",
+  "Tennis": "tennis",
+  "Volleyball": "volleyball",
+  "Athlet": "athlete",
+  "Spieler": "player",
+  "Wettkämpfer": "competitor",
+  "Radfahrer": "cyclist",
+  "Taucher": "diver",
+  "Turner": "gymnast",
+  "Reiter": "horse-rider",
+  "Jogger": "jogger",
+  "Läufer": "runner",
+  "Skifahrer": "skier",
+  "Snowboarder": "snowboarder",
+  "Schwimmer": "swimmer",
+  "Windsurfer": "windsurfer",
+  "Konkurrent": "competitor",
+  "Gegner": "opponent",
+  "Teilnehmer": "participant",
+  "Hauptfeld": "peloton",
+  "Schiedsrichter": "referee",
+  "Zweitplatzierter": "runner-up",
+  "Zuschauer": "spectator",
+  "Fan": "supporter",
+  "Mannschaft": "team",
+  "Schiedsrichter": "umpire",
+  "Gewinner": "winner",
+  "Leichtathletikbahn": "athletics track",
+  "Stadion": "stadium",
+  "Platz": "court",
+  "Fairway": "fairway",
+  "Platz": "pitch",
+  "Golfkurs": "golf course",
+  "grün": "green",
+  "Turnhalle": "gym",
+  "Eisstadion": "ice-skating rink",
+  "Bahn": "lane",
+  "Rennstrecke": "motor-racing circuit",
+  "Piste": "slope",
+  "Schwimmbad": "swimming pool",
+  "Turnier": "tournament",
+  "Sportevent": "sporting event",
+  "Wettkampf": "competition",
+  "Schläger": "racket",
+  "Pfosten": "goal posts",
+  "Golfschläger": "golf clubs",
+  "Hockeystock": "hockey stick",
+  "Netz": "net",
+  "Sicherheitshelm": "safety helmet",
+  "Skibrille": "goggles",
+  "Skier und Skistöcke": "skis and ski sticks",
+  "ein Rekord brechen": "break a record",
+  "ein Foul begehen": "commit a foul",
+  "ein Wurf üben": "practise a shot",
+  "ein Tor erzielen": "score a goal",
+  "einen Eckball treten": "take a corner",
+  "stattfinden": "take place",
+  "einen neuen Sport anfangen": "take up a new sport",
+  "gewinnen": "win"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 2 B2 - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 2 B2 - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="B2 Unit 2.docx" target="_blank"><span lang="en">Ready for First (B2) Unit 2</span></a></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"abenteuerlich": "adventurous",
+  "liebevoll": "affectionate",
+  "ehrgeizig": "ambitious",
+  "schlecht gelaunt": "bad-tempered",
+  "rechthaberisch": "bossy",
+  "mutig": "brave",
+  "ruhig": "calm",
+  "fürsorglich": "caring",
+  "fröhlich": "cheerful",
+  "tollpatschig": "clumsy",
+  "selbstbewusst": "confident",
+  "kreativ": "creative",
+  "entscheidungsfreudig": "decisive",
+  "entschlossen": "determined",
+  "langweilig": "dull",
+  "gelassen": "easy-going",
+  "energetisch": "energetic",
+  "enthusiastisch": "enthusiastic",
+  "ausgeglichen": "even-tempered",
+  "fair": "fair",
+  "albern": "foolish",
+  "kleinlich": "fussy",
+  "grosszügig": "generous",
+  "hart arbeitend": "hardworking",
+  "ehrlich": "honest",
+  "nett": "kind",
+  "faul": "lazy",
+  "lebhaft": "lively",
+  "loyal": "loyal",
+  "erwachsen": "mature",
+  "gemein": "mean",
+  "unglücklich": "miserable",
+  "launisch": "moody",
+  "nervös": "nervous",
+  "kontaktfreudig": "outgoing",
+  "geduldig": "patient",
+  "höflich": "polite",
+  "praktisch": "practical",
+  "verlässlich": "reliable",
+  "reserviert": "reserved",
+  "verantwortungsbewusst": "responsible",
+  "gemein": "rude",
+  "eigensinnig": "selfish",
+  "selbstlos": "selfless",
+  "vernünftig": "sensible",
+  "sensibel": "sensitive",
+  "schüchtern": "shy",
+  "dumm": "silly",
+  "aufrichtig": "sincere",
+  "gesellig": "sociable",
+  "stur": "stubborn",
+  "gutmütig": "sweet-tempered",
+  "gesprächig": "talkative",
+  "tolerant": "tolerant",
+  "lockig": "curly",
+  "gefärbt": "dyed",
+  "schulterlang": "shoulder-length",
+  "gerade": "straight",
+  "verdünnen": "thinning",
+  "verstrubbelt": "untidy",
+  "wellig": "wavy",
+  "eine Glatze haben": "be bald",
+  "einen Bart haben": "have a beard",
+  "ausdrucksstark": "expressive",
+  "sommersprossig": "freckled",
+  "rund": "round",
+  "lachend": "smiling",
+  "gebräunt": "tanned",
+  "faltig": "wrinkled",
+  "dunkel": "dark",
+  "gesund": "healthy",
+  "blass": "pale",
+  "weich": "smooth",
+  "pickelig": "spotty",
+  "übergewichtig": "overweight",
+  "mollig": "plump",
+  "dünn": "thin",
+  "schlank": "slim",
+  "mager": "skinny",
+  "stämmig": "stocky",
+  "gutgebaut": "well-built"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 6 B2 - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 6 B2 - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="B2 Unit 6.docx" target="_blank"><span lang="en">Ready for First (B2) Unit 6</span></a></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+         "viel": "a lot of",
+    "auch": "also",
+    "Bankdirektor": "bank manager",
+    "wunderschön": "beautiful",
+    "beste": "best",
+    "gross": "big",
+    "beide": "both",
+    "Bruder": "brother",
+    "Bus": "bus",
+    "aber": "but",
+    "Kind": "child",
+    "Kinder": "children",
+    "Klasse": "class",
+    "Klassenzimmer": "classroom",
+    "Tochter": "daughter",
+    "Direktor": "director",
+    "Hund": "dog",
+    "Familie": "family",
+    "Ventilator": "fan",
+    "Bauernhof": "farm",
+    "Vater": "father",
+    "liebste": "favourite",
+    "Vorname": "first name",
+    "Wohnung": "flat",
+    "Freund": "friend",
+    "lustig": "funny",
+    "feste Freundin": "girlfriend",
+    "glücklich": "happy",
+    "haben": "have",
+    "eine gute Zeit haben": "have a good time",
+    "Ehemann": "husband",
+    "Mutter": "mother",
+    "Musik": "music",
+    "nahe": "near",
+    "nett": "nice",
+    "Büro": "office",
+    "unser": "our",
+    "Eltern": "parents",
+    "Teilzeit": "part-time",
+    "wirklich": "really",
+    "Schwester": "sister",
+    "klein": "small",
+    "Sohn": "son",
+    "buchstabieren": "spell",
+    "Nachname": "surname",
+    "ihr": "their",
+    "zusammen": "together",
+    "Universität": "university",
+    "sehr": "very",
+    "wer": "who",
+    "Ehefrau": "wife",
+    "ein wenig": "a little",
+    "Schauspieler": "actor",
+    "sein": "be",
+    "Bier": "beer",
+    "Käse": "cheese",
+    "Kaffee": "coffee",
+    "trinken": "drink",
+    "essen": "eat",
+    "Essen": "food",
+    "Fussball": "football",
+    "Eiscreme": "ice-cream",
+    "Identität": "identity",
+    "Sprache": "language",
+    "Leben": "life",
+    "mögen": "like",
+    "leben": "live",
+    "lieben": "love",
+    "Handy": "mobile phone",
+    "Nationalität": "nationality",
+    "jetzt": "now",
+    "orange": "orange",
+    "Party": "party",
+    "Ort": "place",
+    "spielen": "play",
+    "Pfund": "pound",
+    "Preis": "price",
+    "Radio": "radio",
+    "Restaurant": "restaurant",
+    "Skifahren": "skiing",
+    "sprechen": "speak",
+    "Sport": "sport",
+    "Schwimmen": "swimming",
+    "Tee": "tea",
+    "denken": "think",
+    "Kellner": "waiter",
+    "wollen": "want",
+    "Wein": "wine",
+    "arbeiten": "work"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 4-5 NHB - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 4-5 NHB - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="Unit 4-5 NHB.docx" target="_blank"><span lang="en">New Headway Beginner Units 4-5</span></a></p>
+<br>
+<br>
+</body>
+</html>
