@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <input type="text" id="deutsch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+<button onclick="switchMode()">Lernmodus Wechseln</button>
+<button onclick="TestMode()">Testmodus</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"accountant": "Buchhalter",
+"air traffic controller": "Flugsicherungsleiter",
+"architect": "Architekt",
+"baker": "Bäcker",
+"butcher": "Metzger",
+"chef": "Koch",
+"civil servant": "Beamter",
+"company director": "Betriebsleiter",
+"cook": "Koch",
+"dustman": "Müllmann",
+"electrician": "Elektriker",
+"engineer": "Ingenieur",
+"firefighter": "Feuerwehrmann",
+"flight attendant": "Flugbegleiter",
+"hairdresser": "Coiffeur",
+"journalist": "Journalist",
+"judge": "Richter",
+"lawyer": "Anwalt",
+"librarian": "Bibliothekar",
+"nurse": "Krankenpfleger",
+"photographer": "Fotograf",
+"plumber": "Klempner",
+"police officer": "Polizist",
+"politician": "Politiker",
+"receptionist": "Rezeptionist",
+"scientist": "Wissenschaftler",
+"secretary": "Sekretär",
+"shop assistant": "Verkäufer",
+"surgeon": "Chirurg",
+"teacher": "Lehrer",
+"vet": "Tierarzt",
+"waiter": "Kellner",
+"apply for a job": "sich für einen Job bewerben",
+"get a job": "einen Job bekommen",
+"go for an interview for": "ein Vorstellungsgespräch haben",
+"a job": "einen Job",
+"look for a job": "einen Job suchen",
+"change career": "Berufswechsel",
+"devote yourself to something": "sich etwas hingeben",
+"career": "Karriere",
+"start a career": "eine Karriere starten",
+"be dismissed": "entlassen werden",
+"be made redundant": "den Arbeitsplatz verlieren",
+"be out of work": "keine Arbeit haben",
+"resign from a job": "den Job künden",
+"earn a good living": "einen guten Lebensunterhalt verdienen",
+"earn a high salary": "ein hohes Gehalt verdienen",
+"earn a lot of money": "eine Menge Geld verdienen",
+"earn a weekly wage": "einen Wochenlohn verdienen",
+"work as": "arbeiten als",
+"work flexitime": "flexibel arbeiten",
+"work for yourself": "für sich selbst arbeiten",
+"work hard": "hart arbeiten",
+"work long hours": "lange arbeiten",
+"work overtime": "Überstunden machen",
+"work part time": "Teilzeit arbeiten",
+"work full time": "Vollzeit arbeiten",
+"work shifts": "Schicht arbeiten",
+"artistic skills": "künstlerische Fähigkeiten",
+"computer skills": "Computer Fähigkeiten",
+"language skills": "Sprach Fähigkeiten",
+"organisational skills": "Organisatorische Fähigkeiten",
+"badly paid": "schlecht bezahlt",
+"challenging": "herausfordernd",
+"monotonous": "monoton",
+"responsible": "verantwortlich",
+"satisfying": "befriedigend",
+"stressful": "stressig",
+"tiring": "ermüdend",
+"unpleasant": "unangenehm",
+"well-paid": "gut bezahlt",
+"form a new company": "eine neue Firma gründen",
+"go into business": "sich selbständig machen",
+"join a company": "einer Firma beitreten",
+"run a business": "ein Geschäft führen",
+"set up a company": "eine Firma aufbauen",
+"a colleague": "ein Kollege",
+"a recruit": "ein Neuling",
+"take sick leave": "sich krankschreiben lassen",
+"be one's own boss": "sein eigener Chef sein",
+"be promoted": "befördert werden",
+"go on strike": "streiken",
+"be self-employed": "selbständig sein",
+"a temporary job": "ein befristeter Job",
+"retire": "in Pension gehen",
+"take time off": "sich frei nehmen",
+"working hours": "Arbeitszeit"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const deutsch = document.getElementById("deutsch").value.trim();
+            const englisch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[englisch];
+            const result = (deutsch.toLowerCase() === correctTranslation.toLowerCase()) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (deutsch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(englisch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(englisch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+            document.getElementById("deutsch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 5 B2 - MC.html";
+        }
+
+function TestMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "Wortschatz Unit 5 B2 - TM.html";
+        }
+
+        // Set a random initial word
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="B2 Unit 5.docx" target="_blank"><span lang="en">Ready for First (B2) Unit 5</span></a></p>
+<br>
+<br>
+</body>
+</html>
