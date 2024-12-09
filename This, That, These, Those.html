@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This, That, These, Those</title>
+</head>
+
+<body>
+	<p><h1>This, That, These, Those</h1></p>
+	<p>The four words are used a lot in English. On this page, you will learn when to use which one.</p>
+<br>
+	<p><h2>This and That</h2></p>
+	<p>We use <strong>this and that</strong> if we want to point out <strong>one thing (singular)</strong>.</p>
+	<p><strong>Examples:</strong></p>
+	<p>This is a book.</p>
+	<p>Do you see that house over there?</p>
+<br>
+	<p><strong>This</strong> is used for pointing to a thing or a person which is close to the speaker.</p>
+	<p><strong>Example 1:</strong> I need this bottle. (The bottle is very close to the speaker)</p>
+	<p><strong>That</strong> is used for pointing to a thing or a person which is further away from the speaker.</p>
+	<p><strong>Example 2:</strong> I need that bottle. (The bottle is further away from the speaker than in the first example)</p>
+<br>
+	<p><h2>These and Those</h2></p>
+	<p>We use <strong>these and those</strong> if we want to point out <strong>multiple things (plural)</strong>.</p>
+	<p><strong>Examples:</strong></p>
+	<p>These flowers are lovely.</p>
+	<p>I don't like those buildings.</p>
+<br>		
+	<p><strong>This</strong> is used for pointing to things or people which are close to the speaker.</p>
+	<p><strong>Example 1:</strong> These houses are very modern. (The speaker is standing right in front of these houses)</p>
+	<p><strong>That</strong> is used for pointing to things or people which are further away from the speaker.</p>
+	<p><strong>Example 2:</strong> Those houses are very modern. (The speaker is further away from the houses than in the first example)</p>
+<br>
+	<p><h2>Quick Check</h2></p>
+	<p>Choose the correct answer for the following questions.</p>
+
+	<p>1. Generally speaking, when do we use <strong>this</strong> and <strong>that</strong>?</p>
+	<input type="radio" name="Q1" id="correct1" lang="de"><label>for one thing or person (singular)</label><br>
+	<input type="radio" name="Q1" lang="de"><label>for multiple things or people (plural)</label>
+
+	<p>2. Generally speaking, when do we use <strong>these</strong> and <strong>those</strong>?</p>
+	<input type="radio" name="Q2" lang="de"><label>for one thing or person (singular)</label><br>
+	<input type="radio" name="Q2" id="correct2" lang="de"><label>for multiple things or people (plural)</label>
+
+	<p>3. We use <strong>this</strong> and <strong>these</strong> when the things we point out are ...</p>
+	<input type="radio" name="Q3" id="correct3" lang="de"><label>close to us</label>¨<br>
+	<input type="radio" name="Q3" lang="de"><label>further away from us</label>
+	
+	<p>4. We use <strong>that</strong> and <strong>those</strong> when the things we point out are ...</p>
+	<input type="radio" name="Q4" lang="de"><label>close to us</label><br>
+	<input type="radio" name="Q4" id="correct4" lang="de"><label>further away from us</label>
+
+	<p>5. Select the correct sentence:</p>
+	<input type="radio" name="Q5" id="correct5" lang="de"><label>Do you see those flowers behind the car over there?</label><br>
+	<input type="radio" name="Q5" lang="de"><label>Do you see this flowers behind the car over there?</label>
+
+	<p>6. Select the correct sentence:</p>
+	<input type="radio" name="Q6" lang="de"><label>Allow me to introduce you. Mary, that is John. John, that is Mary.</label><br>
+	<input type="radio" name="Q6" id="correct6" lang="de"><label>Allow me to introduce you. Mary, this is John. John, this is Mary.</label>
+
+<br>
+<br>
+<input type="submit" name="Antworten prüfen" value="Antworten prüfen" onclick="result()" lang="de">
+
+<script type="text/javascript" lang="de">
+	var score=0;
+	function result() {
+	if (document.getElementById('correct1').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct2').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct3').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct4').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct5').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct6').checked)
+	{
+	score++;
+	}
+	alert("Richtige Antworten:"+score);
+	}
+</script>
+
+<br>
+<br>
+	<p><h2>Practice</h2></p>
+	<p>If you want to practice <strong>much</strong> and <strong>many</strong>, you will find some exercises in the following document:</p>
+	<p><a href="This, That, These, Those.docx" target="_blank" lang="de">This, That, These, Those</a></p>
+<br>
+</body>
+</html>

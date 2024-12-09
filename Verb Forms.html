@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verb Forms</title>
+</head>
+<body>
+	<p><h1>Verb Forms</h1></p>
+	<p>Verb forms generally have three forms:</p>
+	<p>1: base form (infinitive)</p>
+	<p>2: Past Simple form</p>
+	<p>3: Past Participle</p>
+<br>	
+	<p><h2>Regular Verbs</h2></p>
+	<p>With the regular verbs, you only have to remember two forms because the Past Simple and the Past Participle are the same.</p>
+	<p><strong>Examples:</strong></p>
+	<p>play - played - played</p>
+	<p>watch - watched - watched</p>
+	<p>stay - stayed - stayed</p>
+<br>
+	<p><h2>Irregular Verbs</h2></p>
+	<p>Irregular verb forms are irregular, because they don't have the ending -ed for the Past Simple, and the Past Participle is not always the same as the Past Simple form.</p>
+	<p><strong>Examples:</strong></p>
+	<p>begin - began - begun</p>
+	<p>sit - sat - sat</p>
+	<p>drink - drank - drunk</p>
+<br>
+	<p><h2>Irregular Verbs - List</h2></p>
+	<p>Download the following document in which you will find a list of the most common irregular verbs. Go through the list and learn the base form (infinitive), the Past Simple form and the Past Participle before you continue with this lesson.</p>
+	<p><a href="Irregular Verbs - List.docx" target="_blank">Irregular Verb List</a></p>
+<br>
+
+	<p><h2>Practice</h2></p>
+	<p>Before you take on the quizzes, make sure you have looked at the Irregular Verb List.</p>
+	
+
+	<p><h3>Quiz 1</h3></p>
+	<p>1. What are the three forms of the verb <strong>write</strong>:</p>
+	<input type="radio" name="Q1" lang="de">write, wrote, wrote
+	<input type="radio" name="Q1" id="correct1" lang="de">write, wrote, written
+	<input type="radio" name="Q1" lang="de">write, writed, writed
+
+	<p>2. What are the three forms of the verb <strong>choose</strong>:</p>
+	<input type="radio" name="Q2" id="correct2" lang="de">choose, chose, chosen
+	<input type="radio" name="Q2" lang="de">choose, chose, chose
+	<input type="radio" name="Q2" lang="de">choose, chost, chost
+
+	<p>3. What are the three forms of the verb <strong>eat</strong>:</p>
+	<input type="radio" name="Q3" lang="de">eat, ate, ate
+	<input type="radio" name="Q3" lang="de">eat, eat, eat
+	<input type="radio" name="Q3" id="correct3" lang="de">eat, ate, eaten
+
+	<p>4. What are the three forms of the verb <strong>ride</strong>:</p>
+	<input type="radio" name="Q4" lang="de">ride, wrote, written
+	<input type="radio" name="Q4" id="correct4" lang="de">ride, rode, ridden
+	<input type="radio" name="Q4" lang="de">ride, rided, rided
+
+	<p>5. What are the three forms of the verb <strong>check</strong>:</p>
+	<input type="radio" name="Q5" lang="de">check, choke, choked
+	<input type="radio" name="Q5" lang="de">check, choked, choked
+	<input type="radio" name="Q5" id="correct5" lang="de">check, checked, checked<br>
+<br>
+<input type="button" value="Antworten prüfen" onclick="result1()" lang="de">
+
+<script type="text/javascript">
+    function result1() {
+        var score = 0;
+
+        if (document.getElementById('correct1').checked) {
+            score++;
+        }
+        if (document.getElementById('correct2').checked) {
+            score++;
+        }
+        if (document.getElementById('correct3').checked) {
+            score++;
+        }
+        if (document.getElementById('correct4').checked) {
+            score++;
+        }
+        if (document.getElementById('correct5').checked) {
+            score++;
+        }
+        alert("Richtige Antworten: " + score);
+    }
+</script>
+<br>
+	<p><h3>Quiz 2</h3></p>
+	<p>Write down the Past Simple and the Past Participle forms of the following verbs.</p>
+
+        <p>1. know</p>
+	<input type="text" id="know"> 
+        <button onclick="toggleSolution('know')" lang="de">Lösung anzeigen</button>
+    	<div id="know_solution" style="display: none;">knew, known</div>
+<br>
+	<p>2. hate</p>
+	<input type="text" id="run"> 
+        <button onclick="toggleSolution('run')" lang="de">Lösung anzeigen</button>
+	<div id="run_solution" style="display: none;">hated, hated</div>
+<br>
+	<p>3. bring</p>
+	<input type="text" id="buy">
+        <button onclick="toggleSolution('buy')" lang="de">Lösung anzeigen</button>
+	<div id="buy_solution" style="display: none;">brought, brought</div>
+<br>
+	<p>4. take</p>
+	<input type="text" id="hold"> 
+        <button onclick="toggleSolution('hold')" lang="de">Lösung anzeigen</button>
+	<div id="hold_solution" style="display: none;">took, taken</div>
+<br>
+	<p>5. fly</p>
+	<input type="text" id="grow"> 
+        <button onclick="toggleSolution('grow')" lang="de">Lösung anzeigen</button>
+	<div id="grow_solution" style="display: none;">flew, flown</div>
+<br>
+    <script>
+        function toggleSolution(id) {
+            var solution = document.getElementById(id + "_solution");
+            if (solution.style.display === "none") {
+                solution.style.display = "inline";
+            } else {
+                solution.style.display = "none";
+            }
+        }
+    </script>
+<br>
+	<p><h3>Quiz 3</h3></p>
+	<p>Choose the correct sentence.</p>
+	<p>1.</p>
+	<input type="radio" name="Q11" lang="de">I gone for a walk yesterday.
+	<input type="radio" name="Q11" id="correct11" lang="de">I went for a walk yesterday.
+
+	<p>2.</p>
+	<input type="radio" name="Q22" id="correct22" lang="de">Last year, I bought a new house.
+	<input type="radio" name="Q22" lang="de">Last year, I brought a new house.
+
+	<p>3.</p>
+	<input type="radio" name="Q33" lang="de">He played the guitar when he were young.
+	<input type="radio" name="Q33" id="correct33" lang="de">He has played the guitar when he was young.
+
+	<p>4.</p>
+	<input type="radio" name="Q44" lang="de">She has ate the whole cake.
+	<input type="radio" name="Q44" id="correct44" lang="de">She has eaten the whole cake.
+
+	<p>5.</p>
+	<input type="radio" name="Q55" id="correct55" lang="de">They wrote five books together.
+	<input type="radio" name="Q55" lang="de">They written five books together.
+<br>
+<br>
+<input type="submit" name="Antworten prüfen" value="Antworten prüfen" onclick="result2()" lang="de">
+
+<script type="text/javascript" lang="de">
+	var score=0;
+	function result2() {
+	if (document.getElementById('correct11').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct22').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct33').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct44').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct55').checked)
+	{
+	score++;
+	}
+	alert("Richtige Antworten:"+score);
+	}
+</script>
+<br>	
+<br>
+	<p><h2>IMPORTANT</h2></p>
+	<p>Knowing these three forms of all the regular and irregular verbs is very important. If you know them, you already know enough to form every tense in English.</p>
+<br>	
+	<p><h2>Further Practice</h2></p>
+	<p>You might know the verb forms now, but do you also know when to use which one?</p>
+	<p>Click the following links to learn more about the Future Forms where we need the base form (infinitive):</p>
+	<p><a href="Will Future.html" target="_blank">Will Future</a></p>
+	<p><a href="Going to Future.html" target="_blank">Going to Future</a></p>
+	<p>Click the following link to learn more about the Past Simple where we need the Past Simple form:</p>
+	<p><a href="Past Simple.html" target="_blank">Past Simple</a></p>
+	<p>Click the following link to learn more about the Perfect forms where we need the Past Participle:</p>
+	<p><a href="Present Perfect.html" target="_blank">Present Perfect</a></p>
+	<p><a href="Present Perfect.html" target="_blank">Past Perfect</a></p>
+
+<br>
+	<p><h2>Test</h2></p>
+	<p>Do you know all the regular and irregular verb forms? Well, here's a chance to prove it. Click on the following link to do a test which will give you instant feedback on your results.</p> 
+	<p><a href="Tests - Verb Forms.html" target="_blank">Test - Verb Forms</a></p>
+<br>
+</body>
+</html>

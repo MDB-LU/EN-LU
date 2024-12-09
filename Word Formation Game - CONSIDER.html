@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Word Formation - Game</title>
+    <script>
+        const validWords = [
+            "considers", "considering", "consideration", "considerations", "considered", "considerateness", "considerately", "considerate", "considerable", "considerately", "considerably", "reconsider", "reconsideration"
+        ];
+
+        const enteredWords = new Set();
+
+        function checkWord(event) {
+            if (event.key === "Enter") {
+                const wordInput = document.getElementById("wordInput");
+                const userInput = wordInput.value.toLowerCase();
+                if (validWords.includes(userInput)) {
+                    enteredWords.add(userInput);
+                    alert(`Richtig! Anzahl gefundener Worte: ${enteredWords.size}`);
+                } else {
+                    alert("Falsch");
+                }
+                wordInput.value = ''; // Clear the input field
+            }
+        }
+
+        function showAnswers() {
+            const answerDisplay = document.getElementById("answerDisplay");
+            answerDisplay.textContent = validWords.join(', ');
+        }
+    </script>
+</head>
+<body>
+    <p style="font-size: 24px;">consider</p>
+    <input type="text" id="wordInput" onkeypress="checkWord(event)" placeholder="Enter a word" style="font-size: 24px;"/>
+    <br><br>
+	<p>If you cannot think of any more words, you can click the button below to see all the possible options:</p>
+    <button onclick="showAnswers()">Antworten anzeigen</button>
+    <br><br>
+    <div id="answerDisplay"></div>
+</body>
+</html>
