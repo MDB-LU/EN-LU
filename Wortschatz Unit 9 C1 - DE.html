@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"ausgetrocknete Landschaft": "arid landscape",
+  "Wüste": "desert",
+  "Insel": "island",
+  "vorzügliche Aussichten": "exquisite views",
+  "klettern": "climb",
+  "zermürbende Wanderung": "gruelling hike",
+  "idyllischer Platz": "idyllic spot",
+  "furchtlose Reise": "intrepid voyage",
+  "wirbelndes Wasser": "swirling water",
+  "Begebenheiten": "conditions",
+  "in jemanden hineinrennen": "run into somebody",
+  "eintreten": "kick in",
+  "erklingen": "ring out",
+  "auf Schwierigkeiten stossen": "run into trouble",
+  "aufbrechen": "set off",
+  "sich daranmachen etwas zu tun": "set out to do something",
+  "sich als etwas enttarnen": "turn out to be",
+  "hindurchfinden": "win through",
+  "Auseinandersetzung": "argument",
+  "diskutieren": "debate",
+  "Diskussion": "discussion",
+  "erhitzt": "heated",
+  "plötzlicher Wutausbruch": "sudden outburst of temper",
+  "wuterfüllt sein": "be seething with anger",
+  "wütend auf jemanden sein": "be furious with somebody",
+  "auf jemanden böse sein": "be cross with somebody",
+  "wütend werden": "become irate",
+  "Empörung": "indignation",
+  "Wut": "rage",
+  "eine Sicherung durchbrennen": "blow a fuse",
+  "sich beruhigen": "calm down",
+  "sich in etwas hineinsteigern": "get worked up about something",
+  "verrückt werden": "go mad",
+  "Dampf ablassen": "let off steam",
+  "die Beherrschung verlieren": "lose one's temper",
+  "die Nerven nicht verlieren": "maintain one's composure",
+  "das Blut zum Kochen bringen": "make one's blood boil",
+  "mit den Füssen stampfen": "stamp one's feet",
+  "ausflippen": "throw a tantrum",
+  "unter Kritik geraten": "come under criticism",
+  "aufrütteln": "arouse",
+  "anziehen": "attract",
+  "immun sein gegen": "be impervious to",
+  "sich aufregen über": "be upset by",
+  "anlocken": "draw",
+  "ausdrücken": "express",
+  "zu etwas führen": "give rise to",
+  "ignorieren": "ignore",
+  "überstehen": "overcome",
+  "antworten auf": "respond to",
+  "aussprechen": "voice",
+  "Kritik": "criticism",
+  "erheblich": "considerable",
+  "konstruktiv": "constructive",
+  "heftig": "fierce",
+  "wachsend": "growing",
+  "zunehmend": "mounting",
+  "ernst": "severe",
+  "stark": "strong",
+  "ungerecht": "unjust",
+  "berechtigt": "valid",
+  "umfassend": "widespread"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 9 C1 - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 9 C1 - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="C1 Unit 9.docx" target="_blank"><span lang="en">Ready for Advanced (C1) Unit 9</span></a></p>
+<br>
+<br>
+</body>
+</html>

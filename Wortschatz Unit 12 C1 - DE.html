@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"arbeiten": "work",
+  "administrativ": "administrative",
+  "lässig": "casual",
+  "Wohltätigkeit": "charity",
+  "Naturschutz": "conservation",
+  "Bau": "construction",
+  "Beratung": "consultancy",
+  "freiberuflich": "freelance",
+  "sozial": "social",
+  "freiwillig": "voluntary",
+  "Umwelt": "environment",
+  "Erfahrung": "experience",
+  "Ansporn": "incentive",
+  "Erlaubnis": "permit",
+  "Terminplan": "schedule",
+  "jemandes Drecksarbeit machen": "do somebody's dirty work",
+  "Vorarbeit leisten": "do some groundwork",
+  "ein energisches Training haben": "have a vigorous workout",
+  "etwas funktionstüchtig halten": "keep something in good working order",
+  "rund um die Uhr arbeiten": "work around the clock",
+  "wie ein Hund arbeiten": "work like a dog",
+  "an Fähigkeiten arbeiten": "work on one's skills",
+  "wunderbarerweise": "miraculously",
+  "glücklicherweise": "fortunately",
+  "glaubhaft": "believably",
+  "erstaunlich": "amazingly",
+  "anscheinend": "apparently",
+  "erstaunlicherweise": "astonishingly",
+  "unglaublich": "unbelievably",
+  "klar": "clearly",
+  "praktischerweise": "conveniently",
+  "neugierig": "curiously",
+  "enttäuschend": "disappointingly",
+  "beunruhigend": "disturbingly",
+  "offenbar": "evidently",
+  "unglücklicherweise": "unfortunately",
+  "lustigerweise": "funnily",
+  "glücklich": "happily",
+  "unbestreitbar": "indisputably",
+  "zwangsläufig": "inevitably",
+  "interessanterweise": "interestingly",
+  "ironischerweise": "ironically",
+  "lachhaft": "laughably",
+  "glücklicherweise": "luckily",
+  "natürlich": "naturally",
+  "offensichtlich": "obviously",
+  "persönlich": "personally",
+  "erwartungsgemäss": "predictably",
+  "vermutlich": "presumably",
+  "beruhigend": "reassuringly",
+  "bedauernswert": "regrettably",
+  "lächerlich": "ridiculously",
+  "richtig": "rightly",
+  "traurig": "sadly",
+  "vernünftig": "sensibly",
+  "komisch": "strangely",
+  "überraschend": "surprisingly",
+  "verständlich": "understandably",
+  "zweifellos": "undoubtedly",
+  "unerwartet": "unexpectedly",
+  "unverkennbar": "unmistakably",
+  "unklug": "unwisely",
+  "beunruhigender": "worryingly",
+  "weise": "wisely"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 12 C1 - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 12 C1 - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="C1 Unit 12.docx" target="_blank"><span lang="en">Ready for Advanced (C1) Unit 12</span></a></p>
+<br>
+<br>
+</body>
+</html>

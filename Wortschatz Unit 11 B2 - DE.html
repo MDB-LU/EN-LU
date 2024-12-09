@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"Gewitterwolken": "storm clouds",
+  "Sonnenschein": "sunshine",
+  "ruhige See": "calm sea",
+  "raue See": "rough sea",
+  "klarer Himmel": "clear sky",
+  "bewölkt": "overcast",
+  "heftiger Sturm": "severe storm",
+  "gewaltiger Sturm": "violent storm",
+  "starker Regen": "heavy rain",
+  "Regenflut": "torrential rain",
+  "starker Wind": "strong winds",
+  "Schnee": "snow",
+  "leichte Schauer": "light showers",
+  "vom Blitz getroffen werden": "be struck by lightning",
+  "Blitz": "flash of lightning",
+  "Sturm": "gale",
+  "leichte Brise": "gentle breeze",
+  "Windstoß": "gust of wind",
+  "Hagelkörner": "hailstones",
+  "Regentropfen": "raindrops",
+  "Schneeflocken": "snowflakes",
+  "es regnet in Strömen": "it's pouring with rain",
+  "Donnerschlag": "thunderclaps",
+  "Wettervorhersage": "weather forecast",
+  "Lawine": "avalanche",
+  "Dürre": "drought",
+  "Erdbeben": "earthquake",
+  "Flut": "flood",
+  "Hurrikan": "hurricane",
+  "Flutwelle": "tidal wave",
+  "Tornado": "tornado",
+  "Vulkanausbruch": "volcanic eruption",
+  "Verschmutzung": "pollution",
+  "Zigarettenstummel": "cigarette butts",
+  "Klimawandel": "climate change",
+  "Naturschutzgebiet": "conservation area",
+  "Hundehaufen": "dog mess",
+  "Abfall zurücklassen": "drop litter",
+  "Abfall deponieren": "dump waste",
+  "gefährdete Spezies": "endangered species",
+  "Auspuffgase": "exhaust fumes",
+  "vom Aussterben bedroht sein": "face extinction",
+  "Globale Erwärmung": "global warming",
+  "Treibhauseffekt": "greenhouse effect",
+  "häuslicher Abfall": "household waste",
+  "natürlicher Lebensraum": "natural habitat",
+  "Naturgebiet": "nature reserve",
+  "Atomkraftwerk": "nuclear power station",
+  "Ölfleck": "oil slick",
+  "Ozonschicht": "ozone layer",
+  "Plastikbehälter": "plastic containers",
+  "Tierschutzgebiet": "preserve wildlife",
+  "Bewusstsein schaffen": "raise awareness",
+  "wiederverwendetes Papier": "recycled paper",
+  "Erhöhung des Meeresspiegels": "rising sea levels",
+  "bleifreies Benzin": "unleaded petrol"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 11 B2 - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 11 B2 - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="B2 Unit 11.docx" target="_blank"><span lang="en">Ready for First (B2) Units 11</span></a></p>
+<br>
+<br>
+</body>
+</html>

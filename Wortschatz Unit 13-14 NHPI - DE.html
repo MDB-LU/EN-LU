@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"obdachlos": "homeless",
+  "Einkommen": "income",
+  "seinen Lebensunterhalt verdienen": "earn a living",
+  "Schlagzeile": "headline",
+  "anziehen": "put on",
+  "bringen": "fetch",
+  "realisieren": "realize",
+  "erreichen": "reach",
+  "Kasse": "checkout till",
+  "Kunde": "customer",
+  "sich beschäftigen": "keep busy",
+  "Vorteil": "advantage",
+  "ruhig": "calm",
+  "Autorität vermittelnd": "authoritative",
+  "umgehen mit": "deal with",
+  "Strandläufer": "beachcomber",
+  "Büchse": "tin",
+  "Fass": "barrel",
+  "Antwort": "reply",
+  "seinen Lebensunterhalt verdienen": "make a living",
+  "antworten": "reply",
+  "tauschen": "barter",
+  "Rente": "pension",
+  "reich an Abwechslung": "rich in variety",
+  "ehrlich": "honest",
+  "jagen": "chase",
+  "Verschwendung": "waste",
+  "Leidenschaft": "passion",
+  "Heissluftballon": "hot air balloon",
+  "Reh": "deer",
+  "unterhalb": "below",
+  "Sonnenuntergang": "sunset",
+  "Sicht": "visibility",
+  "auf dem Land": "in the countryside",
+  "Routine": "routine",
+  "Himmel": "heaven",
+  "teilen": "share",
+  "Werbeagentur": "advertising agency",
+  "Unterhaltung": "chat",
+  "dranbleiben": "hold on",
+  "verbinden": "connect",
+  "bis jetzt": "so far",
+  "sich verlieben": "fall in love",
+  "wütend": "furious",
+  "sich verhalten": "behave",
+  "sehr erfreut": "delighted",
+  "Mülleimer": "rubbish bin",
+  "verzweifelt": "desperate",
+  "verzeihen": "forgive",
+  "hinzufügen": "add",
+  "Politiker": "politician",
+  "Geschichte": "tale",
+  "still": "silent",
+  "bleiben": "remain",
+  "eine Münze werfen": "toss a coin",
+  "Junggeselle": "bachelor",
+  "Rache": "revenge",
+  "Streit": "quarrel",
+  "sich versöhnen": "make up",
+  "Rechtsanwalt": "solicitor",
+  "einzeln": "single",
+  "Notiz": "note",
+  "klopfen": "knock",
+  "unter bestimmten Bedingungen": "on certain conditions",
+  "keine": "neither",
+  "stets liebend": "ever-loving",
+  "heftig": "violent",
+  "nachher": "afterwards",
+  "Kopf oder Zahl": "heads or tails",
+  "wenigstens": "at least",
+  "obwohl": "although",
+  "Schatten": "shadow",
+  "während": "while",
+  "schwanken": "sway",
+  "Sünde": "sin",
+  "Reise": "journey",
+  "viel Glück": "good luck"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 13-14 NHPI - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 13-14 NHPI - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="Unit 13-14 NHPI.docx" target="_blank"><span lang="en">New Headway Pre-Intermediate Units 13-14</span></a></p>
+<br>
+<br>
+</body>
+</html>

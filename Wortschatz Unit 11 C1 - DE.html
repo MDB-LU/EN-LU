@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"jemanden wütend anschauen": "give somebody an angry look",
+  "etwas genau anschauen": "take a close look at something",
+  "etwas kritisch anschauen": "take a critical look at something",
+  "ein seltener Anblick": "a rare sight",
+  "ein willkommener Anblick": "a welcome sight",
+  "eine beeindruckende Sicht": "an impressive sight",
+  "eine atemberaubende Aussicht": "a breathtaking view",
+  "eine spektakuläre Aussicht": "a spectacular view",
+  "verschwommen sehen": "have blurred vision",
+  "doppelt sehen": "have double vision",
+  "Sicht": "visibility",
+  "reduzierte Sicht": "reduced visibility",
+  "fürs nackte Auge unsichtbar sein": "be invisible to the naked eye",
+  "versteckt sein": "be hidden from view",
+  "fürs nackte Auge sichtbar sein": "be visible to the naked eye",
+  "kurz zu sehen bekommen": "catch a glimpse of",
+  "auffallen": "catch one's eye",
+  "erblicken": "catch sight of",
+  "sichtbar werden": "come into view",
+  "etwas anschauen": "take a look at something",
+  "etwas im Auge behalten": "keep one's eye on",
+  "die Augen offen halten": "keep one's eyes open",
+  "ausser Sicht bleiben": "keep out of sight",
+  "etwas aus dem Auge verlieren": "lose sight of",
+  "ausgestellt sein": "on display",
+  "auf den ersten Blick": "at first sight",
+  "ganz sichtbar sein vor jemanden": "in full view of somebody",
+  "im Licht der Öffentlichkeit": "in the public eye",
+  "in Sicht": "in sight",
+  "zur Schau stehen": "on view",
+  "eine gute Lektüre": "a good read",
+  "eine spannende Lektüre": "an exciting read",
+  "ein leidenschaftlicher Leser": "an avid reader",
+  "ein schneller Leser": "a fast reader",
+  "ein langsamer Leser": "a slow reader",
+  "laut lesen": "read aloud",
+  "begierig lesen": "read avidly",
+  "etwas laut lesen": "read something out loud",
+  "zu viel in etwas hinein interpretieren": "read too much into something",
+  "sich in ein Thema einlesen": "read up on something",
+  "etwas niederschreiben": "put something in writing",
+  "ein talentierter Schriftsteller": "a talented writer",
+  "ein ringender Schriftsteller": "a struggling writer",
+  "ein freiberuflicher Schriftsteller": "a freelance writer",
+  "eindeutige Handschrift": "distinctive handwriting",
+  "Notizen ausarbeiten": "write notes up",
+  "einen Scheck schreiben für": "write out a cheque for",
+  "leserliche Handschrift": "legible handwriting",
+  "schöne Handschrift": "neat handwriting",
+  "ein ideenreicher Schriftsteller": "a prolific writer",
+  "klar schreiben": "write clearly",
+  "leserlich schreiben": "write legibly"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 11 C1 - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 11 C1 - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="C1 Unit 11.docx" target="_blank"><span lang="en">Ready for Advanced (C1) Unit 11</span></a></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"abstraktes Gemälde": "abstract painting",
+  "Kunstsammler": "art collector",
+  "Kunstgalerie": "art gallery",
+  "Künstler": "artist",
+  "Ausstellung": "exhibition",
+  "Landschaft": "landscape",
+  "Maler": "painter",
+  "Porträt": "portrait",
+  "Porträtgalerie": "portrait gallery",
+  "unbezahlbares Gemälde": "priceless painting",
+  "Ballerina": "ballerina",
+  "Balletttänzer": "ballet dancer",
+  "Choreograf": "choreographer",
+  "Ballett": "ballet",
+  "Autor": "author",
+  "Biografie": "biography",
+  "Roman": "novel",
+  "Schriftsteller": "novelist",
+  "Verlag": "publisher",
+  "Kurzgeschichte": "short story",
+  "Verfasser": "writer",
+  "Cellist": "cellist",
+  "Pianist": "pianist",
+  "Violinist": "violinist",
+  "klassische Musik": "classical music",
+  "Komponist": "composer",
+  "Dirigent": "conductor",
+  "Konzerthalle": "concert hall",
+  "Musiker": "musician",
+  "Freiluft-Konzert": "open-air concert",
+  "Orchester": "orchestra",
+  "Besetzung": "cast",
+  "Regisseur": "director",
+  "Opernhaus": "opera house",
+  "Opernsänger": "opera singer",
+  "Sopran": "soprano",
+  "Tenor": "tenor",
+  "Bildhauer": "sculptor",
+  "Skulptur": "sculpture",
+  "Statue": "statue",
+  "Schauspieler": "actor",
+  "Publikum": "audience",
+  "Vorstellung": "performance",
+  "Theaterstück": "play",
+  "Bühnenautor": "playwright",
+  "Probe": "rehearsal",
+  "Bühne": "stage",
+  "Eule": "owl",
+  "Spatz": "sparrow",
+  "Pfau": "peacock",
+  "Taube": "pigeon",
+  "Kuh": "cow",
+  "Ziege": "goat",
+  "Lamm": "lamb",
+  "Maultier": "mule",
+  "Schwein": "pig",
+  "Schaf": "sheep",
+  "Forelle": "trout",
+  "Hai": "shark",
+  "Katze": "cat",
+  "Hund": "dog",
+  "Hamster": "hamster",
+  "Papagei": "parrot",
+  "Ameise": "ant",
+  "Biene": "bee",
+  "Fliege": "fly",
+  "Wespe": "wasp",
+  "Fledermaus": "bat",
+  "Bär": "bear",
+  "Fuchs": "fox",
+  "Frosch": "frog",
+  "Löwe": "lion",
+  "Maus": "mouse",
+  "Ratte": "rat",
+  "Flosse": "fin",
+  "Kiemen": "gills",
+  "Schuppen": "scales",
+  "Schnabel": "beak",
+  "Federn": "feathers",
+  "Schwanz": "tail",
+  "Flügel": "wings",
+  "Krallen": "claws",
+  "Fell": "fur",
+  "Pfoten": "paws",
+  "Schnurrhaare": "whiskers",
+  "Hufe": "hooves",
+  "Mähne": "mane"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 13 B2 - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 13 B2 - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="B2 Unit 13.docx" target="_blank"><span lang="en">Ready for First (B2) Units 13</span></a></p>
+<br>
+<br>
+</body>
+</html>

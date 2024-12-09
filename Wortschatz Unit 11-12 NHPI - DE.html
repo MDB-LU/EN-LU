@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="de">geniessen</span></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchMode()">Change Mode</button>
+    <button onclick="TestMode()">Test Mode</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"Milliarde": "billion",
+    "ursprünglich": "originally",
+    "Werbung": "advertisement",
+    "wachsen": "grow",
+    "stehlen": "steal",
+    "Chefkoch": "chef",
+    "Kritik": "review",
+    "ändern": "change",
+    "besprechen": "discuss",
+    "Thema": "topic",
+    "erhellend": "illuminating",
+    "Süchtiger": "addict",
+    "Erdboden": "soil",
+    "Stoff": "fabric",
+    "Seide": "silk",
+    "Plantage": "plantation",
+    "Lungenkrebs": "lung cancer",
+    "inhalieren": "inhale",
+    "verbieten": "ban",
+    "süssen": "sweeten",
+    "verfeinern": "refine",
+    "kauen": "chew",
+    "ernten": "harvest",
+    "Tabak": "tobacco",
+    "verursachen": "cause",
+    "Schaden": "harm",
+    "unangenehme Folgen": "ill-effect",
+    "mischen": "mix",
+    "ziemlich": "rather",
+    "schmutzig": "dirty",
+    "stinkend": "smelly",
+    "ekelhaft": "disgusting",
+    "heutzutage": "nowadays",
+    "selten": "rare",
+    "auf": "on top of",
+    "Kette": "chain",
+    "süchtig machend": "addictive",
+    "unnötig": "unnecessary",
+    "weit auseinander": "far apart",
+    "pflücken": "pick",
+    "Zunahme": "increase",
+    "führen zu": "result in",
+    "Sturz": "fall",
+    "bilden": "form",
+    "Sklaverei": "slavery",
+    "Kaugummi": "gum",
+    "Geschmack": "flavour",
+    "Skelett": "skeleton",
+    "erfrischen": "freshen",
+    "einwickeln": "wrap",
+    "Baumsaft": "tree sap",
+    "werben": "advertise",
+    "betrachten als": "be considered",
+    "Schild": "notice",
+    "Getränkeautomat": "drinks machine",
+    "Autobahn": "motorway",
+    "ausser Betrieb": "out of order",
+    "bleifrei": "unleaded",
+    "bedienen": "serve",
+    "verboten": "prohibited",
+    "Strafe": "penalty",
+    "Sicherheit": "security",
+    "Gepäck": "luggage",
+    "unbeaufsichtigt": "unattended",
+    "Gegenstand": "item",
+    "entfernen": "remove",
+    "weiter": "further",
+    "besetzt": "engaged",
+    "südwärts": "southbound",
+    "fern halten von": "keep off",
+    "Einbahnstrasse": "one way",
+    "sich anstellen": "queue",
+    "Raststätte": "services",
+    "Süssigkeiten": "sweets",
+    "Kleid": "dress",
+    "Diener": "servant",
+    "Oma": "gran",
+    "behalten": "keep",
+    "Fremder": "stranger",
+    "Ladendiebstahl begehen": "shoplift",
+    "schwindlig": "dizzy",
+    "Zahnschmerzen": "toothache",
+    "Geist": "ghost",
+    "sich einbilden": "imagine",
+    "unten": "downstairs",
+    "Lösung": "solution",
+    "durchsichtig": "transparent",
+    "erscheinend": "apparent",
+    "heimsuchen": "haunt",
+    "sich ausruhen": "rest",
+    "Zeuge": "witness",
+    "Mord": "murder",
+    "Opfer": "victim",
+    "Krimineller": "criminal",
+    "zurückkehren": "return",
+    "versprechen": "promise",
+    "weitergeben": "pass on",
+    "unangenehm": "nasty",
+    "Pfarrer": "vicar",
+    "pensioniert": "retired",
+    "Geist": "spirit",
+    "Mütze": "cap",
+    "belästigen": "trouble",
+    "hinauswerfen": "kick out",
+    "mit fester Stimme": "firmly",
+    "Hirntomographie": "brain scan",
+    "Facharzt": "consultant",
+    "geheimnisvoll": "mysterious",
+    "Fall": "case",
+    "Stimme": "voice",
+    "Gehirn": "brain",
+    "es sich anders überlegen": "change your mind",
+    "vorbeigehen": "get past",
+    "das macht nichts": "never mind",
+    "sich beeilen": "hurry up"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="de">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            window.location.href = "Wortschatz Unit 11-12 NHPI - MC - DE.html";
+        }
+
+        function TestMode() {
+            window.location.href = "Wortschatz Unit 11-12 NHPI - TM - DE.html";
+        }
+
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="de">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p><span lang="de">Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</span></p>
+<p><a href="Unit 11-12 NHPI.docx" target="_blank"><span lang="en">New Headway Pre-Intermediate Units 11-12</span></a></p>
+<br>
+<br>
+</body>
+</html>
