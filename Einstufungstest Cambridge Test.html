@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Test</title>
+    <style>
+        .question-container { display: none; }
+        .active { display: block; }
+        #result { display: none; }
+        button { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div id="quiz">
+        <div class="question-container active" id="question1">
+            <p><strong>Choose the best option to complete the sentence or conversation.</strong></p>
+	    <p>Question 1: Can I park here?</p>
+            <button onclick="submitAnswer(1, 'a')">Sorry, I did that</button><br>
+            <button onclick="submitAnswer(1, 'b')">It's the same place</button><br>
+            <button onclick="submitAnswer(1, 'c')">Only for half an hour</button><br>
+        </div>
+
+        <div class="question-container" id="question2">
+            <p>Question 2: What colour will you paint the children's bedroom?</p>
+            <button onclick="submitAnswer(2, 'a')">I hope it was right</button><br>
+            <button onclick="submitAnswer(2, 'b')">We can't decide</button><br>
+            <button onclick="submitAnswer(2, 'c')">It wasn't very difficult</button><br>
+        </div>
+
+        <div class="question-container" id="question3">
+            <p>Question 3: I can't understand this email.</p>
+            <button onclick="submitAnswer(3, 'a')">Would you like some help?</button><br>
+            <button onclick="submitAnswer(3, 'b')">Don't you know?</button><br>
+            <button onclick="submitAnswer(3, 'c')">I suppose you can</button><br>
+        </div>
+
+        <div class="question-container" id="question4">
+            <p>Question 4: I'd like two tickets for tomorrow night.</p>
+            <button onclick="submitAnswer(4, 'a')">How much did you pay?</button><br>
+            <button onclick="submitAnswer(4, 'b')">Afternoon and evening?</button><br>
+            <button onclick="submitAnswer(4, 'c')">I'll just check for you.</button><br>
+        </div>
+
+        <div class="question-container" id="question5">
+            <p>Question 5: Shall we go to the gym now?</p>
+            <button onclick="submitAnswer(5, 'a')">I'm too tired</button><br>
+            <button onclick="submitAnswer(5, 'b')">It's very good</button><br>
+            <button onclick="submitAnswer(5, 'c')">Not at all</button><br>
+        </div>
+
+        <div class="question-container" id="question6">
+            <p><strong>Choose the best option to complete the sentence or conversation.</strong></p>
+	    <p>Question 6: His eyes were _..._ bad that he couldn't read the number plate of the car in front.</p>
+            <button onclick="submitAnswer(6, 'a')">such</button><br>
+            <button onclick="submitAnswer(6, 'b')">too</button><br>
+            <button onclick="submitAnswer(6, 'c')">so</button><br>
+            <button onclick="submitAnswer(6, 'd')">very</button><br>
+        </div>
+
+        <div class="question-container" id="question7">
+            <p>Question 7: The company needs to decide _..._ and for all what its position is on this point.</p>
+            <button onclick="submitAnswer(7, 'a')">here</button><br>
+            <button onclick="submitAnswer(7, 'b')">once</button><br>
+            <button onclick="submitAnswer(7, 'c')">first</button><br>
+            <button onclick="submitAnswer(7, 'd')">finally</button><br>
+        </div>
+
+        <div class="question-container" id="question8">
+            <p>Question 8: Don't put your cup on the _..._ of the table – someone will knock it off.</p>
+            <button onclick="submitAnswer(8, 'a')">outside</button><br>
+            <button onclick="submitAnswer(8, 'b')">edge</button><br>
+            <button onclick="submitAnswer(8, 'c')">boundary</button><br>
+            <button onclick="submitAnswer(8, 'd')">border</button><br>
+        </div>
+
+        <div class="question-container" id="question9">
+            <p>Question 9: I'm sorry, I didn't _..._ to disturb you.</p>
+            <button onclick="submitAnswer(9, 'a')">hope</button><br>
+            <button onclick="submitAnswer(9, 'b')">think</button><br>
+            <button onclick="submitAnswer(9, 'c')">mean</button><br>
+            <button onclick="submitAnswer(9, 'd')">suppose</button><br>
+        </div>
+
+        <div class="question-container" id="question10">
+            <p>Question 10: The singer ended the concert _..._ her most popular song.</p>
+            <button onclick="submitAnswer(10, 'a')">by</button><br>
+            <button onclick="submitAnswer(10, 'b')">with</button><br>
+            <button onclick="submitAnswer(10, 'c')">in</button><br>
+            <button onclick="submitAnswer(10, 'd')">as</button><br>
+        </div>
+
+        <div class="question-container" id="question11">
+            <p>Question 11: Would you mind _..._ these plates a wipe before putting them in the cupboard?</p>
+            <button onclick="submitAnswer(11, 'a')">making</button><br>
+            <button onclick="submitAnswer(11, 'b')">doing</button><br>
+            <button onclick="submitAnswer(11, 'c')">getting</button><br>
+            <button onclick="submitAnswer(11, 'd')">giving</button><br>
+        </div>
+
+        <div class="question-container" id="question12">
+            <p>Question 12: I was looking forward _..._ at the new restaurant, but it was closed.</p>
+            <button onclick="submitAnswer(12, 'a')">to eat</button><br>
+            <button onclick="submitAnswer(12, 'b')">to have eaten</button><br>
+            <button onclick="submitAnswer(12, 'c')">to eating</button><br>
+            <button onclick="submitAnswer(12, 'd')">eating</button><br>
+        </div>
+
+        <div class="question-container" id="question13">
+            <p>Question 13: _..._ tired Melissa is when she gets home from work, she always makes time to say goodnight to the children.</p>
+            <button onclick="submitAnswer(13, 'a')">Whatever</button><br>
+            <button onclick="submitAnswer(13, 'b')">No matter how</button><br>
+            <button onclick="submitAnswer(13, 'c')">However much</button><br>
+            <button onclick="submitAnswer(13, 'd')">Although</button><br>
+        </div>
+
+        <div class="question-container" id="question14">
+            <p>Question 14: It was only ten days ago _..._ she started her new job.</p>
+            <button onclick="submitAnswer(14, 'a')">then</button><br>
+            <button onclick="submitAnswer(14, 'b')">since</button><br>
+            <button onclick="submitAnswer(14, 'c')">after</button><br>
+            <button onclick="submitAnswer(14, 'd')">that</button><br>
+        </div>
+
+        <div class="question-container" id="question15">
+            <p>Question 15: The shop didn't have the shoes I wanted, but they've _..._ a pair specially for me.</p>
+            <button onclick="submitAnswer(15, 'a')">booked</button><br>
+            <button onclick="submitAnswer(15, 'b')">ordered</button><br>
+            <button onclick="submitAnswer(15, 'c')">commanded</button><br>
+            <button onclick="submitAnswer(15, 'd')">asked</button><br>
+        </div>
+
+        <div class="question-container" id="question16">
+            <p>Question 16: Have you got time to discuss your work now or are you _..._ to leave?</p>
+            <button onclick="submitAnswer(16, 'a')">thinking</button><br>
+            <button onclick="submitAnswer(16, 'b')">round</button><br>
+            <button onclick="submitAnswer(16, 'c')">planned</button><br>
+            <button onclick="submitAnswer(16, 'd')">about</button><br>
+        </div>
+
+        <div class="question-container" id="question17">
+            <p>Question 17: She came to live here _..._ a month ago.</p>
+            <button onclick="submitAnswer(17, 'a')">quite</button><br>
+            <button onclick="submitAnswer(17, 'b')">beyond</button><br>
+            <button onclick="submitAnswer(17, 'c')">already</button><br>
+            <button onclick="submitAnswer(17, 'd')">almost</button><br>
+        </div>
+
+        <div class="question-container" id="question18">
+            <p>Question 18: Once the plane is in the air, you can _..._ your seat belts if you wish.</p>
+            <button onclick="submitAnswer(18, 'a')">undress</button><br>
+            <button onclick="submitAnswer(18, 'b')">unfasten</button><br>
+            <button onclick="submitAnswer(18, 'c')">unlock</button><br>
+            <button onclick="submitAnswer(18, 'd')">untie</button><br>
+        </div>
+
+        <div class="question-container" id="question19">
+            <p>Question 19: I left my last job because I had no _..._ to travel.</p>
+            <button onclick="submitAnswer(19, 'a')">place</button><br>
+            <button onclick="submitAnswer(19, 'b')">position</button><br>
+            <button onclick="submitAnswer(19, 'c')">opportunity</button><br>
+            <button onclick="submitAnswer(19, 'd')">possibility</button><br>
+        </div>
+
+        <div class="question-container" id="question20">
+            <p>Question 20: It wasn't a bad crash and _..._ damage was done to my car.</p>
+            <button onclick="submitAnswer(20, 'a')">little</button><br>
+            <button onclick="submitAnswer(20, 'b')">small</button><br>
+            <button onclick="submitAnswer(20, 'c')">light</button><br>
+            <button onclick="submitAnswer(20, 'd')">mere</button><br>
+        </div>
+
+        <div class="question-container" id="question21">
+            <p>Question 21: I'd rather you _..._ to her why we can't go.</p>
+            <button onclick="submitAnswer(21, 'a')">would explain</button><br>
+            <button onclick="submitAnswer(21, 'b')">explained</button><br>
+            <button onclick="submitAnswer(21, 'c')">to explain</button><br>
+            <button onclick="submitAnswer(21, 'd')">will explain</button><br>
+        </div>
+
+        <div class="question-container" id="question22">
+            <p>Question 22: Before making a decision, the leader considered all _..._ of the argument.</p>
+            <button onclick="submitAnswer(22, 'a')">sides</button><br>
+            <button onclick="submitAnswer(22, 'b')">features</button><br>
+            <button onclick="submitAnswer(22, 'c')">perspectives</button><br>
+            <button onclick="submitAnswer(22, 'd')">shades</button><br>
+        </div>
+
+        <div class="question-container" id="question23">
+            <p>Question 23: This new printer is recommended as being _..._ reliable.</p>
+            <button onclick="submitAnswer(23, 'a')">greatly</button><br>
+            <button onclick="submitAnswer(23, 'b')">highly</button><br>
+            <button onclick="submitAnswer(23, 'c')">strongly</button><br>
+            <button onclick="submitAnswer(23, 'd')">readily</button><br>
+        </div>
+
+        <div class="question-container" id="question24">
+            <p>Question 24: When I realised I had dropped my gloves, I decided to _..._ my steps.</p>
+            <button onclick="submitAnswer(24, 'a')">retrace</button><br>
+            <button onclick="submitAnswer(24, 'b')">regress</button><br>
+            <button onclick="submitAnswer(24, 'c')">resume</button><br>
+            <button onclick="submitAnswer(24, 'd')">return</button><br>
+        </div>
+
+	<div class="question-container" id="question25">
+            <p>Question 25: The house is somewhere in the _..._ of the railway station.</p>
+            <button onclick="submitAnswer(25, 'a')">region</button><br>
+            <button onclick="submitAnswer(25, 'b')">quarter</button><br>
+            <button onclick="submitAnswer(25, 'c')">vicinity</button><br>
+            <button onclick="submitAnswer(25, 'd')">district</button><br>
+        </div>
+    </div>
+
+    <div id="result">
+        <h2>Result</h2>
+        <p id="score"></p>
+        <p id="level"></p>
+        <h3>Incorrectly answered questions:</h3>
+        <ul id="wrong-answers"></ul>
+    </div>
+
+    <script>
+        const questions = {
+            q1: { text: 'Can I park here?', correct: 'c' },
+            q2: { text: "What colour will you paint the children's bedroom?", correct: 'b' },
+            q3: { text: "I can't understand this email.", correct: 'a' },
+            q4: { text: "I’d like two tickets for tomorrow night.", correct: 'c' },
+            q5: { text: "Shall we go to the gym now?", correct: 'a' },
+            q6: { text: "His eyes were _..._ bad that he couldn't read the number plate of the car in front.", correct: 'c' },
+            q7: { text: "The company needs to decide _..._ and for all what its position is on this point.", correct: 'b' },
+            q8: { text: "Don't put your cup on the _..._ of the table – someone will knock it off.", correct: 'b' },
+            q9: { text: "I'm sorry, I didn't _..._ to disturb you.", correct: 'c' },
+            q10: { text: "The singer ended the concert _..._ her most popular song.", correct: 'b' },
+            q11: { text: "Would you mind _..._ these plates a wipe before putting them in the cupboard?", correct: 'd' },
+            q12: { text: "I was looking forward _..._ at the new restaurant, but it was closed.", correct: 'c' },
+            q13: { text: "_..._ tired Melissa is when she gets home from work, she always makes time to say goodnight to the children.", correct: 'b' },
+            q14: { text: "It was only ten days ago _..._ she started her new job.", correct: 'd' },
+            q15: { text: "The shop didn't have the shoes I wanted, but they've _..._ a pair specially for me.", correct: 'b' },
+            q16: { text: "Have you got time to discuss your work now or are you _..._ to leave?", correct: 'd' },
+            q17: { text: "She came to live here _..._ a month ago.", correct: 'd' },
+            q18: { text: "Once the plane is in the air, you can _..._ your seat belts if you wish.", correct: 'b' },
+            q19: { text: "I left my last job because I had no _..._ to travel.", correct: 'c' },
+            q20: { text: "It wasn't a bad crash and _..._ damage was done to my car.", correct: 'a' },
+            q21: { text: "I'd rather you _..._ to her why we can't go.", correct: 'b' },
+            q22: { text: "Before making a decision, the leader considered all _..._ of the argument.", correct: 'a' },
+            q23: { text: "This new printer is recommended as being _..._ reliable.", correct: 'b' },
+            q24: { text: "When I realised I had dropped my gloves, I decided to _..._ my steps.", correct: 'a' },
+            q25: { text: "The house is somewhere in the _..._ of the railway station.", correct: 'c' }
+        };
+
+        let userAnswers = {};
+        let currentQuestion = 1;
+        const totalQuestions = 25;
+
+        function submitAnswer(questionNumber, answer) {
+            userAnswers[`q${questionNumber}`] = answer;
+            document.getElementById(`question${questionNumber}`).classList.remove('active');
+            currentQuestion++;
+            if (currentQuestion <= totalQuestions) {
+                document.getElementById(`question${currentQuestion}`).classList.add('active');
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            let score = 0;
+            const wrongAnswers = [];
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (userAnswers[`q${i}`] === questions[`q${i}`].correct) {
+                    score++;
+                } else {
+                    wrongAnswers.push(`<li>Question ${i}: ${questions[`q${i}`].text}</li>`);
+                }
+            }
+
+            let level = '';
+            if (score >= 0 && score <= 3) {
+                level = 'Your English level: A1';
+            } else if (score >= 4 && score <= 15) {
+                level = 'Your English level: A2';
+            } else if (score >= 16 && score <= 19) {
+                level = 'Your English level: B1';
+            } else if (score >= 20 && score <= 22) {
+                level = 'Your English level: B2';
+            } else if (score >= 23 && score <= 24) {
+                level = 'Your English level: C1';
+            } else if (score === 25) {
+                level = 'Your English level: C2';
+            }
+
+            document.getElementById('score').innerText = `You got ${score} out of ${totalQuestions} correct.`;
+            document.getElementById('level').innerText = level;
+            document.getElementById('wrong-answers').innerHTML = wrongAnswers.join('');
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

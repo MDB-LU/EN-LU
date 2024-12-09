@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Scramble</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            margin-top: 10px;
+        }
+        .question-container {
+            width: 50%;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        #answer {
+            width: 80%;
+            height: 40px;
+            font-size: 1.2em;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+        #timer {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container" class="question-container">
+        <div id="question" class="question"></div>
+        <input type="text" id="answer" placeholder="Answer" onkeypress="checkEnter(event)" lang="en">
+    </div>
+    <div id="results-container" class="hidden">
+        <h2>Quiz Ergebnisse</h2>
+        <div id="results"></div>
+    </div>
+    <div id="timer">Zeit: 5:00</div>
+
+    <script>
+        const questions = [
+	    { question: "<span lang='en'>live, where, you, do, ?</span>", correct: "Where do you live?" },
+            { question: "<span lang='en'>old, she, how, is, ?</span>", correct: "How old is she?" },
+            { question: "<span lang='en'>are, you, how, ?</span>", correct: "How are you?" },
+            { question: "<span lang='en'>she, crying, why, is, ?</span>", correct: "Why is she crying?" },
+            { question: "<span lang='en'>ever, you, to France, have, been, ?</span>", correct: "Have you ever been to France?" },
+            { question: "<span lang='en'>known, each other, how long, have, you, ?</span>", correct: "How long have you known each other?" },
+            { question: "<span lang='en'>you, graduate, when, did, from university, ?</span>", correct: "When did you graduate from university?" },
+            { question: "<span lang='en'>you, where, did, go, your vacation, for, last year, ?</span>", correct: "Where did you go for your vacation last year?" },
+            { question: "<span lang='en'>you, doing, what, were, at 8 PM, last night, ?</span>", correct: "What were you doing at 8 PM last night?" },
+            { question: "<span lang='en'>in the park, she, running, was, why, ?</span>", correct: "Why was she running in the park?" },
+            { question: "<span lang='en'>you, do, tomorrow, will, what, ?</span>", correct: "What will you do tomorrow?" },
+            { question: "<span lang='en'>they, honeymoon, will, where, their, spend, ?</span>", correct: "Where will they spend their honeymoon?" },
+            { question: "<span lang='en'>you, English, have, how long, been, studying, ?</span>", correct: "How long have you been studying English?" },
+            { question: "<span lang='en'>you, done, what, the house, had, before, you, left, ?</span>", correct: "What had you done before you left the house?" },
+            { question: "<span lang='en'>here, they, lived, where, had, before, moving, ?</span>", correct: "Where had they lived before moving here?" },
+            { question: "<span lang='en'>the lottery, you, what, do, if, you, won, would, ?</span>", correct: "What would you do if you won the lottery?" },
+            { question: "<span lang='en'>do, how often, you, visit, your grandparents, ?</span>", correct: "How often do you visit your grandparents?" },
+            { question: "<span lang='en'>study, did, you, to, why, biology, choose, ?</span>", correct: "Why did you choose to study biology?" },
+            { question: "<span lang='en'>do, what, in the morning, time, you, usually, get up, ?</span>", correct: "What time do you usually get up in the morning?" },
+            { question: "<span lang='en'>your, is, who, favorite, musician, ?</span>", correct: "Who is your favorite musician?" },
+            { question: "<span lang='en'>many, you, languages, can, how, speak, ?</span>", correct: "How many languages can you speak?" },
+            { question: "<span lang='en'>kind, music, do, you, what, like, of, ?</span>", correct: "What kind of music do you like?" },
+            { question: "<span lang='en'>is, when, your, birthday, ?</span>", correct: "When is your birthday?" },
+            { question: "<span lang='en'>did, cook, you, learn, how, to, ?</span>", correct: "How did you learn to cook?" },
+            { question: "<span lang='en'>in, are, interested, why, this job, you ?</span>", correct: "Why are you interested in this job?" },
+            { question: "<span lang='en'>movie, watch, which, did, last weekend, you, ?</span>", correct: "Which movie did you watch last weekend?" },
+            { question: "<span lang='en'>do, often, exercise, how, you, ?</span>", correct: "How often do you exercise?" },
+	    { question: "<span lang='en'>they, did, where, go, last weekend, ?</span>", correct: "Where did they go last weekend?" },
+	    { question: "<span lang='en'>you, like, what kind, do, of movies, ?</span>", correct: "What kind of movies do you like?" },
+	    { question: "<span lang='en'>you, what, usually, eat, for breakfast, do, ?</span>", correct: "What do you usually eat for breakfast?" },
+	    { question: "<span lang='en'>fireman, is, his, father, a, ?</span>", correct: "Is his father a fireman?" },
+	    { question: "<span lang='en'>she, will, another city, why, move, to, ?</span>", correct: "Why will she move to another city?" },
+	    { question: "<span lang='en'>you, did, to speak French, how, learn, ?</span>", correct: "How did you learn to speak French?" },
+	    { question: "<span lang='en'>he, is, where, going, after work, ?</span>", correct: "Where is he going after work?" },
+	    { question: "<span lang='en'>they, to the party, should, what, bring, ?</span>", correct: "What should they bring to the party?" },
+	    { question: "<span lang='en'>we, could, where, go, for dinner tonight, ?</span>", correct: "Where could we go for dinner tonight?" },
+	    { question: "<span lang='en'>you, must, so early, why, leave, ?</span>", correct: "Why must you leave so early?" }
+        ];
+
+        let shuffledQuestions;
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        const totalTime = 300;
+        let timeLeft = totalTime;
+        let timerInterval;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            shuffledQuestions = shuffle([...questions]); // Create a shuffled copy of the questions array
+            document.getElementById('timer').textContent = `Zeit: ${formatTime(timeLeft)}`;
+            displayQuestion();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function displayQuestion() {
+            if (currentQuestion < shuffledQuestions.length) {
+                const q = shuffledQuestions[currentQuestion];
+                document.getElementById('question').innerHTML = q.question;
+                document.getElementById('answer').value = '';
+            } else {
+                endQuiz();
+            }
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                submitAnswer();
+            }
+        }
+
+        function submitAnswer() {
+            const userAnswer = document.getElementById('answer').value.trim();
+            const q = shuffledQuestions[currentQuestion];
+            const correctAnswer = q.correct;
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                alert('Richtig!');
+                correctAnswers++;
+            } else {
+                alert(`Falsch!`);
+                incorrectAnswers++;
+            }
+            currentQuestion++;
+            displayQuestion();
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            document.getElementById('timer').textContent = `Zeit: ${formatTime(timeLeft)}`;
+            if (timeLeft <= 0) {
+                alert('Die Zeit ist abgelaufen');
+                endQuiz();
+            }
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resultsContainer = document.getElementById('results-container');
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <p>Richtig beantwortete Fragen: ${correctAnswers}</p>
+                <p>Falsch beantwortete Fragen: ${incorrectAnswers}</p>
+            `;
+            resultsContainer.classList.remove('hidden');
+        }
+
+        // Start the quiz automatically when the page loads
+        document.addEventListener('DOMContentLoaded', startQuiz);
+    </script>
+</body>
+</html>

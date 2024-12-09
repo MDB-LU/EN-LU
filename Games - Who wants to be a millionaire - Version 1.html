@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who wants to be a millionaire?</title>
+   <style>
+        .answer {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #question {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz">
+        <div id="question"></div>
+        <div id="answers" role="radiogroup"></div>
+        <button onclick="checkAnswer()" span lang="de">Antwort prüfen</span></button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "<strong>100$ question: <br> Which of the following is a correct sentence?</strong>",
+                answers: { a: "He go to school every day.", b: "He goes to school every day.", c: "He going to school every day.", d: "He gone to school every day." },
+                correct: "b"
+            },
+            {
+                question: "<strong>200$ question: <br> Which of the following is a noun?</strong>",
+                answers: { a: "quickly", b: "red", c: "happiness", d: "in" },
+                correct: "c"
+            },
+            {
+                question: "<strong>300$ question: <br> What is the past tense of the verb 'to be'?</strong>",
+                answers: { a: "was / were", b: "is / are", c: "am / be", d: "been / is" },
+                correct: "a"
+            },
+            {
+                question: "<strong>500$ question: <br> Which sentence is punctuated correctly?</strong>",
+                answers: { a: "I bought apples, oranges, and, bananas.", b: "I bought apples oranges and bananas.", c: "I bought apples, oranges and bananas.", d: "I bought, apples, oranges, and bananas." },
+                correct: "c"
+            },
+            {
+                question: "<strong>1000$ question: <br> Identify the adjective in this sentence: 'The quick brown fox jumps over the lazy dog.'</strong>",
+                answers: { a: "quick", b: "fox", c: "jumps", d: "over" },
+                correct: "a"
+            },
+            {
+                question: "<strong>2000$ question: <br> Which word is a pronoun in this sentence: 'She gave him the book.'</strong>",
+                answers: { a: "gave", b: "book", c: "she", d: "the" },
+                correct: "c"
+            },
+            {
+                question: "<strong>4000$ question: <br> What is the comparative form of the adjective 'happy'?</strong>",
+                answers: { a: "happiest", b: "more happy", c: "happier", d: "most happy" },
+                correct: "c"
+            },
+            {
+                question: "<strong>8000$ question: <br> Which of the following sentences demonstrates the correct use of 'much' or 'many'?</strong>",
+                answers: { a: "There were many books on the shelf.", b: "How much cookies do you want?", c: "He doesn't have much friends.", d: "I have too many time on my hands." },
+                correct: "a"
+            },
+            {
+                question: "<strong>16000$ question: <br> In the sentence, 'The cat chased the mouse,' what is the direct object?</strong>",
+                answers: { a: "the cat", b: "chased", c: "the mouse", d: "the" },
+                correct: "c"
+            },
+            {
+                question: "<strong>32000$ question: <br> Which sentence is written in the passive voice?</strong>",
+                answers: { a: "The chef cooked a delicious meal.", b: "A delicious meal was cooked by the chef.", c: "The chef is cooking a delicious meal.", d: "The chef will cook a delicious meal." },
+                correct: "b"
+            },
+            {
+                question: "<strong>64000$ question: <br> Which of the following is an example of a gerund?</strong>",
+                answers: { a: "to run", b: "running", c: "run", d: "runner" },
+                correct: "b"
+            },
+            {
+                question: "<strong>125000$ question: <br> Which of the following sentences correctly uses the conditional mood?</strong>",
+                answers: { a: "If it rains tomorrow, we will cancel the picnic.", b: "If it rained tomorrow, we will cancel the picnic.", c: "If it rains tomorrow, we cancel the picnic.", d: "If it rains tomorrow, we would cancel the picnic." },
+                correct: "a"
+            },
+            {
+                question: "<strong>250000$ question: <br> Which of these sentences correctly uses the past perfect tense?</strong>",
+                answers: { a: "By the time we arrived, the party started.", b: "By the time we arrive, the party had started.", c: "By the time we arrived, the party had started.", d: "By the time we had arrived, the party started." },
+                correct: "c"
+            },
+            {
+                question: "<strong>500000$ question: <br> What is a split infinitive?</strong>",
+                answers: { a: "A verb form that splits the subject and the object", b: "An infinitive verb form with an adverb between 'to' and the verb", c: "A compound verb form used in future tense", d: "A verb form used only in passive voice" },
+                correct: "b"
+            },
+            {
+                question: "<strong>1000000$ question: <br> Which of the following sentences correctly transforms direct speech into reported speech?</strong>",
+                answers: { a: "'I am reading a book,' she said. = She said that she is reading a book.", b: "'I have finished my homework,' he said. = He said that he has finished his homework.", c: "'I will see you tomorrow,' she said. = She said that she would see me tomorrow.", d: "'I can't find my keys,' he said. = He said that he couldn't find his keys." },
+                correct: "d"
+            }
+        ];
+
+        let currentQuestion = 0;
+
+       function displayQuestion() {
+            const questionElement = document.getElementById('question');
+            const answersElement = document.getElementById('answers');
+
+            questionElement.innerHTML = questions[currentQuestion].question;
+            answersElement.innerHTML = '';
+
+            for (const [key, value] of Object.entries(questions[currentQuestion].answers)) {
+                const answerOption = document.createElement('div');
+                answerOption.classList.add('answer'); // Neue Klasse hinzugefügt
+                answerOption.innerHTML = `
+                    <input type="radio" id="answer${key}" name="answer" value="${key}">
+                    <label for="answer${key}">${value}</label>
+                `;
+                answersElement.appendChild(answerOption);
+            }
+        }
+
+        function updateAriaChecked(selectedOption) {
+            const options = document.querySelectorAll('[role="radio"]');
+            options.forEach(option => option.setAttribute('aria-checked', 'false'));
+            selectedOption.setAttribute('aria-checked', 'true');
+        }
+
+        function announceSelection(selectedOption) {
+            const input = selectedOption.querySelector('input');
+            const state = input.checked ? 'auswahlschalter aktiviert' : 'auswahlschalter nicht aktiviert';
+            const label = selectedOption.querySelector('label').innerText;
+            alert(`${state}, ${label}`);
+        }
+
+        function checkAnswer() {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+
+            if (!selectedAnswer) {
+                alert("Bitte wählen Sie eine Antwort aus.");
+                return;
+            }
+
+            if (selectedAnswer.value === questions[currentQuestion].correct) {
+                alert("Richtige Antwort!");
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    displayQuestion();
+                } else {
+                    alert("Gratulation! Sie sind Grammatik Millionär!");
+                    currentQuestion = 0;
+                    displayQuestion();
+                }
+            } else {
+                alert("Falsche Antwort! Beginnen Sie erneut bei der $100 Frage.");
+                currentQuestion = 0;
+                displayQuestion();
+            }
+        }
+
+        displayQuestion();
+    </script>
+</body>
+</html>

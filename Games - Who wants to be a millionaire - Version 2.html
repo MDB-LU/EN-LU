@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who wants to be a millionaire?</title>
+   <style>
+        .answer {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #question {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz">
+        <div id="question"></div>
+        <div id="answers" role="radiogroup"></div>
+        <button onclick="checkAnswer()" span lang="de">Antwort prüfen</span></button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "<strong>100$ question: <br> Which of the following sentences correctly uses the present simple with the third-person singular?</strong>",
+                answers: { a: "She go to work every day.", b: "He play football on Sundays.", c: "The dog runs in the park.", d: "They reads books in the library." },
+                correct: "c"
+            },
+            {
+                question: "<strong>200$ question: <br> Which of these questions is grammatically correct?</strong>",
+                answers: { a: "He play tennis why?", b: "Why he play tennis?", c: "Why do he play tennis?", d: "Why does he play tennis?" },
+                correct: "d"
+            },
+            {
+                question: "<strong>300$ question: <br> Which of the following sentences correctly uses the superlative form of an adjective?</strong>",
+                answers: { a: "She is the most tallest girl in her class.", b: "This is the best movie I have ever watched.", c: "That was the more delicious cake I've ever tasted.", d: "It was the worse experience of my life." },
+                correct: "b"
+            },
+            {
+                question: "<strong>500$ question: <br> Which of these negative sentences is grammatically correct in the past simple?</strong>",
+                answers: { a: "They didn't go to school yesterday.", b: "They don't go to school yesterday.", c: "They didn't went to school yesterday.", d: "They went to school yesterday." },
+                correct: "a"
+            },
+            {
+                question: "<strong>1000$ question: <br> Which of the following sentences uses an irregular verb in the past simple form correctly?</strong>",
+                answers: { a: "She eated lunch an hour ago.", b: "They swimmed in the lake yesterday.", c: "He ran five miles this morning.", d: "We buyed a new car last week." },
+                correct: "c"
+            },
+            {
+                question: "<strong>2000$ question: <br> When do we use the present continuous tense?</strong>",
+                answers: { a: "to describe how long an action takes in the present", b: "to describe actions that happened in the past", c: "to describe events that take place in the future", d: "to describe actions that are happening right now" },
+                correct: "d"
+            },
+            {
+                question: "<strong>4000$ question: <br> The following words are all pronouns. But which ones are relative pronouns?</strong>",
+                answers: { a: "that, which, who", b: "me, your, his", c: "this, those, these", d: "I, we, they" },
+                correct: "a"
+            },
+            {
+                question: "<strong>8000$ question: <br> Select the sentence in which the articles are used correctly:</strong>",
+                answers: { a: "Film was great, although it didn't have the great ending.", b: "The film was great, although it didn't have great ending.", c: "The film was great, although it didn't have a great ending.", d: "A film was great, although it didn't have the great ending." },
+                correct: "c"
+            },
+            {
+                question: "<strong>16000$ question: <br> How many adverbs are in this sentence: 'The athlete ran fast, swiftly reaching the finish line.'?</strong>",
+                answers: { a: "1", b: "2", c: "3", d: "4" },
+                correct: "b"
+            },
+            {
+                question: "<strong>32000$ question: <br> Which of the following nouns is uncountable?</strong>",
+                answers: { a: "cup", b: "officer", c: "chair", d: "coffee" },
+                correct: "d"
+            },
+	    {
+                question: "<strong>64000$ question: <br> In which of the following sentences is the present perfect tense used correctly?</strong>",
+                answers: { a: "She visited Paris last year.", b: "He has eat lunch already.", c: "We have been to Italy twice.", d: "They saw the movie yesterday." },
+                correct: "c"
+            },
+
+            {
+                question: "<strong>125000$ question: <br> Which of the following sentences is in the passive voice?</strong>",
+                answers: { a: "The singer has a concert at the beach.", b: "John eats apples every day.", c: "The book was written by Mark Twain.", d: "The teacher explains grammar rules." },
+                correct: "c"
+            },
+            {
+                question: "<strong>250000$ question: <br> In which of the following sentences is 'some' used correctly?</strong>",
+                answers: { a: "Can I have any sugar for some coffee?", b: "There isn't some milk in the fridge.", c: "Would you like some help with your homework?", d: "I don't have some money to lend you." },
+                correct: "c"
+            },
+            {
+                question: "<strong>500000$ question: <br> Which of the following sentences correctly transforms direct speech into reported speech?</strong>",
+                answers: { a: "'I will bake a cake tomorrow,' she said. = She said she bakes a cake tomorrow.", b: "'We went to the beach last weekend,' he said. = He said they have gone to the beach last weekend.", c: "'They are studying for the exam,' she said. = She said they were studying for the exam.", d: "'He plays the piano beautifully,' she said. = She said he plays the piano beautifully." },
+                correct: "c"
+            },
+            {
+                question: "<strong>1000000$ question: <br> Which of the following sentences correctly uses the third conditional?</strong>",
+                answers: { a: "If I will have studied harder, I would have passed the exam.", b: "If they would have arrived on time, they could have caught the train.", c: "If she would have called me, I will have helped her.", d: "If we had known about the traffic, we would have taken a different route." },
+                correct: "d"
+            }
+        ];
+
+        let currentQuestion = 0;
+
+       function displayQuestion() {
+            const questionElement = document.getElementById('question');
+            const answersElement = document.getElementById('answers');
+
+            questionElement.innerHTML = questions[currentQuestion].question;
+            answersElement.innerHTML = '';
+
+            for (const [key, value] of Object.entries(questions[currentQuestion].answers)) {
+                const answerOption = document.createElement('div');
+                answerOption.classList.add('answer'); // Neue Klasse hinzugefügt
+                answerOption.innerHTML = `
+                    <input type="radio" id="answer${key}" name="answer" value="${key}">
+                    <label for="answer${key}">${value}</label>
+                `;
+                answersElement.appendChild(answerOption);
+            }
+        }
+
+        function updateAriaChecked(selectedOption) {
+            const options = document.querySelectorAll('[role="radio"]');
+            options.forEach(option => option.setAttribute('aria-checked', 'false'));
+            selectedOption.setAttribute('aria-checked', 'true');
+        }
+
+        function announceSelection(selectedOption) {
+            const input = selectedOption.querySelector('input');
+            const state = input.checked ? 'auswahlschalter aktiviert' : 'auswahlschalter nicht aktiviert';
+            const label = selectedOption.querySelector('label').innerText;
+            alert(`${state}, ${label}`);
+        }
+
+        function checkAnswer() {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+
+            if (!selectedAnswer) {
+                alert("Bitte wählen Sie eine Antwort aus.");
+                return;
+            }
+
+            if (selectedAnswer.value === questions[currentQuestion].correct) {
+                alert("Richtige Antwort!");
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    displayQuestion();
+                } else {
+                    alert("Gratulation! Sie sind Grammatik Millionär!");
+                    currentQuestion = 0;
+                    displayQuestion();
+                }
+            } else {
+                alert("Falsche Antwort! Beginnen Sie erneut bei der $100 Frage.");
+                currentQuestion = 0;
+                displayQuestion();
+            }
+        }
+
+        displayQuestion();
+    </script>
+</body>
+</html>

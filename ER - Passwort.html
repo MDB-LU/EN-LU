@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password</title>
+    <script>
+        function checkPassword() {
+            var password = document.getElementById('password').value;
+            if (password === '3724410') {
+                window.location.href = 'ER - Final Task.html'; // Weiterleitung zur geschützten Seite
+            } else {
+                alert('Falsches Passwort! Bitte versuche es erneut.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var input = document.getElementById('password');
+            input.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    checkPassword();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <p><h2>Password</h2></p>
+    <p>The All Blacks is the nickname of the national rugby team of New Zealand. So your anwser was correct. But have you answered all the other questions correctly as well?</p>
+    <p>So far, you should have written down three numbers. Type in these three numbers below, one after the other, without any spaces.</p>
+    <p>You will only get to the final task if you type in the correct numbers. If your numbers are wrong, you have to go back and check if your numbers are really correct.</p>
+<br>
+    <p>Type in your three numbers below:</p>  
+    <input type="text" id="password">
+    <button onclick="checkPassword()" lang="de"><span lang="de">Eingabe</span></button>
+</body>
+</html>

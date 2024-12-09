@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parts of Speech Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            margin-top: 10px;
+        }
+        .question-container {
+            width: 50%;
+            text-align: left;
+        }
+        .question {
+            font-size: 1.2em;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 10px 0;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container" class="question-container">
+        <div id="question" class="question"></div>
+        <ul id="options" class="options"></ul>
+    </div>
+    <div id="results-container" class="hidden">
+        <h2>Quiz Ergebnisse</h2>
+        <div id="results"></div>
+    </div>
+    <div id="timer">Zeit: 3:00</div>
+
+    <script>
+        const questions = [
+            { question: "<span lang='en'>I have been tired all week. What part of speech is 'tired'?</span>", answers: ["Verb", "Adjektiv", "Nomen", "Konjunktion"], correct: 1 },
+            { question: "<span lang='en'>The cat slept under the table. What part of speech is 'under'?</span>", answers: ["Adverb", "Präposition", "Konjunktion", "Adjektiv"], correct: 1 },
+            { question: "<span lang='en'>She quickly finished her homework. What part of speech is 'she'?</span>", answers: ["Pronomen", "Verb", "Adverb", "Adjektiv"], correct: 0 },
+            { question: "<span lang='en'>The sky is blue and clear. What part of speech is 'sky'?</span>", answers: ["Nomen", "Konjunktion", "Adjektiv", "Adverb"], correct: 0 },
+            { question: "<span lang='en'>Wow! That was amazing! What part of speech is 'Wow'?</span>", answers: ["Adjektiv", "Interjektion", "Nomen", "Verb"], correct: 1 },
+            { question: "<span lang='en'>He ran across the field. What part of speech is 'ran'?</span>", answers: ["Verb", "Nomen", "Adjektiv", "Adverb"], correct: 0 },
+            { question: "<span lang='en'>They have three cats and two dogs. What part of speech is 'three'?</span>", answers: ["Verb", "Nomen", "Adjektiv", "Adverb"], correct: 2 },
+            { question: "<span lang='en'>Please put the book on the shelf. What part of speech is 'on'?</span>", answers: ["Konjunktion", "Präposition", "Adverb", "Adjektiv"], correct: 1 },
+            { question: "<span lang='en'>The flowers in the garden are blooming. What part of speech is 'flowers'?</span>", answers: ["Verb", "Nomen", "Adjektiv", "Adverb"], correct: 1 },
+            { question: "<span lang='en'>She is very intelligent. What part of speech is 'intelligent'?</span>", answers: ["Verb", "Adverb", "Adjektiv", "Nomen"], correct: 2 },
+            { question: "<span lang='en'>The children played happily in the park. What part of speech is 'happily'?</span>", answers: ["Verb", "Adjektiv", "Nomen", "Adverb"], correct: 3 },
+            { question: "<span lang='en'>Despite the rain, they went for a walk. What part of speech is 'they'?</span>", answers: ["Verb", "Präposition", "Konjunktion", "Pronomen"], correct: 3 },
+            { question: "<span lang='en'>This is my favorite book. What part of speech is 'favorite'?</span>", answers: ["Nomen", "Verb", "Adjektiv", "Adverb"], correct: 2 },
+            { question: "<span lang='en'>He arrived late because of the traffic. What part of speech is 'because'?</span>", answers: ["Konjunktion", "Präposition", "Nomen", "Adjektiv"], correct: 0 },
+            { question: "<span lang='en'>The cake tastes delicious. What part of speech is 'delicious'?</span>", answers: ["Nomen", "Verb", "Adjektiv", "Adverb"], correct: 2 },
+            { question: "<span lang='en'>Can you help me with this task? What part of speech is 'help'?</span>", answers: ["Verb", "Nomen", "Adjektiv", "Adverb"], correct: 0 },
+            { question: "<span lang='en'>She sings beautifully. What part of speech is 'beautifully'?</span>", answers: ["Adjektiv", "Nomen", "Adverb", "Verb"], correct: 2 },
+            { question: "<span lang='en'>John and Mary are friends. What part of speech is 'are'?</span>", answers: ["Verb", "Adjektiv", "Adverb", "Nomen"], correct: 0 },
+            { question: "<span lang='en'>We visited the museum last week. What part of speech is 'visited'?</span>", answers: ["Nomen", "Verb", "Adjektiv", "Adverb"], correct: 1 },
+            { question: "<span lang='en'>Ouch! That hurt! What part of speech is 'Ouch'?</span>", answers: ["Verb", "Adjektiv", "Nomen", "Interjektion"], correct: 3 },
+	    { question: "<span lang='en'>She plays the piano beautifully. What part of speech is 'piano'?</span>", answers: ["Adverb", "Verb", "Adjektiv", "Nomen"], correct: 3 },
+	    { question: "<span lang='en'>The old house creaked in the wind. What part of speech is 'old'?</span>", answers: ["Nomen", "Verb", "Adjektiv", "Konjunktion"], correct: 2 },
+	    { question: "<span lang='en'>They drove slowly through the fog. What part of speech is 'through'?</span>", answers: ["Adjektiv", "Adverb", "Nomen", "Präposition"], correct: 3 },
+	    { question: "<span lang='en'>Despite the rain, we went for a walk. What part of speech is 'walk'?</span>", answers: ["Verb", "Präposition", "Nomen", "Adjektiv"], correct: 2 },
+	    { question: "<span lang='en'>The movie was very exciting. What part of speech is 'exciting'?</span>", answers: ["Nomen", "Verb", "Adjektiv", "Adverb"], correct: 2 },
+	    { question: "<span lang='en'>He carefully wrapped the gift. What part of speech is 'carefully'?</span>", answers: ["Adjektiv", "Verb", "Adverb", "Konjunktion"], correct: 2 },
+	    { question: "<span lang='en'>The book on the shelf fell down. What part of speech is 'on'?</span>", answers: ["Konjunktion", "Präposition", "Adverb", "Adjektiv"], correct: 1 },
+	    { question: "<span lang='en'>She and her brother went to the store. What part of speech is 'and'?</span>", answers: ["Nomen", "Konjunktion", "Adjektiv", "Adverb"], correct: 1 },
+	    { question: "<span lang='en'>They ran quickly to catch the bus. What part of speech is 'catch'?</span>", answers: ["Nomen", "Verb", "Adverb", "Präposition"], correct: 1 },
+	    { question: "<span lang='en'>The new car is parked in the driveway. What part of speech is 'new'?</span>", answers: ["Adverb", "Verb", "Adjektiv", "Konjunktion"], correct: 2 },
+	    { question: "<span lang='en'>Wow! What a surprise! What part of speech is 'surprise'?</span>", answers: ["Adjektiv", "Nomen", "Interjektion", "Verb"], correct: 1 },
+	    { question: "<span lang='en'>She always speaks softly in class. What part of speech is 'softly'?</span>", answers: ["Verb", "Adverb", "Nomen", "Konjunktion"], correct: 1 },
+	    { question: "<span lang='en'>John and Sarah are good friends. What part of speech is 'friends'?</span>", answers: ["Verb", "Adjektiv", "Adverb", "Nomen"], correct: 3 },
+	    { question: "<span lang='en'>The dog eagerly followed its owner. What part of speech is 'eagerly'?</span>", answers: ["Nomen", "Verb", "Adjektiv", "Adverb"], correct: 3 },
+	    { question: "<span lang='en'>They will arrive late due to traffic. What part of speech is 'to'?</span>", answers: ["Präposition", "Verb", "Konjunktion", "Adverb"], correct: 0 },
+	    { question: "<span lang='en'>The cat quickly climbed the tree. What part of speech is 'cat'?</span>", answers: ["Nomen", "Verb", "Adverb", "Konjunktion"], correct: 0 },
+	    { question: "<span lang='en'>Despite his efforts, he couldn't solve the puzzle. What part of speech is 'he'?</span>", answers: ["Pronomen", "Präposition", "Konjunktion", "Adjektiv"], correct: 0 },
+	    { question: "<span lang='en'>She handed him the book gently. What part of speech is 'gently'?</span>", answers: ["Verb", "Adverb", "Adjektiv", "Konjunktion"], correct: 1 },
+	    { question: "<span lang='en'>The stormy weather kept us indoors. What part of speech is 'stormy'?</span>", answers: ["Adverb", "Verb", "Adjektiv", "Nomen"], correct: 2 },
+	    { question: "<span lang='en'>He spoke clearly and confidently. What part of speech is 'confidently'?</span>", answers: ["Nomen", "Verb", "Adverb", "Adjektiv"], correct: 2 },
+   	    { question: "<span lang='en'>They have been friends since childhood. What part of speech is 'childhood'?</span>", answers: ["Nomen", "Verb", "Adjektiv", "Konjunktion"], correct: 0 },
+	    { question: "<span lang='en'>The music was too loud for me. What part of speech is 'loud'?</span>", answers: ["Adverb", "Verb", "Adjektiv", "Konjunktion"], correct: 2 },
+	    { question: "<span lang='en'>He read the book quickly before the exam. What part of speech is 'quickly'?</span>", answers: ["Adjektiv", "Verb", "Adverb", "Konjunktion"], correct: 2 },
+	    { question: "<span lang='en'>Despite her fear, she jumped into the water. What part of speech is 'Despite'?</span>", answers: ["Verb", "Präposition", "Konjunktion", "Adjektiv"], correct: 2 },
+	    { question: "<span lang='en'>The old man walked slowly across the street. What part of speech is 'slowly'?</span>", answers: ["Verb", "Nomen", "Adverb", "Konjunktion"], correct: 2 },
+	    { question: "<span lang='en'>She carefully wrapped the gift with a ribbon. What part of speech is 'carefully'?</span>", answers: ["Adjektiv", "Verb", "Adverb", "Konjunktion"], correct: 2 },
+	    { question: "<span lang='en'>The train arrived late because of the delay. What part of speech is 'of'?</span>", answers: ["Präposition", "Verb", "Konjunktion", "Adverb"], correct: 0 },
+	    { question: "<span lang='en'>Wow! That was incredible! What part of speech is 'Wow'?</span>", answers: ["Verb", "Adjektiv", "Interjektion", "Konjunktion"], correct: 2 },
+	    { question: "<span lang='en'>He quickly finished his homework before dinner. What part of speech is 'before'?</span>", answers: ["Nomen", "Verb", "Interjektion", "Präposition"], correct: 2 },
+	    { question: "<span lang='en'>The tall building stood out against the skyline. What part of speech is 'tall'?</span>", answers: ["Verb", "Nomen", "Adjektiv", "Konjunktion"], correct: 2 }
+        ];
+
+        let shuffledQuestions;
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        const totalTime = 180;
+        let timeLeft = totalTime;
+        let timerInterval;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            shuffledQuestions = shuffle([...questions]); // Create a shuffled copy of the questions array
+            document.getElementById('timer').textContent = `Zeit: ${formatTime(timeLeft)}`;
+            displayQuestion();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function displayQuestion() {
+            if (currentQuestion < shuffledQuestions.length) {
+                const q = shuffledQuestions[currentQuestion];
+                document.getElementById('question').innerHTML = q.question;
+                const options = document.getElementById('options');
+                options.innerHTML = '';
+                q.answers.forEach((answer, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<button onclick="checkAnswer(${index})">${answer}</button>`;
+                    options.appendChild(li);
+                });
+            } else {
+                endQuiz();
+            }
+        }
+
+        function checkAnswer(selected) {
+            const q = shuffledQuestions[currentQuestion];
+            if (selected === q.correct) {
+                alert('Richtig!');
+                correctAnswers++;
+            } else {
+                alert('Falsch!');
+                incorrectAnswers++;
+            }
+            currentQuestion++;
+            displayQuestion();
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            document.getElementById('timer').textContent = `Zeit: ${formatTime(timeLeft)}`;
+            if (timeLeft <= 0) {
+                alert('Die Zeit ist abgelaufen');
+                endQuiz();
+            }
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resultsContainer = document.getElementById('results-container');
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <p>Richtig beantwortete Fragen: ${correctAnswers}</p>
+                <p>Falsch beantwortete Fragen: ${incorrectAnswers}</p>
+            `;
+            resultsContainer.classList.remove('hidden');
+        }
+
+        window.onload = startQuiz;
+    </script>
+</body>
+</html>

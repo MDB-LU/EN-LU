@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pronoun Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            margin-top: 10px;
+        }
+        .question-container {
+            width: 50%;
+            text-align: left;
+        }
+        .question {
+            font-size: 1.2em;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 10px 0;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container" class="question-container">
+        <div id="question" class="question"></div>
+        <ul id="options" class="options"></ul>
+    </div>
+    <div id="results-container" class="hidden">
+        <h2>Results</h2>
+        <div id="results"></div>
+    </div>
+    <div id="timer">Time: 3:00</div>
+
+    <script>
+        const questions = [
+  {
+    "question": "_..._ is the best cake I've ever tasted.",
+    "answers": ["THIS", "THOSE", "WHICH", "THESE"],
+    "correct": 0
+  },
+  {
+    "question": "_..._ were the days we cherished the most.",
+    "answers": ["WHO", "THOSE", "THEY", "WHAT"],
+    "correct": 1
+  },
+  {
+    "question": "_..._ book belongs to my sister.",
+    "answers": ["THOSE", "THAT", "WHICH", "THESE"],
+    "correct": 1
+  },
+  {
+    "question": "_..._ flowers are for you.",
+    "answers": ["THIS", "THAT", "WHICH", "THESE"],
+    "correct": 3
+  },
+  {
+    "question": "The car, _..._ is parked outside, is mine.",
+    "answers": ["WHO", "WHOSE", "WHOM", "WHICH"],
+    "correct": 3
+  },
+  {
+    "question": "The woman _..._ lives next door is a doctor.",
+    "answers": ["WHO", "WHOM", "WHOSE", "THESE"],
+    "correct": 0
+  },
+  {
+    "question": "The man _..._ you met yesterday is my uncle.",
+    "answers": ["WHO", "HE", "WHOM", "WHOSE"],
+    "correct": 2
+  },
+  {
+    "question": "The house, _..._ roof is red, is very old.",
+    "answers": ["WHO", "WHOM", "WHOSE", "WHICH"],
+    "correct": 2
+  },
+  {
+    "question": "I didn't like _..._ he said.",
+    "answers": ["WHO", "WHOM", "WHAT", "WHICH"],
+    "correct": 2
+  },
+  {
+    "question": "_..._ will help you with your homework, but only if you pay me.",
+    "answers": ["WHO", "SHE", "I", "THOSE"],
+    "correct": 2
+  },
+  {
+    "question": "_..._ are always welcome here. We all like you.",
+    "answers": ["YOU", "THESE", "WE", "SHE"],
+    "correct": 0
+  },
+  {
+    "question": "John was home early because _..._ was fired.",
+    "answers": ["THEY", "HE", "SHE", "YOU"],
+    "correct": 1
+  },
+  {
+    "question": "Jenny is very busy. _..._ is planning a surprise party for her friend.",
+    "answers": ["HE", "IT", "SHE", "I"],
+    "correct": 2
+  },
+  {
+    "question": "_..._ is raining heavily outside.",
+    "answers": ["THIS", "SHE", "IT", "WHICH"],
+    "correct": 2
+  },
+  {
+    "question": "Me and my husband can't wait! _..._ are finally going on vacation next week.",
+    "answers": ["I", "WE", "WHO", "HE"],
+    "correct": 1
+  },
+  {
+    "question": "The new neighbours will move in soon. I hope _..._ don't have children.",
+    "answers": ["HE", "SHE", "WE", "THEY"],
+    "correct": 3
+  },
+  {
+    "question": "Can you help _..._ with this project?",
+    "answers": ["THAT", "ME", "WHICH", "THIS"],
+    "correct": 1
+  },
+  {
+    "question": "The teacher was impressed with Tom. He praised _..._ for his efforts.",
+    "answers": ["HER", "THEM", "HIM", "US"],
+    "correct": 2
+  },
+  {
+    "question": "I saw _..._ at the grocery store yesterday. She was there with her son.",
+    "answers": ["HER", "HIM", "THEM", "YOU"],
+    "correct": 0
+  },
+  {
+    "question": "_..._ are my best friends.",
+    "answers": ["HE", "SHE", "THEY", "WE"],
+    "correct": 2
+  },
+  {
+    "question": "Do you see them over there? _..._ students are very hardworking.",
+    "answers": ["THIS", "THOSE", "WHOSE", "WHICH"],
+    "correct": 1
+  },
+  {
+    "question": "I met someone _..._ can help us.",
+    "answers": ["WHOM", "WHO", "WHOSE", "HE"],
+    "correct": 1
+  },
+  {
+    "question": "The report, _..._ was submitted yesterday, was excellent.",
+    "answers": ["WHO", "WHOM", "SHE", "WHICH"],
+    "correct": 3
+  },
+  {
+    "question": "Do you know _..._ left this here?",
+    "answers": ["WHO", "WHOM", "WHAT", "WHICH"],
+    "correct": 0
+  },
+  {
+    "question": "_..._ is the best movie I've seen this year.",
+    "answers": ["THIS", "HE", "WHICH", "WHAT"],
+    "correct": 0
+  },
+  {
+    "question": "She asked _..._ could help her with the project.",
+    "answers": ["WHOM", "WHO", "WHOSE", "WHICH"],
+    "correct": 1
+  },
+  {
+    "question": "The team _..._ won the game celebrated all night.",
+    "answers": ["WHOSE", "WHOM", "THAT", "THEY"],
+    "correct": 2
+  },
+  {
+    "question": "_..._ idea was it to go camping?",
+    "answers": ["WHO", "WHOM", "WHOSE", "WHICH"],
+    "correct": 2
+  },
+  {
+    "question": "I will show you _..._ I can do.",
+    "answers": ["THAT", "WHOM", "WHAT", "WHICH"],
+    "correct": 2
+  },
+  {
+    "question": "_..._ story did you like the most?",
+    "answers": ["THIS", "WHOM", "WHAT", "WHICH"],
+    "correct": 3
+  },
+  {
+    "question": "_..._ is the book I was talking about.",
+    "answers": ["THIS", "WHOSE", "WHICH", "WHAT"],
+    "correct": 0
+  },
+  {
+    "question": "_..._ shoes are lying on the floor?",
+    "answers": ["WHO", "WHOSE", "WHOM", "WHICH"],
+    "correct": 1
+  },
+  {
+    "question": "I don't know _..._ brought this gift.",
+    "answers": ["WHO", "WHOM", "WHOSE", "WHICH"],
+    "correct": 0
+  },
+  {
+    "question": "I wonder _..._ they are planning.",
+    "answers": ["WHAT", "WHO", "WHOSE", "WHICH"],
+    "correct": 0
+  },
+  {
+    "question": "Can you tell me _..._ is responsible for this?",
+    "answers": ["WHOM", "WHOSE", "WHICH", "WHO"],
+    "correct": 3
+  },
+  {
+    "question": "_..._ decision was it to cancel the meeting?",
+    "answers": ["WHO", "WHOM", "WHOSE", "WHICH"],
+    "correct": 2
+  },
+  {
+    "question": "_..._ is the best player on our team.",
+    "answers": ["HE", "YOU", "THEY", "WE"],
+    "correct": 0
+  },
+  {
+    "question": "My daughter loves dinosaurs. That's why _..._ wanted to go to the museum last weekend.",
+    "answers": ["HE", "SHE", "THEY", "YOU"],
+    "correct": 1
+  },
+  {
+    "question": "My grandmother is the best! _..._ baked a delicious cake for our party.",
+    "answers": ["HE", "SHE", "THEY", "WE"],
+    "correct": 1
+  },
+  {
+    "question": "_..._ are planning to go camping next month.",
+    "answers": ["HE", "SHE", "I", "WE"],
+    "correct": 3
+  },
+  {
+    "question": "_..._ forgot to bring my notebook to class.",
+    "answers": ["HE", "SHE", "I", "YOU"],
+    "correct": 2
+  },
+  {
+    "question": "I tried to fix my computer yesterday and now _..._ finally works.",
+    "answers": ["HE", "SHE", "IT", "WE"],
+    "correct": 2
+  },
+  {
+    "question": "The teacher asked _..._ to read the next chapter, but I didn't have my book with me.",
+    "answers": ["HIM", "HER", "ME", "US"],
+    "correct": 2
+  },
+  {
+    "question": "_..._ invited us to their wedding.",
+    "answers": ["HE", "SHE", "THEY", "WE"],
+    "correct": 2
+  },
+  {
+    "question": "_..._ finished the project ahead of schedule. His boss was very impressed.",
+    "answers": ["HE", "SHE", "THEY", "WE"],
+    "correct": 0
+  },
+  {
+    "question": "She will meet _..._ at the cafe later. It's her first date with Jim.",
+    "answers": ["HE", "HIM", "THEY", "US"],
+    "correct": 1
+  },
+  {
+    "question": "_..._ enjoyed our time at the beach.",
+    "answers": ["HE", "SHE", "THEY", "WE"],
+    "correct": 3
+  },
+  {
+    "question": "_..._ was a great movie.",
+    "answers": ["HE", "SHE", "IT", "WE"],
+    "correct": 2
+  },
+  {
+    "question": "I highly recommend the new restaurant. _..._ should go there today.",
+    "answers": ["I", "YOU", "WHO", "WHOSE"],
+    "correct": 1
+  },
+  {
+    "question": "The manager praised _..._ for her excellent work.",
+    "answers": ["HE", "SHE", "HER", "US"],
+    "correct": 2
+  },
+  {
+    "question": "They gave _..._ a surprise birthday party. He had no idea!",
+    "answers": ["HE", "SHE", "HIM", "US"],
+    "correct": 2
+  },
+  {
+    "question": "I'm sorry, I can't talk now. I will call _..._ later.",
+    "answers": ["HE", "SHE", "THEY", "YOU"],
+    "correct": 3
+  }
+];
+
+
+        let shuffledQuestions;
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        const totalTime = 180;
+        let timeLeft = totalTime;
+        let timerInterval;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            shuffledQuestions = shuffle([...questions]); // Create a shuffled copy of the questions array
+            document.getElementById('timer').textContent = `Time: ${formatTime(timeLeft)}`;
+            displayQuestion();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function displayQuestion() {
+            if (currentQuestion < shuffledQuestions.length) {
+                const q = shuffledQuestions[currentQuestion];
+                document.getElementById('question').innerHTML = q.question;
+                const options = document.getElementById('options');
+                options.innerHTML = '';
+                q.answers.forEach((answer, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<button onclick="checkAnswer(${index})">${answer}</button>`;
+                    options.appendChild(li);
+                });
+            } else {
+                endQuiz();
+            }
+        }
+
+        function checkAnswer(selected) {
+            const q = shuffledQuestions[currentQuestion];
+            if (selected === q.correct) {
+                alert('Richtig!');
+                correctAnswers++;
+            } else {
+                alert('Falsch!');
+                incorrectAnswers++;
+            }
+            currentQuestion++;
+            displayQuestion();
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            document.getElementById('timer').textContent = `Time: ${formatTime(timeLeft)}`;
+            if (timeLeft <= 0) {
+                alert('Die Zeit ist abgelaufen');
+                endQuiz();
+            }
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resultsContainer = document.getElementById('results-container');
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <p>Correct answers: ${correctAnswers}</p>
+                <p>Wrong answers: ${incorrectAnswers}</p>
+            `;
+            resultsContainer.classList.remove('hidden');
+        }
+
+        window.onload = startQuiz;
+    </script>
+</body>
+</html>

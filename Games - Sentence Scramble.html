@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Scramble</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            margin-top: 10px;
+        }
+        .question-container {
+            width: 50%;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        #answer {
+            width: 80%;
+            height: 40px;
+            font-size: 1.2em;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+        #timer {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container" class="question-container">
+        <div id="question" class="question"></div>
+        <input type="text" id="answer" placeholder="Antwort eingeben" onkeypress="checkEnter(event)">
+    </div>
+    <div id="results-container" class="hidden">
+        <h2>Quiz Ergebnisse</h2>
+        <div id="results"></div>
+    </div>
+    <div id="timer">Zeit: 5:00</div>
+
+    <script>
+        const questions = [
+{ question: "<span lang='en'>loves, reading, books, evening, she, every</span>", correct: "She loves reading books every evening." },
+{ question: "<span lang='en'>cat, the, on, the, mat, sat</span>", correct: "The cat sat on the mat." },
+{ question: "<span lang='en'>plays, very, guitar, he, the, well</span>", correct: "He plays the guitar very well." },
+{ question: "<span lang='en'>went, to, beach, they, the, today</span>", correct: "They went to the beach today." },
+{ question: "<span lang='en'>west, sun, sets, the, in, the</span>", correct: "The sun sets in the west." },
+{ question: "<span lang='en'>cooked, a, delicious, meal, she, tonight</span>", correct: "She cooked a delicious meal tonight." },
+{ question: "<span lang='en'>breakfast, every, runs, he, before, morning</span>", correct: "He runs every morning before breakfast." },
+{ question: "<span lang='en'>at, the, barked, loudly, strangers, dog</span>", correct: "The dog barked loudly at strangers." },
+{ question: "<span lang='en'>last, visited, the, museum, we, weekend</span>", correct: "We visited the museum last weekend." },
+{ question: "<span lang='en'>enjoy, they, hiking, in, the, mountains</span>", correct: "They enjoy hiking in the mountains." },
+{ question: "<span lang='en'>the, battery, needs, a, car, new</span>", correct: "The car needs a new battery." },
+{ question: "<span lang='en'>the, sings, beautifully, she, in, choir</span>", correct: "She sings beautifully in the choir." },
+{ question: "<span lang='en'>he, a, yesterday, new, bicycle, bought</span>", correct: "He bought a new bicycle yesterday." },
+{ question: "<span lang='en'>park, children, the, are, playing, in, the</span>", correct: "The children are playing in the park." },
+{ question: "<span lang='en'>studies, hard, her, for, exams, she</span>", correct: "She studies hard for her exams." },
+{ question: "<span lang='en'>love, on, watching, movies, weekends, they</span>", correct: "They love watching movies on weekends." },
+{ question: "<span lang='en'>in, flowers, the, the, spring, bloom</span>", correct: "The flowers bloom in the spring." },
+{ question: "<span lang='en'>enjoys, he, in, ocean, the, swimming</span>", correct: "He enjoys swimming in the ocean." },
+{ question: "<span lang='en'>cake, tastes, delicious, amazing, and, the</span>", correct: "The cake tastes amazing and delicious." },
+{ question: "<span lang='en'>journal, writes, poetry, in, her, she</span>", correct: "She writes poetry in her journal." },
+{ question: "<span lang='en'>planning, they, are, a, abroad, trip</span>", correct: "They are planning a trip abroad." },
+{ question: "<span lang='en'>birds, the, are, singing, in, the, trees</span>", correct: "The birds are singing in the trees." },
+{ question: "<span lang='en'>the, by, house, himself, painted, he</span>", correct: "He painted the house by himself." },
+{ question: "<span lang='en'>dances, she, on, the, stage, gracefully</span>", correct: "She dances gracefully on the stage." },
+{ question: "<span lang='en'>learning, they, are, chess, to, play</span>", correct: "They are learning to play chess." },
+{ question: "<span lang='en'>coffee, the, smells, fresh, inviting, and</span>", correct: "The coffee smells fresh and inviting." },
+{ question: "<span lang='en'>fixed, he, the, broken, computer, quickly</span>", correct: "He fixed the broken computer quickly." },
+{ question: "<span lang='en'>backyard, enjoys, she, in, her, gardening</span>", correct: "She enjoys gardening in her backyard." },
+{ question: "<span lang='en'>play, football, they, Sunday, afternoon, every</span>", correct: "They play football every Sunday afternoon." },
+{ question: "<span lang='en'>night, rain, the, stopped, suddenly, last</span>", correct: "The rain stopped suddenly last night." },
+{ question: "<span lang='en'>baked, she, for, party, the, cookies</span>", correct: "She baked cookies for the party." },
+{ question: "<span lang='en'>reading, a, new, he, is, novel</span>", correct: "He is reading a new novel." },
+{ question: "<span lang='en'>o'clock, store, the, opens, at, nine</span>", correct: "The store opens at nine o'clock." },
+{ question: "<span lang='en'>restaurants, love, they, exploring, new, together</span>", correct: "They love exploring new restaurants together." },
+{ question: "<span lang='en'>train, the, arrived, on, time, right</span>", correct: "The train arrived right on time." },
+{ question: "<span lang='en'>drew, landscape, she, a, beautiful, picture</span>", correct: "She drew a beautiful landscape picture." },
+{ question: "<span lang='en'>basketball, he, after, daily, school, plays</span>", correct: "He plays basketball after school daily." },
+{ question: "<span lang='en'>river, the, flows, through, town, gently</span>", correct: "The river flows gently through town." },
+{ question: "<span lang='en'>enjoys, painting, she, with, watercolors</span>", correct: "She enjoys painting with watercolors." },
+{ question: "<span lang='en'>celebrating, today, they, their, anniversary, are</span>", correct: "They are celebrating their anniversary today." },
+{ question: "<span lang='en'>leaves, the, color, in, change, autumn</span>", correct: "The leaves change color in autumn." },
+{ question: "<span lang='en'>watches, the, news, evening, every, he</span>", correct: "He watches the news every evening." },
+{ question: "<span lang='en'>kids, the, building, a, sandcastle, are</span>", correct: "The kids are building a sandcastle." },
+{ question: "<span lang='en'>homework, finished, she, dinner, her, before</span>", correct: "She finished her homework before dinner." },
+{ question: "<span lang='en'>the, are, talent, practicing, show, they, for</span>", correct: "They are practicing for the talent show." },
+{ question: "<span lang='en'>fast, the, was, delivery, very, pizza</span>", correct: "The pizza delivery was very fast." },
+{ question: "<span lang='en'>shelter, adopted, she, the, a, kitten, from</span>", correct: "She adopted a kitten from the shelter." },
+{ question: "<span lang='en'>enjoys, he, in, the, park, jogging</span>", correct: "He enjoys jogging in the park." },
+{ question: "<span lang='en'>stars, the, shine, night, brightly, at</span>", correct: "The stars shine brightly at night." },
+{ question: "<span lang='en'>hosted, they, a, Saturday, barbecue, last</span>", correct: "They hosted a barbecue last Saturday." }
+   ];
+
+        let shuffledQuestions;
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        const totalTime = 300;
+        let timeLeft = totalTime;
+        let timerInterval;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            shuffledQuestions = shuffle([...questions]); // Create a shuffled copy of the questions array
+            document.getElementById('timer').textContent = `Zeit: ${formatTime(timeLeft)}`;
+            displayQuestion();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function displayQuestion() {
+            if (currentQuestion < shuffledQuestions.length) {
+                const q = shuffledQuestions[currentQuestion];
+                document.getElementById('question').innerHTML = q.question;
+                document.getElementById('answer').value = '';
+            } else {
+                endQuiz();
+            }
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                submitAnswer();
+            }
+        }
+
+        function submitAnswer() {
+            const userAnswer = document.getElementById('answer').value.trim();
+            const q = shuffledQuestions[currentQuestion];
+            const correctAnswer = q.correct;
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                alert('Richtig!');
+                correctAnswers++;
+            } else {
+                alert(`Falsch!`);
+                incorrectAnswers++;
+            }
+            currentQuestion++;
+            displayQuestion();
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            document.getElementById('timer').textContent = `Zeit: ${formatTime(timeLeft)}`;
+            if (timeLeft <= 0) {
+                alert('Die Zeit ist abgelaufen');
+                endQuiz();
+            }
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resultsContainer = document.getElementById('results-container');
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <p>Richtig beantwortete Fragen: ${correctAnswers}</p>
+                <p>Falsch beantwortete Fragen: ${incorrectAnswers}</p>
+            `;
+            resultsContainer.classList.remove('hidden');
+        }
+
+        // Start the quiz automatically when the page loads
+        document.addEventListener('DOMContentLoaded', startQuiz);
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's the tense</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            margin-top: 10px;
+        }
+        .question-container {
+            width: 50%;
+            text-align: left;
+        }
+        .question {
+            font-size: 1.2em;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 10px 0;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container" class="question-container">
+        <div id="question" class="question"></div>
+        <ul id="options" class="options"></ul>
+    </div>
+    <div id="results-container" class="hidden">
+        <h2>Results</h2>
+        <div id="results"></div>
+    </div>
+    <div id="timer">Time: 3:00</div>
+
+    <script>
+        const questions = [
+  { "question": "He walked to school yesterday.",
+	"answers": ["Past Continuous", "Past Simple Passive", "Past Perfect", "Past Simple"],
+	"correct": 3
+},
+{ "question": "They will visit their grandparents next month.",
+	"answers": ["Future Perfect", "Future Simple Passive", "Future Simple", "Future Perfect Passive"],
+	"correct": 2
+},
+
+{ "question": "She is studying for her exam right now.",
+	"answers": ["Past Continuous", "Present Perfect Continuous", "Present Continuous", "Past Perfect Continuous"],
+	"correct": 2 
+},
+  {
+    "question": "She plays tennis every weekend.",
+    "answers": ["Present Continuous", "Present Simple", "Past Simple", "Present Perfect"],
+    "correct": 1
+  },
+  {
+    "question": "They were dancing at the party last night.",
+    "answers": ["Past Perfect Continuous", "Past Continuous", "Present Simple Passive", "Present Perfect Passive"],
+    "correct": 1
+  },
+  {
+    "question": "We will be watching a movie at 8 PM tomorrow.",
+    "answers": ["Future Continuous", "Past Simple Passive", "Future Simple Passive", "Present Perfect Continuous"],
+    "correct": 0
+  },
+  {
+    "question": "He has finished his homework already.",
+    "answers": ["Present Perfect", "Past Continuous", "Future Perfect", "Past Perfect Passive"],
+    "correct": 0
+  },
+  {
+    "question": "She had eaten breakfast already.",
+    "answers": ["Present Perfect Continuous", "Future Perfect Passive", "Past Perfect", "Future Perfect Continuous"],
+    "correct": 2
+  },
+  {
+    "question": "They will have completed the project by next Friday.",
+    "answers": ["Future Perfect", "Present Perfect Passive", "Past Perfect Continuous", "Future Simple Passive"],
+    "correct": 0
+  },
+  {
+    "question": "I have been reading this book for hours.",
+    "answers": ["Past Simple Passive", "Present Perfect Continuous", "Future Perfect Continuous", "Past Perfect Passive"],
+    "correct": 1
+  },
+  {
+    "question": "We had been waiting for hours.",
+    "answers": ["Present Perfect", "Future Simple Passive", "Past Perfect Continuous", "Present Continuous"],
+    "correct": 2
+  },
+  {
+    "question": "By next year, she will have been working here for ten years.",
+    "answers": ["Present Simple Passive", "Past Continuous", "Future Perfect Continuous", "Past Perfect Passive"],
+    "correct": 2
+  },
+  {
+    "question": "The book is read by many students.",
+    "answers": ["Present Perfect", "Present Simple Passive", "Future Simple", "Past Simple Passive"],
+    "correct": 1
+  },
+  {
+    "question": "The cake was baked by my mom yesterday.",
+    "answers": ["Past Simple Passive", "Future Perfect Passive", "Present Perfect Continuous", "Present Perfect Passive"],
+    "correct": 0
+  },
+  {
+    "question": "The house will be cleaned by a professional cleaner next week.",
+    "answers": ["Present Perfect Passive", "Past Perfect Continuous", "Future Simple Passive", "Past Continuous"],
+    "correct": 2
+  },
+  {
+    "question": "The letter has been written by him.",
+    "answers": ["Future Continuous", "Present Perfect Passive", "Past Perfect Passive", "Future Simple"],
+    "correct": 1
+  },
+  {
+    "question": "The job had been finished before the deadline.",
+    "answers": ["Past Perfect Passive", "Present Continuous", "Past Simple Passive", "Future Continuous"],
+    "correct": 0
+  },
+  {
+    "question": "By the end of the day, the work will have been completed.",
+    "answers": ["Future Perfect Passive", "Present Perfect Continuous", "Past Perfect Passive", "Past Simple Passive"],
+    "correct": 0
+  },
+  {
+    "question": "She writes a letter every day.",
+    "answers": ["Present Continuous", "Present Simple", "Past Simple", "Present Perfect"],
+    "correct": 1
+  },
+  {
+    "question": "He visited the museum last week.",
+    "answers": ["Future Simple", "Past Continuous", "Past Simple", "Present Perfect Continuous"],
+    "correct": 2
+  },
+  {
+    "question": "They will travel to Japan next summer.",
+    "answers": ["Present Simple", "Future Perfect", "Future Continuous", "Future Simple"],
+    "correct": 3
+  },
+  {
+    "question": "She is cooking dinner at the moment.",
+    "answers": ["Present Perfect", "Present Continuous", "Past Perfect", "Future Perfect Continuous"],
+    "correct": 1
+  },
+  {
+    "question": "They were swimming in the lake yesterday.",
+    "answers": ["Past Perfect Continuous", "Past Continuous", "Present Simple Passive", "Present Perfect Passive"],
+    "correct": 1
+  },
+  {
+    "question": "We will be studying for our exams tomorrow evening.",
+    "answers": ["Future Continuous", "Past Simple Passive", "Future Simple Passive", "Present Perfect Continuous"],
+    "correct": 0
+  },
+  {
+    "question": "He has lived in Paris for five years.",
+    "answers": ["Present Perfect", "Past Continuous", "Future Perfect", "Past Perfect Passive"],
+    "correct": 0
+  },
+  {
+    "question": "She had written the report before the meeting started.",
+    "answers": ["Present Perfect Continuous", "Future Perfect Passive", "Past Perfect", "Future Perfect Continuous"],
+    "correct": 2
+  },
+  {
+    "question": "They will have finished the construction by next month.",
+    "answers": ["Future Perfect", "Present Perfect Passive", "Past Perfect Continuous", "Future Simple Passive"],
+    "correct": 0
+  },
+  {
+    "question": "I have been learning Spanish for three years.",
+    "answers": ["Past Simple Passive", "Present Perfect Continuous", "Future Perfect Continuous", "Past Perfect Passive"],
+    "correct": 1
+  },
+  {
+    "question": "We had been discussing the project for hours before the boss arrived.",
+    "answers": ["Present Perfect", "Future Simple Passive", "Past Perfect Continuous", "Present Continuous"],
+    "correct": 2
+  },
+  {
+    "question": "The story is told by the teacher.",
+    "answers": ["Present Perfect", "Present Simple Passive", "Future Simple", "Past Simple Passive"],
+    "correct": 1
+  },
+  {
+    "question": "The cookies were baked by the children.",
+    "answers": ["Past Simple Passive", "Future Perfect Passive", "Present Perfect Continuous", "Present Perfect Passive"],
+    "correct": 0
+  },
+  {
+    "question": "The presentation will be given by our manager next week.",
+    "answers": ["Present Perfect Passive", "Past Perfect Continuous", "Future Simple Passive", "Past Continuous"],
+    "correct": 2
+  },
+  {
+    "question": "The decision has been made by the committee.",
+    "answers": ["Future Continuous", "Present Perfect Passive", "Past Perfect Passive", "Future Simple"],
+    "correct": 1
+  },
+  {
+    "question": "The letters had been delivered by the postman before noon.",
+    "answers": ["Past Perfect Passive", "Present Continuous", "Past Simple Passive", "Future Continuous"],
+    "correct": 0
+  },
+  {
+    "question": "By tomorrow, the work will have been done by the team.",
+    "answers": ["Future Perfect Passive", "Present Perfect Continuous", "Past Perfect Passive", "Past Simple Passive"],
+    "correct": 0
+  }
+];
+
+
+        let shuffledQuestions;
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        const totalTime = 180;
+        let timeLeft = totalTime;
+        let timerInterval;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            shuffledQuestions = shuffle([...questions]); // Create a shuffled copy of the questions array
+            document.getElementById('timer').textContent = `Time: ${formatTime(timeLeft)}`;
+            displayQuestion();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function displayQuestion() {
+            if (currentQuestion < shuffledQuestions.length) {
+                const q = shuffledQuestions[currentQuestion];
+                document.getElementById('question').innerHTML = q.question;
+                const options = document.getElementById('options');
+                options.innerHTML = '';
+                q.answers.forEach((answer, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<button onclick="checkAnswer(${index})">${answer}</button>`;
+                    options.appendChild(li);
+                });
+            } else {
+                endQuiz();
+            }
+        }
+
+        function checkAnswer(selected) {
+            const q = shuffledQuestions[currentQuestion];
+            if (selected === q.correct) {
+                alert('Richtig!');
+                correctAnswers++;
+            } else {
+                alert('Falsch!');
+                incorrectAnswers++;
+            }
+            currentQuestion++;
+            displayQuestion();
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            document.getElementById('timer').textContent = `Time: ${formatTime(timeLeft)}`;
+            if (timeLeft <= 0) {
+                alert('Die Zeit ist abgelaufen');
+                endQuiz();
+            }
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resultsContainer = document.getElementById('results-container');
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <p>Correct answers: ${correctAnswers}</p>
+                <p>Wrong answers: ${incorrectAnswers}</p>
+            `;
+            resultsContainer.classList.remove('hidden');
+        }
+
+        window.onload = startQuiz;
+    </script>
+</body>
+</html>

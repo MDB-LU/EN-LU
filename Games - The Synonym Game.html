@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Synonym Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            margin-top: 10px;
+        }
+        .question-container {
+            width: 50%;
+            text-align: left;
+        }
+        .question {
+            font-size: 1.2em;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 10px 0;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container" class="question-container">
+        <div id="question" class="question"></div>
+        <ul id="options" class="options"></ul>
+    </div>
+    <div id="results-container" class="hidden">
+        <h2>Results</h2>
+        <div id="results"></div>
+    </div>
+    <div id="timer">Time: 3:00</div>
+
+    <script>
+        const questions = [
+    { "question": "What is the synonym of <strong>Happy</strong>?", "answers": ["Sad", "Joyful", "Angry", "Tired"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Sad</strong>?", "answers": ["Excited", "Happy", "Unhappy", "Brave"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Big</strong>?", "answers": ["Small", "Tiny", "Large", "Weak"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Small</strong>?", "answers": ["Tiny", "Large", "Huge", "Weak"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Fast</strong>?", "answers": ["Quick", "Slow", "Heavy", "Weak"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Slow</strong>?", "answers": ["Fast", "Quick", "Leisurely", "Heavy"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Old</strong>?", "answers": ["New", "Ancient", "Tiny", "Modern"], "correct": 1 },
+    { "question": "What is the synonym of <strong>New</strong>?", "answers": ["Recent", "Old", "Tiny", "Heavy"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Hot</strong>?", "answers": ["Warm", "Cold", "Dark", "Heavy"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Cold</strong>?", "answers": ["Chilly", "Warm", "Bright", "Heavy"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Strong</strong>?", "answers": ["Weak", "Powerful", "Small", "Heavy"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Weak</strong>?", "answers": ["Powerful", "Strong", "Small", "Feeble"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Easy</strong>?", "answers": ["Simple", "Hard", "Complex", "Heavy"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Difficult</strong>?", "answers": ["Simple", "Hard", "Easy", "Small"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Bright</strong>?", "answers": ["Dark", "Shiny", "Small", "Heavy"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Dark</strong>?", "answers": ["Shiny", "Dim", "Bright", "Heavy"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Rich</strong>?", "answers": ["Poor", "Wealthy", "Tiny", "Small"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Poor</strong>?", "answers": ["Wealthy", "Rich", "Tiny", "Impoverished"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Beautiful</strong>?", "answers": ["Attractive", "Ugly", "Small", "Heavy"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Ugly</strong>?", "answers": ["Attractive", "Beautiful", "Small", "Unappealing"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Brave</strong>?", "answers": ["Shy", "Scared", "Courageous", "Angry"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Scared</strong>?", "answers": ["Courageous", "Brave", "Afraid", "Excited"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Friendly</strong>?", "answers": ["Hostile", "Amiable", "Quiet", "Angry"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Hostile</strong>?", "answers": ["Friendly", "Amiable", "Aggressive", "Quiet"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Clean</strong>?", "answers": ["Neat", "Dirty", "Heavy", "Small"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Dirty</strong>?", "answers": ["Neat", "Clean", "Small", "Filthy"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Full</strong>?", "answers": ["Packed", "Empty", "Tiny", "Heavy"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Empty</strong>?", "answers": ["Packed", "Vacant", "Heavy", "Small"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Polite</strong>?", "answers": ["Courteous", "Rude", "Loud", "Angry"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Rude</strong>?", "answers": ["Polite", "Courteous", "Loud", "Impolite"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Strong</strong>?", "answers": ["Feeble", "Powerful", "Weak", "Heavy"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Fragile</strong>?", "answers": ["Delicate", "Strong", "Heavy", "Rough"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Early</strong>?", "answers": ["Late", "Prompt", "Tardy", "Heavy"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Late</strong>?", "answers": ["Tardy", "Early", "Prompt", "Heavy"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Tall</strong>?", "answers": ["Short", "High", "Heavy", "Tiny"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Short</strong>?", "answers": ["Tall", "Petite", "Heavy", "Large"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Hard</strong>?", "answers": ["Firm", "Soft", "Heavy", "Easy"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Soft</strong>?", "answers": ["Firm", "Cushioned", "Heavy", "Hard"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Cheap</strong>?", "answers": ["Expensive", "Inexpensive", "Heavy", "Old"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Expensive</strong>?", "answers": ["Costly", "Cheap", "Heavy", "Tiny"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Happy</strong>?", "answers": ["Tired", "Angry", "Cheerful", "Sad"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Sad</strong>?", "answers": ["Sad", "Excited", "Happy", "Angry"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Quiet</strong>?", "answers": ["Noisy", "Heavy", "Silent", "Loud"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Noisy</strong>?", "answers": ["Noisy", "Quiet", "Heavy", "Silent"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Healthy</strong>?", "answers": ["Ill", "Weak", "Heavy", "Well"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Sick</strong>?", "answers": ["Healthy", "Heavy", "Sick", "Strong"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Long</strong>?", "answers": ["Heavy", "Tiny", "Brief", "Extended"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Short</strong>?", "answers": ["Extended", "Heavy", "Brief", "Tiny"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Strong</strong>?", "answers": ["Small", "Robust", "Heavy", "Weak"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Weak</strong>?", "answers": ["Heavy", "Feeble", "Small", "Strong"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Hard</strong>?", "answers": ["Easy", "Heavy", "Soft", "Tough"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Easy</strong>?", "answers": ["Complex", "Heavy", "Effortless", "Difficult"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Straight</strong>?", "answers": ["Small", "Heavy", "Curved", "Direct"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Curved</strong>?", "answers": ["Heavy", "Bent", "Straight", "Small"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Kind</strong>?", "answers": ["Heavy", "Benevolent", "Small", "Mean"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Mean</strong>?", "answers": ["Small", "Heavy", "Unkind", "Kind"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Clear</strong>?", "answers": ["Heavy", "Clear", "Small", "Cloudy"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Cloudy</strong>?", "answers": ["Small", "Clear", "Heavy", "Hazy"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Active</strong>?", "answers": ["Heavy", "Energetic", "Inactive", "Small"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Inactive</strong>?", "answers": ["Heavy", "Lethargic", "Active", "Small"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Expensive</strong>?", "answers": ["Cheap", "Heavy", "Tiny", "Pricey"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Cheap</strong>?", "answers": ["Heavy", "Small", "Expensive", "Bargain"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Fresh</strong>?", "answers": ["Stale", "Small", "Heavy", "New"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Stale</strong>?", "answers": ["Fresh", "Heavy", "Small", "Old"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Generous</strong>?", "answers": ["Heavy", "Selfish", "Small", "Giving"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Selfish</strong>?", "answers": ["Heavy", "Generous", "Small", "Greedy"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Young</strong>?", "answers": ["Heavy", "Elderly", "Small", "Youthful"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Old</strong>?", "answers": ["Small", "Heavy", "Youthful", "Elderly"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Dangerous</strong>?", "answers": ["Safe", "Heavy", "Small", "Risky"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Safe</strong>?", "answers": ["Small", "Dangerous", "Heavy", "Secure"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Famous</strong>?", "answers": ["Unknown", "Heavy", "Small", "Renowned"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Unknown</strong>?", "answers": ["Famous", "Small", "Heavy", "Anonymous"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Hard</strong>?", "answers": ["Tough", "Heavy", "Soft", "Easy"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Soft</strong>?", "answers": ["Easy", "Heavy", "Cushioned", "Hard"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Fast</strong>?", "answers": ["Heavy", "Small", "Slow", "Rapid"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Slow</strong>?", "answers": ["Heavy", "Small", "Fast", "Sluggish"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Normal</strong>?", "answers": ["Heavy", "Strange", "Usual", "Small"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Strange</strong>?", "answers": ["Normal", "Heavy", "Small", "Odd"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Funny</strong>?", "answers": ["Heavy", "Small", "Serious", "Amusing"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Serious</strong>?", "answers": ["Heavy", "Small", "Grave", "Funny"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Clever</strong>?", "answers": ["Heavy", "Dumb", "Small", "Intelligent"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Dumb</strong>?", "answers": ["Clever", "Heavy", "Small", "Stupid"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Rich</strong>?", "answers": ["Heavy", "Small", "Poor", "Affluent"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Poor</strong>?", "answers": ["Heavy", "Rich", "Needy", "Small"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Simple</strong>?", "answers": ["Complex", "Heavy", "Basic", "Small"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Complex</strong>?", "answers": ["Small", "Heavy", "Simple", "Complicated"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Wide</strong>?", "answers": ["Narrow", "Heavy", "Small", "Broad"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Narrow</strong>?", "answers": ["Heavy", "Wide", "Slim", "Small"], "correct": 2 },
+    { "question": "What is the synonym of <strong>New</strong>?", "answers": ["Heavy", "Small", "Novel", "Old"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Old</strong>?", "answers": ["Heavy", "Small", "Antiquated", "New"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Bright</strong>?", "answers": ["Small", "Heavy", "Dim", "Radiant"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Dim</strong>?", "answers": ["Bright", "Small", "Heavy", "Faint"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Thick</strong>?", "answers": ["Small", "Heavy", "Thin", "Dense"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Thin</strong>?", "answers": ["Heavy", "Small", "Slim", "Thick"], "correct": 2 },
+    { "question": "What is the synonym of <strong>Open</strong>?", "answers": ["Heavy", "Unlocked", "Closed", "Small"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Closed</strong>?", "answers": ["Open", "Heavy", "Small", "Shut"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Hate</strong>?", "answers": ["Hate", "Small", "Heavy", "Love"], "correct": 0 },
+    { "question": "What is the synonym of <strong>Love</strong>?", "answers": ["Heavy", "Adore", "Hate", "Small"], "correct": 1 },
+    { "question": "What is the synonym of <strong>Dull</strong>?", "answers": ["Exciting", "Small", "Heavy", "Boring"], "correct": 3 },
+    { "question": "What is the synonym of <strong>Exciting</strong>?", "answers": ["Thrilling", "Heavy", "Small", "Dull"], "correct": 0 }
+];
+
+        let shuffledQuestions;
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        const totalTime = 180;
+        let timeLeft = totalTime;
+        let timerInterval;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            shuffledQuestions = shuffle([...questions]); // Create a shuffled copy of the questions array
+            document.getElementById('timer').textContent = `Time: ${formatTime(timeLeft)}`;
+            displayQuestion();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function displayQuestion() {
+            if (currentQuestion < shuffledQuestions.length) {
+                const q = shuffledQuestions[currentQuestion];
+                document.getElementById('question').innerHTML = q.question;
+                const options = document.getElementById('options');
+                options.innerHTML = '';
+                q.answers.forEach((answer, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<button onclick="checkAnswer(${index})">${answer}</button>`;
+                    options.appendChild(li);
+                });
+            } else {
+                endQuiz();
+            }
+        }
+
+        function checkAnswer(selected) {
+            const q = shuffledQuestions[currentQuestion];
+            if (selected === q.correct) {
+                alert('Richtig!');
+                correctAnswers++;
+            } else {
+                alert('Falsch!');
+                incorrectAnswers++;
+            }
+            currentQuestion++;
+            displayQuestion();
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            document.getElementById('timer').textContent = `Time: ${formatTime(timeLeft)}`;
+            if (timeLeft <= 0) {
+                alert('Die Zeit ist abgelaufen');
+                endQuiz();
+            }
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            document.getElementById('quiz-container').classList.add('hidden');
+            const resultsContainer = document.getElementById('results-container');
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <p>Correct answers: ${correctAnswers}</p>
+                <p>Wrong answers: ${incorrectAnswers}</p>
+            `;
+            resultsContainer.classList.remove('hidden');
+        }
+
+        window.onload = startQuiz;
+    </script>
+</body>
+</html>
