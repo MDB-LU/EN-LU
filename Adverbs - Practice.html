@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adverbs - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Adverbs - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+	<p>Read the following sentences and identify the adverb. Write the down the adverb below the sentence.
+<p><strong>1: He spoke loudly at the meeting.</strong></p>
+<input type="text" id="1" name="1"> 
+<p><strong>2: The child ran quickly to her mother.</strong></p>
+<input type="text" id="2" name="2"> 
+<p><strong>3: We will leave soon.</strong></p>
+<input type="text" id="3" name="3"> 
+<p><strong>4: She always studies diligently before exams.</strong></p>
+<input type="text" id="4" name="4"> 
+<p><strong>5: The cat jumped gracefully onto the table.</strong></p>
+<input type="text" id="5" name="5"> 
+<p><strong>6: He often plays video games in the evening.</strong></p>
+<input type="text" id="6" name="6"> 
+<p><strong>7: My friend rarely goes to the gym.</strong></p>
+<input type="text" id="7" name="7">
+
+    <h2>Exercise 2</h2>
+<p>Fill in the blank with the correct adverb from the options provided.</p>
+<p>8: She answered the question <select id="8" name="8">
+            <option value="...">...</option>
+            <option value="polite">polite</option>
+            <option value="politely">politely</option>
+        </select>.</p>
+<p>9: He sang the song <select id="9" name="9">
+            <option value="...">...</option>
+            <option value="badly">badly</option>
+            <option value="bad">bad</option>
+        </select>.</p>
+<p>10: The team worked <select id="10" name="10">
+            <option value="...">...</option>
+            <option value="hardly">hardly</option>
+            <option value="hard">hard</option>
+        </select> to complete the project.</p>
+<p>11: They visit their grandparents <select id="11" name="11">
+            <option value="...">...</option>
+            <option value="frequent">frequent</option>
+            <option value="frequently">frequently</option>
+        </select>.</p>
+<p>12: She laughed <select id="12" name="12">
+            <option value="...">...</option>
+            <option value="loud">loud</option>
+            <option value="loudly">loudly</option>
+        </select> at the joke.</p>
+
+    <h2>Exercise 3</h2>
+<p>Choose the sentence where the adverb is in the correct place.</p>
+<p><strong>13: never</strong></p>
+<input type="radio" name="13">He never forgets to lock the door when he leaves the house.<br>
+<input type="radio" name="13">He forgets never to lock the door when he leaves the house.
+
+<p><strong>14: slowly</strong></p>
+<input type="radio" name="14">The slowly snail moved across the road.<br>
+<input type="radio" name="14">The snail slowly moved across the road.
+
+<p><strong>15: sometimes</strong></p>
+<input type="radio" name="15">They go to the beach when the weather is warm sometimes.<br>
+<input type="radio" name="15">They sometimes go to the beach when the weather is warm.
+
+<p><strong>16: rarely</strong></p>
+<input type="radio" name="16">I rarely drink soda because I prefer water.<br>
+<input type="radio" name="16">I drink soda because I prefer water rarely.
+
+<p><strong>17: almost</strong></p>
+<input type="radio" name="17">She almost finished her homework before dinner.<br>
+<input type="radio" name="17">She finished her almost homework before dinner.
+
+<p><strong>18: carefully</strong></p>
+<input type="radio" name="18">She opened carefully the box.<br>
+<input type="radio" name="18">She opened the box carefully.
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "loudly",
+        2: "quickly",
+        3: "soon",
+        4: "diligently",
+        5: "gracefully",
+        6: "often",
+        7: "rarely",
+        8: "politely",
+        9: "badly",
+        10: "hard",
+        11: "frequently",
+        12: "loudly",
+        13: "He never forgets to lock the door when he leaves the house.",
+        14: "The snail slowly moved across the road.",
+        15: "They sometimes go to the beach when the weather is warm.",
+        16: "I rarely drink soda because I prefer water.",
+        17: "She almost finished her homework before dinner.",
+        18: "She opened the box carefully."
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
