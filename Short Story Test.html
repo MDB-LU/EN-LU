@@ -17,13 +17,10 @@
 
     <h2>Shooting an Elephant</h2>
     <p id="story">
-Shooting an Elephant
-<br>
-<br>
+        Shooting an Elephant
+        <br><br>
         All this was perplexing and upsetting. For at that time I had already made up my mind that imperialism was an evil thing and the sooner I chucked up my job and got out of it the better.
-<br>
-<br>
-
+        <br><br>
         One day something happened which in a roundabout way was enlightening.
     </p>
 
@@ -31,28 +28,31 @@ Shooting an Elephant
     <button id="stopButton">Stop Reading</button>
 
     <script>
-        // Create a SpeechSynthesisUtterance instance
         const utterance = new SpeechSynthesisUtterance();
         const storyText = document.getElementById('story').textContent;
 
         utterance.text = storyText; // Set the story text
-        utterance.lang = 'en-US'; // Set language
+        utterance.lang = 'en-US'; // Set language (e.g., US English)
         utterance.rate = 1; // Set reading speed
         utterance.pitch = 1; // Set pitch
 
-        // Function to set an English voice
-        function setEnglishVoice() {
+        function setPreferredVoice() {
             const voices = speechSynthesis.getVoices();
-            const englishVoice = voices.find(voice => voice.lang.startsWith('en') && voice.name.includes('Google') || voice.lang === 'en-US');
-            if (englishVoice) {
-                utterance.voice = englishVoice;
+            
+            // Define the preferred voice name (adjust to your needs)
+            const preferredVoiceName = "Google US English";
+            const preferredVoice = voices.find(voice => voice.name === preferredVoiceName);
+
+            if (preferredVoice) {
+                utterance.voice = preferredVoice;
+                console.log(`Voice set to: ${preferredVoice.name}`);
             } else {
-                console.warn('No English voice found. Using default voice.');
+                console.warn(`Preferred voice "${preferredVoiceName}" not found. Using default voice.`);
             }
         }
 
-        // Ensure voices are loaded before setting the voice
-        speechSynthesis.onvoiceschanged = setEnglishVoice;
+        // Load voices and set the preferred one
+        speechSynthesis.onvoiceschanged = setPreferredVoice;
 
         // Start Button
         document.getElementById('startButton').addEventListener('click', function () {
@@ -68,7 +68,6 @@ Shooting an Elephant
             }
         });
 
-        // Optional: Automatically resume if interrupted
         utterance.onend = function () {
             console.log('Speech has finished.');
         };
