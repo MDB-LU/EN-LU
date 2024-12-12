@@ -40,6 +40,20 @@ Shooting an Elephant
         utterance.rate = 1; // Set reading speed
         utterance.pitch = 1; // Set pitch
 
+        // Function to set an English voice
+        function setEnglishVoice() {
+            const voices = speechSynthesis.getVoices();
+            const englishVoice = voices.find(voice => voice.lang.startsWith('en') && voice.name.includes('Google') || voice.lang === 'en-US');
+            if (englishVoice) {
+                utterance.voice = englishVoice;
+            } else {
+                console.warn('No English voice found. Using default voice.');
+            }
+        }
+
+        // Ensure voices are loaded before setting the voice
+        speechSynthesis.onvoiceschanged = setEnglishVoice;
+
         // Start Button
         document.getElementById('startButton').addEventListener('click', function () {
             if (!speechSynthesis.speaking) {
