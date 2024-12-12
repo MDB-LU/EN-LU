@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shooting an Elephant</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Short Story</h1>
+    <p>Read or listen to the following short story.</p>
+    <p>If you want to listen to the story, click the button <strong>Start Reading</strong>. You can stop the recording, but if you start it again, it will start over from the beginning of the text.</p>
+
+    <h2>Shooting an Elephant</h2>
+    <p id="story">
+Shooting an Elephant
+<br>
+<br>
+        All this was perplexing and upsetting. For at that time I had already made up my mind that imperialism was an evil thing and the sooner I chucked up my job and got out of it the better.
+<br>
+<br>
+
+        One day something happened which in a roundabout way was enlightening.
+    </p>
+
+    <button id="startButton">Start Reading</button>
+    <button id="stopButton">Stop Reading</button>
+
+    <script>
+        // Create a SpeechSynthesisUtterance instance
+        const utterance = new SpeechSynthesisUtterance();
+        const storyText = document.getElementById('story').textContent;
+
+        utterance.text = storyText; // Set the story text
+        utterance.lang = 'en-US'; // Set language
+        utterance.rate = 1; // Set reading speed
+        utterance.pitch = 1; // Set pitch
+
+        // Start Button
+        document.getElementById('startButton').addEventListener('click', function () {
+            if (!speechSynthesis.speaking) {
+                speechSynthesis.speak(utterance);
+            }
+        });
+
+        // Stop Button
+        document.getElementById('stopButton').addEventListener('click', function () {
+            if (speechSynthesis.speaking || speechSynthesis.paused) {
+                speechSynthesis.cancel(); // Stop speech synthesis
+            }
+        });
+
+        // Optional: Automatically resume if interrupted
+        utterance.onend = function () {
+            console.log('Speech has finished.');
+        };
+    </script>
+</body>
+</html>
