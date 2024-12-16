@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This, That, These, Those - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>This, That, These, Those - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Fill in the blanks with this, that, these, or those.</p>
+
+<p>1: <input type="text" id="1" name="1"> bag on the chair belongs to me.</p>
+<p>2: Do you recognize <input type="text" id="2" name="2"> people in the photo?</p>
+<p>3: <input type="text" id="3" name="3"> sandwiches are freshly made.</p>
+<p>4: <input type="text" id="4" name="4"> painting over there is a masterpiece.</p>
+<p>5: <input type="text" id="5" name="5"> gloves on the table are mine.</p>
+<p>6: <input type="text" id="6" name="6"> bird singing outside sounds beautiful.</p>
+<p>7: <input type="text" id="7" name="7"> notebooks in the pile need to be sorted.</p>
+<p>8: <input type="text" id="8" name="8"> building across the street is under construction.</p>
+<p>9: <input type="text" id="9" name="9"> trees in the park provide so much shade.</p>
+<p>10: <input type="text" id="10" name="10"> memories from childhood are priceless.</p>
+
+<h2>Exercise 2</h2>
+<p>Rewrite the sentences using the correct demonstrative pronoun (this, that, these, those). There is an example at the beginning:</p>
+<p><strong>Example: The cat over there is playful.</strong></p>
+<p>That cat is playful.</p>
+
+<p><strong>11: The pictures on the wall are stunning.</strong></p>
+<p><input type="text" id="11" name="11"></p>
+
+<p><strong>12: The watch here is very expensive.</strong></p>
+<p><input type="text" id="12" name="12"></p>
+
+<p><strong>13: The stars in the sky tonight are bright.</strong></p>
+<p><input type="text" id="13" name="13"></p>
+
+<p><strong>14: The cupcakes on the plate look delicious.</strong></p>
+<p><input type="text" id="14" name="14"></p>
+
+<h2>Exercise 3</h2>
+<p>Choose the correct word for each sentence.</p>
+<p>15: <select id="15" name="15">
+            <option value="...">...</option>
+            <option value="This">This</option>
+            <option value="These">These</option>
+        </select> is my favorite coffee mug.</p>
+<p>16: <select id="16" name="16">
+            <option value="...">...</option>
+            <option value="These">These</option>
+            <option value="Those">Those</option>
+        </select> are the books I borrowed from the library.</p>
+<p>17: I can’t believe <select id="17" name="17">
+            <option value="...">...</option>
+            <option value="this">this</option>
+            <option value="those">Those</option>
+        </select> painting sold for so much money!</p>
+<p>18: <select id="18" name="18">
+            <option value="...">...</option>
+            <option value="These">These</option>
+            <option value="Those">Those</option>
+        </select> bags over there are heavy.</p>
+<p>19: <select id="19" name="19">
+            <option value="...">...</option>
+            <option value="That">That</option>
+            <option value="These">These</option>
+        </select> was an unforgettable moment.</p>
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "That",
+        2: "those",
+        3: "These",
+        4: "That",
+        5: "Those",
+        6: "That",
+        7: "Those",
+        8: "That",
+        9: "Those",
+        10: "Those",
+        11: "Those pictures are stunning.",
+        12: "This watch is very expensive.",
+        13: "Those stars are bright tonight.",
+        14: "Those cupcakes look delicious.",
+        15: "This",
+        16: "These",
+        17: "This",
+        18: "Those",
+	19: "That"
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
