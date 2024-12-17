@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Adventures of Tom Sawyer - While Reading</title>
+</head>
+<body>
+
+	<p><h1>The Adventures of Tom Sawyer - While Reading</h1></p>
+	<p>On this page, you will find some exercises for the different chapters of The Adventures of Tom Sawyer.</p>
+<br>
+	<p><h2>Chapter 1</h2></p>
+	<p>If you have read chapter 1, you can do this exercise.</p>
+	<p>Are these sentences true or false?</p>
+
+	<p><strong>1. Tom lived with his mother and father.</strong></p>
+	<input type="radio" name="Q1" lang="de"><label>True</label>
+	<input type="radio" name="Q1" id="correct1" lang="de"><label>False</label>
+<br>
+	<p><strong>2. Tom painted all the fence.</strong></p>
+	<input type="radio" name="Q2" lang="de"><label>True</label>
+	<input type="radio" name="Q2" id="correct2" lang="de"><label>False</label>	
+<br>
+	<p><strong>3. Huck Finn went to school.</strong></p>
+	<input type="radio" name="Q3" lang="de"><label>True</label>
+	<input type="radio" name="Q3" id="correct3" lang="de"><label>False</label>
+<br>
+	<p><strong>4. Huck wanted to go and see ghosts.</strong></p>
+	<input type="radio" name="Q4" id="correct4" lang="de"><label>True</label>
+	<input type="radio" name="Q4" lang="de"><label>False</label>	
+<br>
+	<p><strong>5. Tom wanted to sit with the girls.</strong></p>
+	<input type="radio" name="Q" lang="de"><label>True</label>
+	<input type="radio" name="Q5" id="correct5" lang="de"><label>False</label>
+	
+<br>
+	<p><strong>6. Becky Thatcher liked Tom's pictures.</strong></p>
+	<input type="radio" name="Q6" id="correct6" lang="de"><label>True</label>
+	<input type="radio" name="Q6" lang="de"><label>False</label>		
+<br>
+<br>
+<input type="submit" name="Antworten prüfen" value="Antworten prüfen" onclick="result()" lang="de">
+
+<script type="text/javascript" lang="de">
+	var score=0;
+	function result() {
+	if (document.getElementById('correct1').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct2').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct3').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct4').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct5').checked)
+	{
+	score++;
+	}
+	if (document.getElementById('correct6').checked)
+	{
+	score++;
+	}
+	alert("Richtige Antworten:"+score);
+	}
+</script>
+<br>
+<br>
+<p>Now, read chapter 2.</p>
+<br>
+	<p><h2>Chapter 2</h2></p>
+	<p>If you have read chapter 2, you can do the following two exercises.</p>
+<br>
+	<p><h3>Exercise 1</h3></p>
+	<p>Below, you will read some statements from the book. Select the person who has said these words.</p>
+
+	<p><strong>Oh, let's go home.</strong></p>
+<select id="home" name="home">
+            <option value="Huck">Huck</option>
+            <option value="Doctor Robinson">Doctor Robinson</option>
+            <option value="Muff Potter">Muff Potter</option>
+            <option value="Tom">Tom</option>
+            <option value="Injun Joe">Injun Joe</option>
+        </select>
+<br>
+	<p><strong>What are they doing here?</strong></p>
+<select id="q" name="q">
+            <option value="Huck">Huck</option>
+            <option value="Doctor Robinson">Doctor Robinson</option>
+            <option value="Muff Potter">Muff Potter</option>
+            <option value="Tom">Tom</option>
+            <option value="Injun Joe">Injun Joe</option>
+        </select>
+<br>
+	<p><strong>I gave you the money this morning.</strong></p>
+<select id="money" name="money">
+            <option value="Huck">Huck</option>
+            <option value="Doctor Robinson">Doctor Robinson</option>
+            <option value="Muff Potter">Muff Potter</option>
+            <option value="Tom">Tom</option>
+            <option value="Injun Joe">Injun Joe</option>
+        </select>
+<br>
+	<p><strong>I want that money!</strong></p>
+<select id="want" name="want">
+            <option value="Huck">Huck</option>
+            <option value="Doctor Robinson">Doctor Robinson</option>
+            <option value="Muff Potter">Muff Potter</option>
+            <option value="Tom">Tom</option>
+            <option value="Injun Joe">Injun Joe</option>
+        </select>
+<br>
+	<p><strong>Don't hit my friend.</strong></p>
+<select id="friend" name="friend">
+            <option value="Huck">Huck</option>
+            <option value="Doctor Robinson">Doctor Robinson</option>
+            <option value="Muff Potter">Muff Potter</option>
+            <option value="Tom">Tom</option>
+            <option value="Injun Joe">Injun Joe</option>
+        </select>
+<br>
+	<p><strong>Why did you kill him?</strong></p>
+<select id="kill" name="kill">
+            <option value="Huck">Huck</option>
+            <option value="Doctor Robinson">Doctor Robinson</option>
+            <option value="Muff Potter">Muff Potter</option>
+            <option value="Tom">Tom</option>
+            <option value="Injun Joe">Injun Joe</option>
+        </select>
+<br>
+	<p><strong>I'm afraid of Injun Joe.</strong></p>
+<select id="Joe" name="Joe">
+            <option value="Huck">Huck</option>
+            <option value="Doctor Robinson">Doctor Robinson</option>
+            <option value="Muff Potter">Muff Potter</option>
+            <option value="Tom">Tom</option>
+            <option value="Injun Joe">Injun Joe</option>
+        </select>
+<br>
+<br>
+<button onclick="checkAnswers()">Check Answers</button>
+
+    <script>
+        function checkAnswers() {
+            // Define the correct answers
+            const correctAnswers = {
+                home: "Huck",
+                q: "Tom",
+                money: "Doctor Robinson",
+                want: "Injun Joe",
+                friend: "Muff Potter",
+                kill: "Injun Joe",
+                Joe: "Huck"
+            };
+
+            // Initialize a counter for correct answers
+            let correctCount = 0;
+
+            // Iterate through each question and compare the selected value with the correct answer
+            for (let question in correctAnswers) {
+                const userAnswer = document.getElementById(question).value;
+                if (userAnswer === correctAnswers[question]) {
+                    correctCount++;
+                }
+            }
+
+            // Show the result in an alert
+            alert("Richtige Antworten: " + correctCount + " ");
+        }
+    </script>
+<br>
+<br>
+
+	<p><h3>Exercise 2</h3></p>
+	<p>Before you read chapter 3, can you guess what happens next? Select one option</p>
+<br>	
+	<input type="radio" name="Ex2" lang="de"><label>Tom doesn't tell the Sheriff the true story of the killing, and at the trial, they say that Muff Potter must die.</label><br>
+	<input type="radio" name="Ex2" lang="de"><label>Tom tells the Sheriff the true story of the killing and Injun Joe goes to jail.</label><br>
+	<input type="radio" name="Ex2" lang="de"><label>Tom tells the true story but Injun Joe runs away.</label><br>
+	<input type="radio" name="Ex2" lang="de"><label>Tom tells the true story and Injun Joe tries to kill him.</label><br>	
+<br>
+<button onclick="lesen3()">Check Answer</button>
+
+<script>
+    function lesen3() {
+        alert("Um die richtigen Antwort herauszufinden, müssen Sie bloss weiter das Buch lesen.");
+    }
+</script>
+<br>
+<p>Now, read chapter 3.</p>
+<br>
+	<p><h2>Chapter 3</h2></p>
+	<p>If you have read chapter 3, you can do the following worksheet. Only do exercise 1.</p>
+	<p><a href="The Adventures of Tom Sawyer - Worksheet.docx" target="_blank">Worksheet</a></p>
+<br>
+	<p>Now, read chapter 4.</p>
+<br>
+	<p><h2>Chapter 4</h2></p>
+	<p>If you have read chapter 4, you will find a task in the worksheet. Do exercise 2.</p>
+<br>
+	<p>Now, read chapter 5.</p>
+<br>
+	<p><h2>Chapter 5</h2></p>
+	<p>If you have read chapter 5, you will find a task in the worksheet. Do exercise 3.</p>
+<br>
+	<p>Now, read chapter 6.</p>
+<br>
+	<p><h2>Chapter 6</h2></p>
+	<p>Great! You have read the whole book. Do exercise 4 in your worksheet and send the document to Mr Du Buisson (marc.dubuisson@sibu.ch) if you have finished it.</p>
+<br>
+	<p><h2>Tasks after reading</h2></p>
+	<p>Click the following link to do some exercises once you you have finished reading the book:</p>
+	<p><a href="The Adventures of Tom Sawyer - After Reading.html" target="_blank">After Reading Exercises</a></p>
+<br>
+</body>
+</html>

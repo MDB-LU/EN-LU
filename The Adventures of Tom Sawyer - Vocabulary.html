@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary - The Adventures of Tom Sawyer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"><span lang="en">Dog</span></p>
+    <input type="text" id="deutsch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistik Ansehen</button>
+<button onclick="switchMode()">Lernmodus Wechseln</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Anzahl richtiger Wörter: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Anzahl falscher Wörter: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+"the sister of your mother or father": "aunt",
+"to go up or down, using your hands and feet": "climb",
+"a mark like + or the letter X": "cross",
+"to make a hole in something with a knife": "cut",
+"can hurt or kill you": "dangerous",
+"to die under water because you cannot breathe": "drown",
+"with nothing in it": "empty",
+"the church service before you put a dead person into a grave": "funeral",
+"when you think of something new, you have a picture or a plan in your head": "idea",
+"a piece of land with water around it": "island",
+"the most important person at a trial; he or she decides when somebody must go to prison": "judge",
+"to make a noise like a cat": "meow",
+"to take from a person or place something (money, gold, etc.) that is not yours": "rob",
+"the person in charge of the law and the police in an American town": "sheriff",
+"money, gold, silver, jewels, etc.": "treasure",
+"the time when judges and other people decide who is, or is not, a robber, a murderer, etc.": "trial",
+"not happy": "unhappy",
+"when you stop sleeping": "wake",
+"a strong alcoholic drink": "whiskey",
+"to talk very quietly": "whisper"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const deutsch = document.getElementById("deutsch").value.trim();
+            const englisch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[englisch];
+            const result = (deutsch.toLowerCase() === correctTranslation.toLowerCase()) ? "Richtig!" : "Falsch, die richtige Übersetzung ist: " + correctTranslation;
+            alert(result);
+
+            if (deutsch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(englisch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(englisch);
+            }
+
+            document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+            document.getElementById("deutsch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `<span lang="en">${word}</span>`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchMode() {
+            // Hier die URL der Zielseite einfügen
+            window.location.href = "The Adventures of Tom Sawyer - Vocabulary - MC.html";
+        }
+
+        // Set a random initial word
+        document.getElementById("wordToTranslate").innerHTML = `<span lang="en">${getRandomWord()}</span>`;
+    </script>
+<br>
+<p>Falls Sie alle Worte in einem Word-Dokument üben wollen, dann klicken Sie den folgenden Link:</p>
+<p><a href="The Adventures of Tom Sawyer - Vocabulary.docx" target="_blank"><span lang="en">The Adventures of Tom Sawyer - Vocabulary</span></a></p>
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Adventures of Tom Sawyer - Before Reading</title>
+</head>
+<body>
+
+	<p><h1>The Adventures of Tom Sawyer - Before Reading</h1></p>
+	<p>On this page, you will find a couple of tasks that you should do before you start reading the book.</p>
+<br>
+	<p><h2>Exercise 1</h2></p>
+	<p>Read the following two texts about the book and choose the correct options for the questions below.</p>
+<br>
+	<p><h3>Story Introduction</h3></p>
+	<p>Tom Sawyer likes adventures. When other people are sleeping in their beds, Tom Sawyer is climbing out of his bedroom window to meet his friends. He and Joe Harper and Huckleberry Finn have an exciting life. They look for ghosts, they dig for treasure, and they take a boat down the Mississippi to Jackson's Island - to swim, and fish, and sleep under the stars.</p>
+<p>But Tom's adventures can be dangerous, too. One night in the graveyard he and Huck Finn see three men. Who are they? And what are they doing in the graveyard, in the middle of the night? Then the boys see that one of the men is Injun Joe.</p>
+<p>Tom and Huck never forget that night. They are afraid of Injun Joe - and they are right to be afraid. Because Injun Joe is very quick with a knife.</p>
+<br>
+	<p><h3>Back Cover</h3></p>
+	<p>Tom Sawyer does not like school. He does not like work, and he never wants to get out of bed in the morning. But he likes swimming and fishing, and having adventures with his friends. And he has a lot of adventures. One night, he and his friend Huck Finn go to the graveyard to look for ghosts.</p>
+	<p>They don't see any ghosts that night. They see something worse than a ghost - much, much worse.</p>
+<br>
+	<p><h3>Questions</h3></p>
+	<p>Choose <strong>YES</strong> if Tom Sawyer likes these things. Choose <strong>NO</strong> if he doesn't.</p>
+<br>
+	<p><strong>school</strong></p>
+	<select id="school" name="school">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+<br>
+	<p><strong>swimming</strong></p>
+	<select id="swimming" name="swimming">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+<br>
+	<p><strong>getting up in the morning</strong></p>
+		<select id="morning" name="morning">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+<br>
+	<p><strong>work</strong></p>
+		<select id="work" name="work">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+<br>
+	<p><strong>fishing</strong></p>
+		<select id="fishing" name="fishing">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+<br>
+	<p><strong>adventures</strong></p>
+		<select id="adventures" name="adventures">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+<br>
+<br>
+<button onclick="checkAnswers()">Check Answers</button>
+
+    <script>
+        function checkAnswers() {
+            // Define the correct answers
+            const correctAnswers = {
+                school: "no",
+                swimming: "yes",
+                morning: "no",
+                work: "no",
+                fishing: "yes",
+                adventures: "yes"
+            };
+
+            // Initialize a counter for correct answers
+            let correctCount = 0;
+
+            // Iterate through each question and compare the selected value with the correct answer
+            for (let question in correctAnswers) {
+                const userAnswer = document.getElementById(question).value;
+                if (userAnswer === correctAnswers[question]) {
+                    correctCount++;
+                }
+            }
+
+            // Show the result in an alert
+            alert("Richtige Antworten: " + correctCount + " ");
+        }
+    </script>
+<br>
+<br>
+
+	<p><h2>Exercise 2</h2></p>
+	<p>What do you think is going to happen in the story? Choose <strong>YES</strong> if you think it happen or <strong>NO</strong> if it doesn't.</p>
+<br>
+	<p><strong>Tom and Huck see a ghost.</strong></p>
+	<input type="radio" name="Q1" id="correct1" lang="de"><label>Yes</label>
+	<input type="radio" name="Q1" lang="de"><label>No</label>
+
+<br>
+	<p><strong>Tom and Huck find a lot of money.</strong></p>
+	<input type="radio" name="Q2" id="correct2" lang="de"><label>Yes</label>
+	<input type="radio" name="Q2" lang="de"><label>No</label>
+<br>	
+	<p><strong>Three men take some money from the graveyard.</strong></p>
+	<input type="radio" name="Q3" id="correct3" lang="de"><label>Yes</label>
+	<input type="radio" name="Q3" lang="de"><label>No</label>
+<br>	
+	<p><strong>Injun Joe kills someone.</strong></p>
+	<input type="radio" name="Q4" id="correct4" lang="de"><label>Yes</label>
+	<input type="radio" name="Q4" lang="de"><label>No</label>
+<br>	
+	<p><strong>Someone kills Injun Joe.</strong></p>
+	<input type="radio" name="Q5" id="correct5" lang="de"><label>Yes</label>
+	<input type="radio" name="Q5" lang="de"><label>No</label>
+<br>
+<br>
+<button onclick="lesen()">Check Answers</button>
+
+<script>
+    function lesen() {
+        alert("Um die richtigen Antworten herauszufinden, müssen Sie schon das Buch lesen.");
+    }
+</script>
+<br>
+<br>
+	<p><h2>Exercise 3</h2></p>
+	<p>In the book, there might be some words that you don't understand. Some of them are very important for the understanding of the text, which is why you have the chance to practice and learn them beforehand. Click the link to practice the words.</p>
+<p><a href="The Adventures of Tom Sawyer - Vocabulary - MC.html" target="_blank">The Adventures of Tom Sawyer - Vocabulary</a></p>
+<br>
+	<p>If you have done the two exercises and practiced the vocabulary, you are ready to start reading. So, download the book or go the the audiobook site and start reading the first chapter.</p>
+<br>
+	<p><strong>HAPPY READING</strong></p>
+<br>
+<br>
+</body>
+</html>
