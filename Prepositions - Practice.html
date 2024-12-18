@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prepositions - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prepositions - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Choose the correct preposition to fill the gap.</p>
+<p>1: The dog is sleeping <select id="1" name="1">
+            <option value="...">...</option>
+            <option value="over">over</option>
+            <option value="on">on</option>
+	    <option value="behind">behind</option>
+        </select> the couch.</p>
+<p>2: She ran <select id="2" name="2">
+            <option value="...">...</option>
+            <option value="under">under</option>
+            <option value="between">between</option>
+	    <option value="through">through</option>
+        </select> the tunnel during the race.</p>
+<p>3: The photo is hanging <select id="3" name="3">
+            <option value="...">...</option>
+            <option value="in">in</option>
+            <option value="on">on</option>
+	    <option value="above">above</option>
+        </select> the wall.</p>
+<p>4: He parked his bike <select id="4" name="4">
+            <option value="...">...</option>
+            <option value="under">under</option>
+            <option value="next to">next to</option>
+	    <option value="above">above</option>
+        </select> the fence.</p>
+<p>5: The boat sailed <select id="5" name="5">
+            <option value="...">...</option>
+            <option value="under">under</option>
+            <option value="in">in</option>
+	    <option value="across">across</option>
+        </select> the river.</p>
+
+	<h2>Exercise 2</h2>
+<p>Complete the sentences with one of following prepositions.</p>
+<p>A preposition can only be used once.</p>
+<p><strong>in, on, under, at, behind</strong></p>
+<br>
+<p>6: The backpack is <input type="text" id="6" name="6"> the chair.</p>
+<p>7: She waited <input type="text" id="7" name="7"> the bus stop.</p>
+<p>8: There’s a pencil <input type="text" id="8" name="8"> the desk.</p>
+<p>9: The kids are hiding <input type="text" id="9" name="9"> the curtain.</p>
+<p>10: He put his phone <input type="text" id="10" name="10"> his pocket.</p>
+
+	<h2>Exercise 3</h2>
+<p>Describe your bedroom. Try to write at least five sentences and don't forget to use prepositions.</p>
+<p>This exercise will not be checked for the results.</p>
+<br>
+<span lang="en"><textarea id="Q8" name="Q8" rows="4" cols="50" required></textarea></span><br><br>
+
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "on",
+        2: "through",
+        3: "on",
+        4: "next to",
+        5: "across",
+        6: "under",
+        7: "at",
+        8: "on",
+        9: "behind",
+        10: "in"
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
