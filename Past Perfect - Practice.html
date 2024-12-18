@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Perfect - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Past Perfect - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Complete the following sentences using the Past Perfect of the verbs given in brackets. There is an example at the beginning.</p>
+<p>Example: By the time we got to the airport, the plane <strong>had taken off</strong> (take off).</p>
+<p>1: When she checked her bag, she realized that she <input type="text" id="1" name="1"> (lose) her passport.</p>
+<p>2: By the time the teacher entered the classroom, the students <input type="text" id="2" name="2"> (settle) into their seats.</p>
+<p>3: Before we left for the road trip, I <input type="text" id="3" name="3"> (pack) all the snacks.</p>
+<p>4: When they arrived at the restaurant, the waiter <input type="text" id="4" name="4"> (clear) their reserved table.</p>
+
+	<h2>Exercise 2</h2>
+<p>Rewrite the following sentences using the Past Perfect in the correct position.</p>
+<p>There is an example in the beginning.</p>
+
+<p><strong>Example: The concert ended when we arrived at the venue.</strong></p>
+<p>The concert had ended when we arrived at the venue.</p>
+
+<p><strong>5: She couldn't find her phone because she left it in the car.</strong></p>
+<input type="text" id="5" name="5">
+
+<p><strong>6: They got lost because they didn’t use the GPS.</strong></p>
+<input type="text" id="6" name="6">
+
+<p><strong>7: He felt disappointed because he didn’t pass the driving test.</strong></p>
+<input type="text" id="7" name="7">
+
+<p><strong>8: The book was missing because someone borrowed it earlier.</strong></p>
+<input type="text" id="8" name="8"> 
+
+
+	<h2>Exercise 3</h2>
+<p>Choose the correct version of the sentence.</p>
+
+<p><strong>9:</strong></p>
+<input type="radio" name="9">She had gone to the store before she realized she forgot her wallet.<br>
+<input type="radio" name="9">She had went to the store before she realized she forgot her wallet.
+
+<p><strong>10:</strong></p> 
+<input type="radio" name="10">They had saw that movie three times before it came out on DVD.<br>
+<input type="radio" name="10">They had seen that movie three times before it came out on DVD.
+
+<p><strong>11:</strong></p>
+<input type="radio" name="11">Before she moved to the city, she hadn’t known anyone there.<br>
+<input type="radio" name="11">Before she moved to the city, she hadn't knew anyone there.
+
+<p><strong>12:</strong></p>
+<input type="radio" name="12">He had ate breakfast before he went to the meeting.<br>
+<input type="radio" name="12">He had eaten breakfast before he went to the meeting.
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "had lost",
+        2: "had settled",
+        3: "had packed",
+        4: "had cleared",
+        5: "She couldn't find her phone because she had left it in the car.",
+        6: "They got lost because they hadn’t used the GPS.",
+        7: "He felt disappointed because he hadn’t passed the driving test.",
+        8: "The book was missing because someone had borrowed it earlier.",
+        9: "She had gone to the store before she realized she forgot her wallet.",
+        10: "They had seen that movie three times before it came out on DVD.",
+        11: "Before she moved to the city, she hadn’t known anyone there.",
+        12: "He had eaten breakfast before he went to the meeting."
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
