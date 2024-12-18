@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Continuous - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Past Continuous - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Complete the following sentences using the Past Continuous tense.</p>
+<p>1: At 8 a.m. this morning, I <input type="text" id="1" name="1"> (have) breakfast with my family.</p>
+<p>2: While he <input type="text" id="2" name="2"> (write) an email, the internet went down.</p>
+<p>3: The children <input type="text" id="3" name="3"> (play) in the garden when their dad came home.</p>
+<p>4: We <input type="text" id="4" name="4"> (wait) for the bus when it started to snow.</p>
+<p>5: She <input type="text" id="5" name="5"> (paint) a picture while listening to music.</p>
+
+	<h2>Exercise 2</h2>
+<p>Change the following sentences from the Past Simple to the Past Continuous.</p>
+<p><strong>6: I washed the car.</strong></p>
+<input type="text" id="6" name="6">
+<p><strong>7: He fixed the computer.</strong></p>
+<input type="text" id="7" name="7">
+<p><strong>8: We visited our grandparents.</strong></p>
+<input type="text" id="8" name="8">
+<p><strong>9: She did not call her friend.</strong></p>
+<input type="text" id="9" name="9">
+<p><strong>10: They walked in the park.</strong></p>
+<input type="text" id="10" name="10">
+
+	<h2>Exercise 3</h2>
+<p>Form questions using the Past Continuous based on the statements.</p>
+<p>Don't forget to write the question mark at the end.</p>
+
+<p><strong>11: He was fixing his bike.</strong></p>
+<p>What <input type="text" id="11" name="11"></p>
+<p><strong>12: We were shopping at the mall.</strong></p>
+<p>Where <input type="text" id="12" name="12"></p>
+<p><strong>13: She was talking on the phone.</strong></p>
+<p>Who <input type="text" id="13" name="13"></p>
+<p><strong>14: They were eating lunch together.</strong></p>
+<p>When <input type="text" id="14" name="14"></p>
+<p><strong>15: I was reading in the library.</strong></p>
+<p>Why <input type="text" id="15" name="15"></p>
+
+	<h2>Exercise 4</h2>
+<p>Choose the correct form (Past Continuous or Past Simple) for the gaps.</p>
+<p>This morning, while I <select id="16" name="16">
+            <option value="...">...</option>
+            <option value="drove">drove</option>
+            <option value="was driving">was driving</option>
+        </select> to work, I <select id="17" name="17">
+            <option value="...">...</option>
+            <option value="noticed">noticed</option>
+            <option value="was noticing">was noticing</option>
+        </select> a car parked by the side of the road. A man <select id="18" name="18">
+            <option value="...">...</option>
+            <option value="tried">tried</option>
+            <option value="was trying">was trying</option>
+        </select> to fix a flat tire.</p>
+<p>I <select id="19" name="19">
+            <option value="...">...</option>
+            <option value="stopped">stopped</option>
+            <option value="was stopping">was stopping</option>
+        </select> to help him, and while we <select id="20" name="20">
+            <option value="...">...</option>
+            <option value="worked">worked</option>
+            <option value="were working">were working</option>
+        </select>, it <select id="21" name="21">
+            <option value="...">...</option>
+            <option value="started">started</option>
+            <option value="was starting">was starting</option>
+        </select> to drizzle.</p>
+<p>By the time we <select id="22" name="22">
+            <option value="...">...</option>
+            <option value="finished">finished</option>
+            <option value="were finishing">were finishing</option>
+        </select>, both of us had got a little wet, but he <select id="23" name="23">
+            <option value="...">...</option>
+            <option value="thanked">thanked</option>
+            <option value="was thanking">was thanking</option>
+        </select> me and we <select id="24" name="24">
+            <option value="...">...</option>
+            <option value="went">went</option>
+            <option value="were going">were going</option>
+        </select> on our way.</p>
+
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "was having",
+        2: "was writing",
+        3: "were playing",
+        4: "were waiting",
+        5: "was painting",
+        6: "I was washing the car.",
+        7: "He was fixing the computer.",
+        8: "We were visiting our grandparents.",
+        9: "She was not calling her friend.",
+        10: "They were walking in the park.",
+        11: "was he fixing?",
+        12: "were you shopping?",
+        13: "was she talking to?",
+        14: "were they eating lunch?",
+        15: "were you reading in the library?",
+        16: "was driving",
+        17: "noticed",
+        18: "was trying",
+        19: "stopped",
+        20: "were working",
+        21: "started",
+        22: "finished",
+        23: "thanked",
+        24: "went"
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
