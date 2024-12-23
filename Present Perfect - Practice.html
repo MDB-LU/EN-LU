@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Perfect - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Present Perfect - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Fill in the blanks with the correct form of the present perfect tense:</p>
+<p>1: I <input type="text" id="1" name="1"> (complete) my science project this week.</p>
+<p>2: She <input type="text" id="2" name="2"> (never/try) rock climbing before.</p>
+<p>3: We <input type="text" id="3" name="3"> (visit) that art gallery twice.</p>
+<p>4: They <input type="text" id="4" name="4"> (not/clean) their room yet.</p>
+<p>5: I <input type="text" id="5" name="5"> (write) three essays this semester.</p>
+<p>6: She <input type="text" id="6" name="6"> (never/ride) a horse before.</p>
+<p>7: We <input type="text" id="7" name="7"> (already/prepare) for the exam.</p>
+<p>8: They <input type="text" id="8" name="8"> (not/finish) their lunch yet.</p>
+
+	<h2>Exercise 2</h2>
+<p>Select the correct option to complete the sentences:</p>
+<p>9: I <select id="9" name="9">
+            <option value="...">...</option>
+            <option value="have">have</option>
+            <option value="has">has</option>
+        </select> just finished reading this book.</p>
+<p>10: She <select id="10" name="10">
+            <option value="...">...</option>
+            <option value="have">have</option>
+            <option value="has">has</option>
+        </select> never played the piano before.</p>
+<p>11: We <select id="11" name="11">
+            <option value="...">...</option>
+            <option value="have">have</option>
+            <option value="has">has</option>
+        </select> already seen that play.</p>
+<p>12: <select id="12" name="12">
+            <option value="...">...</option>
+            <option value="Have">Have</option>
+            <option value="Has">Has</option>
+        </select> you completed your homework?</p>
+<p>13: I <select id="13" name="13">
+            <option value="...">...</option>
+            <option value="have">have</option>
+            <option value="has">has</option>
+        </select> joined the photography club.</p>
+<p>14: She <select id="14" name="14">
+            <option value="...">...</option>
+            <option value="have">have</option>
+            <option value="has">has</option>
+        </select> cooked dinner for her family.</p>
+<p>15: We <select id="15" name="15">
+            <option value="...">...</option>
+            <option value="have">have</option>
+            <option value="has">has</option>
+        </select> never been to this park before.</p>
+<p>16: <select id="16" name="16">
+            <option value="...">...</option>
+            <option value="Have">Have</option>
+            <option value="Has">Has</option>
+        </select> the kids started their lessons?</p>
+
+	<h2>Exercise 3</h2>
+<p>Make questions using the Present Perfect:</p>
+<p>17: <input type="text" id="17" name="17"> (he/ever/try) skydiving?</p>
+<p>18: <input type="text" id="18" name="18"> (you/complete) the book I lent you?</p>
+<p>19: <input type="text" id="19" name="19"> (they/visit) the new amusement park yet?</p>
+<p>20: <input type="text" id="20" name="20"> (we/finish) all the preparations?</p>
+
+	<h2>Exercise 4</h2>
+<p>Write five sentences using the Present Perfect tense to describe experiences or achievements in your life. There is an example at the beginning:</p>
+<p>This exercise will not be checked.</p>
+
+<p>I have climbed a mountain in the Alps.</p>
+<span lang="en"><textarea id="Q21" name="Q21" rows="4" cols="50" required></textarea></span><br><br>
+
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "have completed",
+        2: "has never tried",
+        3: "have visited",
+        4: "have not cleaned",
+        5: "have written",
+        6: "has never ridden",
+        7: "have already prepared",
+        8: "have not finished",
+        9: "have",
+        10: "has",
+        11: "have",
+        12: "Have",
+        13: "have",
+        14: "has",
+        15: "have",
+        16: "Have",
+        17: "Has he ever tried",
+        18: "Have you completed",
+        19: "Have they visited",
+        20: "Have we finished"
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
