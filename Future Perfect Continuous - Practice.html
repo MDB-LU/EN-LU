@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Perfect Continuous - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Future Perfect Continuous - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Choose the correct verb form for each sentence.</p>
+<p>1: By the end of the semester, she <select id="1" name="">
+            <option value="...">...</option>
+            <option value="will have been training">will have been training</option>
+            <option value="will have been driving">will have been driving</option>
+	    <option value="will have been teaching">will have been teaching</option>
+            <option value="will have been celebrating">will have been celebrating</option>
+            <option value="will have been cleaning">will have been cleaning</option>
+        </select> at the university for five years.</p>
+<p>2: By the time you get home, they <select id="2" name="2">
+            <option value="...">...</option>
+            <option value="will have been training">will have been training</option>
+            <option value="will have been driving">will have been driving</option>
+	    <option value="will have been teaching">will have been teaching</option>
+            <option value="will have been celebrating">will have been celebrating</option>
+            <option value="will have been cleaning">will have been cleaning</option>
+        </select> the house for three hours.</p>
+<p>3: By next Monday, he <select id="3" name="3">
+            <option value="...">...</option>
+            <option value="will have been training">will have been training</option>
+            <option value="will have been driving">will have been driving</option>
+	    <option value="will have been teaching">will have been teaching</option>
+            <option value="will have been celebrating">will have been celebrating</option>
+            <option value="will have been cleaning">will have been cleaning</option>
+        </select> for the marathon for six months.</p>
+<p>4: By next Christmas, they <select id="4" name="4">
+            <option value="...">...</option>
+            <option value="will have been training">will have been training</option>
+            <option value="will have been driving">will have been driving</option>
+	    <option value="will have been teaching">will have been teaching</option>
+            <option value="will have been celebrating">will have been celebrating</option>
+            <option value="will have been cleaning">will have been cleaning</option>
+        </select> holidays together for a decade.</p>
+<p>5: By this time tomorrow, I <select id="5" name="5">
+            <option value="...">...</option>
+            <option value="will have been training">will have been training</option>
+            <option value="will have been driving">will have been driving</option>
+	    <option value="will have been teaching">will have been teaching</option>
+            <option value="will have been celebrating">will have been celebrating</option>
+            <option value="will have been cleaning">will have been cleaning</option>
+        </select> for ten hours straight.</p>
+
+	<h2>Exercise 2</h2>
+<p>Rewrite the sentences using the future perfect continuous tense.</p>
+<p><strong>6: She will have prepare for her trip for a week.</strong></p>
+<p>By Friday, she <input type="text" id="6" name="6"> for her trip for a week.</p>
+<p><strong>7: They will discuss the project for two hours.</strong></p>
+<p>By the time the meeting ends, they <input type="text" id="7" name="7"> the project for two hours.</p>
+<p><strong>8: We will have practiced for the competition for three months.</strong></p>
+<p>By July, we <input type="text" id="8" name="8"> for the competition for three months.</p>
+<p><strong>9: He will paint the house for five days.</strong></p>
+<p>By the time it is finished, he <input type="text" id="9" name="9"> the house for five days.</p>
+<p><strong>10: The students will rehearse for the play for a month.</strong></p>
+<p>By opening night, the students <input type="text" id="10" name="10"> for the play for a month.</p>
+
+	<h2>Exercise 3</h2>
+<p>Form negative sentences using the future perfect continuous tense. Use the words in brackets to complete the sentences.</p>
+<p>Write down <strong>will not</strong> NOT <strong>won't</strong>.</p>
+<p>11: She <input type="text" id="11" name="11"> (not/prepare) for her exams for four hours by tonight.</p>
+<p>12: They <input type="text" id="12" name="12"> (not/walk) in the park for two hours by the time it starts raining.</p>
+<p>13: He <input type="text" id="13" name="13"> (not/work) in the garage for three days by the end of the weekend.</p>
+<p>14: We <input type="text" id="14" name="14"> (not/cook) dinner for two hours by the time you get home.</p>
+
+	<h2>Exercise 4</h2>
+<p>Form questions using the future perfect continuous tense. Use the words in brackets to complete the questions.</p>
+<p>15: <input type="text" id="15" name="15"> (she/paint) the mural for three hours by lunchtime?</p>
+<p>16: <input type="text" id="16" name="16"> (they/travel) across Europe for two months by the time summer ends?</p>
+<p>17: <input type="text" id="17" name="17"> (he/repair) the bike for a week by this Friday?</p>
+<p>18: <input type="text" id="18" name="18"> (we/organize) the event for a month by the time it happens?</p>
+
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "will have been teaching",
+        2: "will have been cleaning",
+        3: "will have been training",
+        4: "will have been celebrating",
+        5: "will have been driving",
+        6: "will have been preparing",
+        7: "will have been discussing",
+        8: "will have been practicing",
+        9: "will have been painting",
+        10: "will have been rehearsing",
+        11: "will not have been preparing",
+        12: "will not have been walking",
+        13: "will not have been working",
+        14: "will not have been practicing",
+        15: "Will she have been painting",
+        16: "Will they have been travelling ",
+        17: "Will he have been repairing",
+        18: "Will we have been organizing"
+    };
+    
+
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
