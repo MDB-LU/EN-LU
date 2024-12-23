@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Perfect - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Future Perfect - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Complete the sentences using the correct verb form of the future perfect.</p>
+<p>1: By the end of the week, I <select id="1" name="1">
+            <option value="...">...</option>
+            <option value="will have finished">will have finished</option>
+            <option value="will have repaired">will have repaired</option>
+            <option value="will have developed">will have developed</option>
+            <option value="will have completed">will have completed</option>
+            <option value="will have written">will have written</option>
+            <option value="will have planted">will have planted</option>
+        </select> organizing the files.</p>
+<p>2: By next year, they <select id="2" name="2">
+            <option value="...">...</option>
+            <option value="will have finished">will have finished</option>
+            <option value="will have repaired">will have repaired</option>
+            <option value="will have developed">will have developed</option>
+            <option value="will have completed">will have completed</option>
+            <option value="will have written">will have written</option>
+            <option value="will have planted">will have planted</option>
+        </select> 1,000 trees in the community garden.</p>
+<p>3: By 2030, scientists <select id="3" name="3">
+            <option value="...">...</option>
+            <option value="will have finished">will have finished</option>
+            <option value="will have repaired">will have repaired</option>
+            <option value="will have developed">will have developed</option>
+            <option value="will have completed">will have completed</option>
+            <option value="will have written">will have written</option>
+            <option value="will have planted">will have planted</option>
+        </select> more advanced AI systems.</p>
+<p>4: She <select id="4" name="4">
+            <option value="...">...</option>
+            <option value="will have finished">will have finished</option>
+            <option value="will have repaired">will have repaired</option>
+            <option value="will have developed">will have developed</option>
+            <option value="will have completed">will have completed</option>
+            <option value="will have written">will have written</option>
+            <option value="will have planted">will have planted</option>
+        </select> three novels by the time she turns 35.</p>
+<p>5: By tomorrow afternoon, we <select id="5" name="5">
+            <option value="...">...</option>
+            <option value="will have finished">will have finished</option>
+            <option value="will have repaired">will have repaired</option>
+            <option value="will have developed">will have developed</option>
+            <option value="will have completed">will have completed</option>
+            <option value="will have written">will have written</option>
+            <option value="will have planted">will have planted</option>
+        </select> the broken fence.</p>
+<p>6: By 10 PM tonight, he <select id="6" name="6">
+            <option value="...">...</option>
+            <option value="will have finished">will have finished</option>
+            <option value="will have repaired">will have repaired</option>
+            <option value="will have developed">will have developed</option>
+            <option value="will have completed">will have completed</option>
+            <option value="will have written">will have written</option>
+            <option value="will have planted">will have planted</option>
+        </select>  his presentation.</p>
+
+	<h2>Exercise 2</h2>
+<p>Rewrite the following sentences using the future perfect.
+<p><strong>7: I will clean the garage by the end of the weekend.</strong></p>
+<p>I <input type="text" id="7" name="7"> the garage by the end of the weekend.</p>
+<p><strong>8: They will publish the book before the conference.</strong></p>
+<p>They <input type="text" id="8" name="8"> the book before the conference.</p>
+<p><strong>9: She will learn how to drive by her birthday.</strong></p>
+<p>She <input type="text" id="9" name="9"> how to drive by her birthday.</p>
+<p><strong>10: He will complete the training before he starts his job.</strong></p>
+<p>He <input type="text" id="10" name="10"> the training before he starts his job.</p>
+<p><strong>11: We will move to the new house by next month.</strong></p>
+<p>We <input type="text" id="11" name="11"> to the new house by next month.</p>
+<p><strong>12: By the end of the season, the team will win the championship.</strong></p>
+<p>By the end of the season, the team <input type="text" id="12" name="12"> the championship.</p>
+
+	<h2>Exercise 3</h2>
+<p>Form questions using the future perfect.</p>
+<p><strong>13: you / learn / a new skill / by next year?</strong></p>
+<input type="text" id="13" name="13">
+<p><strong>14: she / finish / her degree / by 2025?</strong></p>
+<input type="text" id="14" name="14">
+<p><strong>15: they / build / the new shopping mall / by this time next year?</strong></p>
+<input type="text" id="15" name="15">
+<p><strong>16: he / complete / the book / before the deadline?</strong></p>
+<input type="text" id="16" name="16">
+<p><strong>17: we / raise / enough money for the charity / by the end of the month?</strong></p>
+<input type="text" id="17" name="17">
+<p><strong>18: you / watch / the entire series / by the weekend?</strong></p>
+<input type="text" id="18" name="18">
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "will have finished",
+        2: "will have planted",
+        3: "will have developed",
+        4: "will have written",
+        5: "will have repaired",
+        6: "will have completed",
+        7: "will have cleaned",
+        8: "will have published",
+        9: "will have learned",
+        10: "will have completed",
+        11: "will have moved",
+        12: "will have won",
+        13: "Will you have learned a new skill by next year?",
+        14: "Will she have finished her degree by 2025?",
+        15: "Will they have built the new shopping mall by this time next year?",
+        16: "Will he have completed the book before the deadline?",
+        17: "Will we have raised enough money for the charity by the end of the month?",
+        18: "Will you have watched the entire series by the weekend?"
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>

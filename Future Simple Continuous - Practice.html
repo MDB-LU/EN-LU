@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Simple Continuous - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Future Simple Continuous - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Complete the sentences using the future simple continuous tense. Use the verbs in brackets.</p>
+<p>1: This time next week, we <input type="text" id="1" name="1"> (explore) the mountains on our hiking trip.</p>
+<p>2: At 3 PM tomorrow, she <input type="text" id="2" name="2"> (shop) for groceries at the market.</p>
+<p>3: By this evening, they <input type="text" id="3" name="3"> (travel) to their holiday destination.</p>
+<p>4: Tomorrow afternoon, he <input type="text" id="4" name="4"> (paint) the new house.</p>
+<p>5: By next month, I <input type="text" id="5" name="5"> (prepare) for my final exams for two weeks.</p>
+
+	<h2>Exercise 2</h2>
+<p>Form negative sentences using the future simple continuous tense. Use the words in brackets to complete the sentences.</p>
+<p>Please write <strong>will not</strong> NOT <strong>won't</strong>.</p>
+<p>6: He <input type="text" id="6" name="6"> (not/read) the book at 10 PM tonight.</p>
+<p>7: We <input type="text" id="7" name="7"> (not/wait) for the bus at this time tomorrow.</p>
+<p>8: She <input type="text" id="8" name="8"> (not/dance) at the party next Friday.</p>
+<p>9: They <input type="text" id="9" name="9"> (not/study) at the library tomorrow evening.</p>
+<p>10: I <input type="text" id="10" name="10"> (not/run) in the park at 6 AM tomorrow.</p>
+
+	<h2>Exercise 3</h2>
+<p>Form questions using the future simple continuous tense. Use the words in brackets to complete the questions.</p>
+<p>11: <input type="text" id="11" name="11"> (he/read) the book at 10 PM tonight?</p>
+<p>12: <input type="text" id="12" name="12"> (we/wait) for the bus at this time tomorrow?</p>
+<p>13: <input type="text" id="13" name="13"> (she/dance) at the party next Friday?</p>
+<p>14: <input type="text" id="14" name="14"> (they/study) at the library tomorrow evening?</p>
+<p>15: <input type="text" id="15" name="15"> (I/run) in the park at 6 AM tomorrow?</p>
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "will be exploring",
+        2: "will be shopping",
+        3: "will be travelling",
+        4: "will be painting",
+        5: "will be preparing",
+        6: "will not be reading",
+        7: "will not be waiting",
+        8: "will not be dancing",
+        9: "will not be studying",
+        10: "will not be running",
+        11: "Will he be reading",
+        12: "Will we be waiting",
+        13: "Will she be dancing",
+        14: "Will they be studying",
+        15: "Will I be running"
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
