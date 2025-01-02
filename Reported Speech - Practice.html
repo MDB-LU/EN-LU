@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reported Speech - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reported Speech - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Convert direct speech to indirect speech.</p>
+
+<p><strong>1: "I am going to the park," said Sarah.</strong></p>
+<input type="text" id="1" name="1"> 
+
+<p><strong>2: "We have finished the project," the students said.</strong></p>
+<input type="text" id="2" name="2"> 
+
+<p><strong>3: "I will text you later," he promised.</strong></p>
+<input type="text" id="3" name="3"> 
+
+<p><strong>4: "Do you enjoy reading novels?" they asked.</strong></p>
+<input type="text" id="4" name="4"> 
+
+<p><strong>5: "She has been waiting for a while," he explained.</strong></p>
+<input type="text" id="5" name="5"> 
+
+<p><strong>6: "Can you explain this to me?" she asked.</strong></p>
+<input type="text" id="6" name="6"> 
+
+<h2>Exercise 2</h2>
+<p>You will find 10 sentences in indirect speech. Choose the correct direct speech sentence.</p>
+
+<p><strong>7: Jane said that she was enjoying the weather.</strong></p>
+<input type="radio" name="7">'I was enjoying the weather,' said Jane.<br>
+<input type="radio" name="7">'I am enjoying the weather,' said Jane. 
+
+<p><strong>8: He mentioned that he had bought a new car.</strong></p>
+<input type="radio" name="8">'I have bought a new car,' he mentioned.<br>
+<input type="radio" name="8">'I will buy a new car,' he mentioned. 
+
+<p><strong>9: She asked if they wanted to join her for coffee.</strong></p>
+<input type="radio" name="9">'Did you want to join me for coffee?' she asked.<br>
+<input type="radio" name="9">'Do you want to join me for coffee?' she asked.
+
+<p><strong>10: They said that they hadn't travelled abroad before.</strong></p>
+<input type="radio" name="10">'We hadn't travelled abroad before,' they said.<br>
+<input type="radio" name="10">'We haven't travelled abroad before,' they said.
+
+<p><strong>11: He asked whether I could complete the report by Friday.</strong></p>
+<input type="radio" name="11">'Can you be completing the report by Friday?' he asked.<br>
+<input type="radio" name="11">'Can you complete the report by Friday?' he asked.
+
+<p><strong>12: She said that she was surprised by the news.</strong></p>
+<input type="radio" name="12">'I was surprised by the news,' she said.<br>
+<input type="radio" name="12">'I am surprised by the news,' she said.
+
+<p><strong>13: He stated that he couldn't attend the meeting.</strong></p>
+<input type="radio" name="13">'I can't attend the meeting,' he stated.<br>
+<input type="radio" name="13">'I can't be attending the meeting,' he stated.
+
+<p><strong>14: She asked if I knew where her bag was.</strong></p>
+<input type="radio" name="14">'Did you know where my bag is?' she asked.<br>
+<input type="radio" name="14">'Do you know where my bag is?' she asked.
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "Sarah said that she was going to the park.",
+        2: "The students said that they had finished the project.",
+        3: "He promised that he would text me later.",
+        4: "They asked if I enjoyed reading novels.",
+        5: "He explained that she had been waiting for a while.",
+        6: "She asked if I could explain that to her.",
+        7: "'I am enjoying the weather,' said Jane.",
+        8: "'I have bought a new car,' he mentioned.",
+        9: "'Do you want to join me for coffee?' she asked.",
+        10: "'We haven't travelled abroad before,' they said.",
+        11: "'Can you complete the report by Friday?' he asked.",
+        12: "'I am surprised by the news,' she said.",
+        13: "'I can't attend the meeting,' he stated.",
+        14: "'Do you know where my bag is?' she asked."
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
