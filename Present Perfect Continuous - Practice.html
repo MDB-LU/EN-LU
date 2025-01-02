@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Perfect Continuous - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Present Perfect Continuous - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Create sentences using the present perfect continuous tense with the given words.</p>
+<p><strong>1: She / paint / for two hours.</strong></p>
+<input type="text" id="1" name="1">    
+
+<p><strong>2: They / play / football / since noon.</strong></p>
+<input type="text" id="2" name="2">
+
+<p><strong>3: He / cook / dinner / for an hour.</strong></p>
+<input type="text" id="3" name="3">
+
+<p><strong>4: We / learn / Spanish / for three months.</strong></p>
+<input type="text" id="4" name="4">
+
+<p><strong>5: I / watch / this TV show / since it started.</strong></p>
+<input type="text" id="5" name="5">
+    
+	<h2>Exercise 2</h2>
+<p>Complete the following sentences in the negative form of the present perfect continuous.</p>
+<p>Write <strong>have not</strong> NOT <strong>haven't</strong>.</p>
+<p>6: She <input type="text" id="6" name="6"> (not/study) for three hours.</p>
+ 
+<p>7: They <input type="text" id="7" name="7"> (not/work)on the project since morning.</p>
+ 
+<p>8: He <input type="text" id="8" name="8"> (not/wait) for the bus for 20 minutes.</p>
+ 
+<p>9: We <input type="text" id="9" name="9"> (not/try) to contact you all day.</p>
+
+<p>10: I <input type="text" id="10" name="10"> (not/read) this book for a week.</p>
+
+	<h2>Exercise 3</h2>
+<p>Form questions using the present perfect continuous tense based on the given statements.</p>
+<p><strong>11: She has been studying for three hours.</strong></p>
+<input type="text" id="11" name="11">   
+
+<p><strong>12: They have been working on the project since Monday.</strong></p>
+<input type="text" id="12" name="12">  
+
+<p><strong>13: He has been waiting for the bus for 20 minutes.</strong></p>
+<input type="text" id="13" name="13">  
+
+<p><strong>14: We have been trying to contact you all day.</strong></p>
+<input type="text" id="14" name="14">  
+
+<p><strong>15: I have been reading this book for a week.</strong></p>
+<input type="text" id="15" name="15"> 
+
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "She has been painting for two hours.",
+        2: "They have been playing football since noon.",
+        3: "He has been cooking dinner for an hour.",
+        4: "We have been learning Spanish for three months.",
+        5: "I have been watching this tv show since it started.",
+        6: "has not been studying",
+        7: "have not been working",
+        8: "has not been waiting",
+        9: "have not been trying",
+        10: "have not been reading",
+        11: "How long has she been studying for?",
+        12: "What have they been working on since Monday?",
+        13: "How long has he been waiting for the bus?",
+        14: "Who have you been trying to contact all day?",
+        15: "What have you been reading for a week?"
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
