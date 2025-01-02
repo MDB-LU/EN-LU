@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Perfect Continuous - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Past Perfect Continuous - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Select the correct verb form of the past perfect continuous.</p>
+<p>1: She <select id="1" name="1">
+            <option value="...">...</option>
+            <option value="has written">has written</option>
+            <option value="has been writing">has been writing</option>
+            <option value="had been writing">had been writing</option>
+        </select> articles for weeks before she submitted her final piece.</p>
+<p>2: They <select id="2" name="2">
+            <option value="...">...</option>
+            <option value="had been not practicing">had been not practicing</option>
+            <option value="had not been practicing">had not been practicing</option>
+            <option value="has not been practice">has not been practice</option>
+        </select> enough before the big performance.</p>
+<p>3: <select id="3" name="3">
+            <option value="...">...</option>
+            <option value="Had you been waiting">Had you been waiting</option>
+            <option value="Has you been waiting">Has you been waiting</option>
+            <option value="Waiting you have been">Waiting you have been</option>
+        </select> for the call before it finally came through?</p>
+<p>4: He <select id="4" name="4">
+            <option value="...">...</option>
+            <option value="didn't play">didn't play</option>
+            <option value="had not been playing">had not been playing</option>
+            <option value="having been played">having been played</option>
+        </select> tennis for long before it started to rain.</p>
+<p>5: We <select id="5" name="5">
+            <option value="...">...</option>
+            <option value="having searched">having searched</option>
+            <option value="is searching">is searching</option>
+            <option value="had been searching">had been searching</option>
+        </select> for a new apartment for months before we found the perfect one.</p>
+
+<h2>Exercise 2</h2>
+<p>Rewrite the following sentences in the past perfect continuous.</p>
+<p><strong>6: The baby cried for hours before someone comforted her.</strong></p>
+<input type="text" id="6" name="6"> 
+
+<p><strong>7:They worked on their presentation all day before they showed it to the team.</strong></p>
+<input type="text" id="7" name="7"> 
+
+<p><strong>8: She didn’t eat properly for weeks before she consulted a nutritionist.</strong></p>
+<input type="text" id="8" name="8"> 
+    
+
+<h2>Exercise 3</h2>
+<p>Transform the following sentences into questions and negatives in the past perfect continuous.</p>
+<p><strong>IMPORTANT:</strong> Write <strong>had not</strong> NOT <strong>hadn't</strong>.</p>
+
+<p><strong>9: She had been painting the house for days before she finished it.</strong></p>
+<p>Question: <input type="text" id="9.1" name="9.1"></p>
+<p>Negative: <input type="text" id="9.2" name="9.2"></p>
+    
+<p><strong>10: They had been practicing their dance routine for hours before the performance.</strong></p>
+<p>Question: <input type="text" id="10.1" name="10.1"></p>
+<p>Negative: <input type="text" id="10.2" name="10.2"></p>
+
+<p><strong>11: He had been preparing dinner for an hour before his guests arrived.</strong></p>
+<p>Question: <input type="text" id="11.1" name="11.1"></p>
+<p>Negative: <input type="text" id="11.2" name="11.2"></p>
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "had been writing",
+        2: "had not been practicing",
+        3: "Had you been waiting",
+        4: "had not been playing",
+        5: "had been searching",
+        6: "The baby had been crying for hours before someone comforted her.",
+        7: "They had been working on their presentation all day before they showed it to the team.",
+        8: "She had not been eating properly for weeks before she consulted a nutritionist.",
+        9.1: "Had she been painting the house for days before she finished it?",
+        9.2: "She had not been painting the house for days before she finished it.",
+        10.1: "Had they been practicing their dance routine for hours before the performance?",
+        10.2: "They had not been practicing their dance routine for hours before the performance.",
+        11.1: "Had he been preparing dinner for an hour before his guests arrived?",
+        11.2: "He had not been preparing dinner for an hour before his guests arrived."
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
