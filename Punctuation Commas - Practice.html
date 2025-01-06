@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commas - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Commas - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Choose the sentence where the commas are in the correct place.</p>
+<p><strong>1:</strong></p>
+<input type="radio" name="1">She packed sandwiches juice cookies and chips, for the road trip.<br>
+<input type="radio" name="1">She packed sandwiches, juice, cookies and chips for the road trip.
+
+<p><strong>2:</strong></p>
+<input type="radio" name="2">The sports team includes players, coaches, trainers and managers.<br>
+<input type="radio" name="2">The sports team includes players, coaches, trainers, and managers.
+
+<p><strong>3:</strong></p>
+<input type="radio" name="3">For dinner, we had steak, potatoes, salad and dessert.<br>
+<input type="radio" name="3">For dinner we had steak, potatoes, salad and dessert.
+
+<p><strong>4:</strong></p>
+<input type="radio" name="4">He likes painting and listening to music.<br>
+<input type="radio" name="4">He likes painting, and listening to music.
+
+<p><strong>5:</strong></p>
+<input type="radio" name="5">The bookshelf held novels biographies dictionaries and photo albums.<br>
+<input type="radio" name="5">The bookshelf held novels, biographies, dictionaries and photo albums.
+
+<h2>Exercise 2</h2>
+<p>Write down the sentence and add commas after the introductory element or subordinate clause.</p>
+<p><strong>6: Before the game started we cheered for the players.</strong></p>
+<input type="text" id="6" name="6">
+<p><strong>7: Because she was late she missed the opening speech.</strong></p>
+<input type="text" id="7" name="7">
+<p><strong>8: To finish on time you should start working earlier.</strong></p>
+<input type="text" id="8" name="8">
+
+<h2>Exercise 3</h2>
+<p>Write down the sentence and add commas for these non-defining relative clauses.</p>
+<p><strong>9: My grandmother who loves gardening spends hours in the backyard.</strong></p>
+<input type="text" id="9" name="9">
+<p><strong>10: The concert which was held downtown attracted thousands of people.</strong></p>
+<input type="text" id="10" name="10">
+<p><strong>11: Our neighbor's dog which often barks loudly scared the delivery man.</strong></p>
+<input type="text" id="11" name="11">
+<p><strong>12: The restaurant which recently opened serves delicious Italian food.</strong></p>
+<input type="text" id="12" name="12">
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "She packed sandwiches, juice, cookies and chips for the road trip.",
+        2: "The sports team includes players, coaches, trainers and managers.",
+        3: "For dinner, we had steak, potatoes, salad and dessert.",
+        4: "He likes painting and listening to music.",
+        5: "The bookshelf held novels, biographies, dictionaries and photo albums.",
+        6: "Before the game started, we cheered for the players.",
+        7: "Because she was late, she missed the opening speech.",
+        8: "To finish on time, you should start working earlier.",
+        9: "My grandmother, who loves gardening, spends hours in the backyard.",
+        10: "The concert, which was held downtown, attracted thousands of people.",
+        11: "Our neighbor's dog, which often barks loudly, scared the delivery man.",
+        12: "The restaurant, which recently opened, serves delicious Italian food."
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
