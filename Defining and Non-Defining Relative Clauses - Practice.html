@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defining and Non-Defining Relative Clauses - Practice</title>
+    <style>
+        .incorrect {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Defining and Non-Defining Relative Clauses - Practice</h1>
+    <p>Complete the following exercises. At the end of the page, you will find a button called <strong>Check Answers</strong>. Click this button and you will find out your score and your mistakes.</p>
+
+    <h2>Exercise 1</h2>
+<p>Read each sentence and identify whether the relative clause is defining or non-defining.</p>
+<p>1: The shoes that I bought yesterday are too small. <select id="1" name="1">
+            <option value="...">...</option>
+            <option value="defining">defining</option>
+            <option value="non-defining">non-defining</option>
+        </select></p>
+<p>2: My grandmother, who is 85 years old, loves to bake. <select id="1" name="1">
+            <option value="...">...</option>
+            <option value="defining">defining</option>
+            <option value="non-defining">non-defining</option>
+        </select></p>
+<p>3: The phone which I lost last week has been found. <select id="1" name="1">
+            <option value="...">...</option>
+            <option value="defining">defining</option>
+            <option value="non-defining">non-defining</option>
+        </select></p>
+<p>4: The river, which flows through the city, is very polluted. <select id="1" name="1">
+            <option value="...">...</option>
+            <option value="defining">defining</option>
+            <option value="non-defining">non-defining</option>
+        </select></p>
+<p>5: The hotel that we stayed in was luxurious.<select id="1" name="1">
+            <option value="...">...</option>
+            <option value="defining">defining</option>
+            <option value="non-defining">non-defining</option>
+        </select></p>
+<p>6: The painting, which was created in the 19th century, is very famous. <select id="1" name="1">
+            <option value="...">...</option>
+            <option value="defining">defining</option>
+            <option value="non-defining">non-defining</option>
+        </select></p>
+
+<h2>Exercise 2</h2>
+<p>Combine the following pairs of sentences using <strong>defining relative clauses</strong>.</p>
+<p><strong>7: I have a neighbor. He owns a bakery.</strong></p>
+<input type="text" id="7" name="7">
+<p><strong>8: The dog is barking loudly. It belongs to our neighbor.</strong></p>
+<input type="text" id="8" name="8">
+<p><strong>9: There is a library. People often go there to study.</strong></p>
+<input type="text" id="9" name="9">
+<p><strong>10: The café has excellent coffee. It is located on Main Street.</strong></p>
+<input type="text" id="10" name="10">
+
+<h2>Exercise 3</h2>
+<p>Combine the following pairs of sentences using <strong>non-defining relative clauses</strong>.</p>
+<p><strong>11: My cousin is visiting from Australia. She loves hiking.</strong></p>
+<input type="text" id="11" name="11">
+<p><strong>12: London is a vibrant city. It has a rich history.</strong></p>
+<input type="text" id="12" name="12">
+<p><strong>13: The painting sold for a million dollars. It was created by a renowned artist.</strong></p>
+<input type="text" id="13" name="13">
+<p><strong>14: Sarah is going to Paris. She studied French in college.</strong></p>
+<input type="text" id="14" name="14">
+
+<br>
+<br>    
+    <button id="checkAnswersButton" onclick="checkAnswers()">Check Answers</button>
+    
+<h2>Result:</h2>
+    <p id="result"></p>
+    <div id="feedback"></div>
+    
+    <script>
+       function checkAnswers() {
+    const correctAnswers = {
+        1: "defining",
+        2: "non-defining",
+        3: "defining",
+        4: "non-defining",
+        5: "defining",
+        6: "non-defining",
+        7: "I have a neighbor who owns a bakery.",
+        8: "The dog that belongs to our neighbor is barking loudly.",
+        9: "There is a library where people often go to study.",
+        10: "The café that is located on Main Street has excellent coffee.",
+        11: "My cousin, who loves hiking, is visiting from Australia.",
+        12: "London, which has a rich history, is a vibrant city.",
+        13: "The painting, which was created by a renowned artist, sold for a million dollars.",
+        14: "Sarah, who studied French in college, is going to Paris."
+    };
+    
+    let totalQuestions = Object.keys(correctAnswers).length;
+    let correctCount = 0;
+    let feedbackHTML = "";
+
+    for (let id in correctAnswers) {
+        let userAnswer = "";
+        let element = document.getElementById(id);
+        
+        if (element && element.tagName === "INPUT" && element.type === "text") {
+            // Text input
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (element && element.tagName === "SELECT") {
+            // Dropdown
+            userAnswer = element.value.trim().toLowerCase();
+        } else if (document.querySelector(`input[name="${id}"]:checked`)) {
+            // Radio buttons
+            userAnswer = document.querySelector(`input[name="${id}"]:checked`).nextSibling.textContent.trim().toLowerCase();
+        }
+        
+        let correctAnswer = correctAnswers[id].toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctCount++;
+        } else {
+            feedbackHTML += `<p class="incorrect">Question ${id}: Your answer: "${userAnswer || "No answer"}", Correct answer: "${correctAnswers[id]}".</p>`;
+        }
+    }
+    
+    const resultElement = document.getElementById("result");
+    resultElement.textContent = `You have answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+    
+    const feedbackElement = document.getElementById("feedback");
+    feedbackElement.innerHTML = feedbackHTML || "<p>All answers are correct! Well done!</p>";
+}
+    </script>
+</body>
+</html>
