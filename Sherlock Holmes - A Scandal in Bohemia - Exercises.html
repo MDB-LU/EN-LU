@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sherlock Holmes - A Scandal in Bohemia - Exercises</title>
+</head>
+<body>
+
+	<p><h1>Sherlock Holmes - A Scandal in Bohemia - Exercises</h1></p>
+<p>On this page, you will find some exercises for one of the Sherlock Holmes short stories.</p>
+
+<h2>Exercise 1</h2>
+<p>Do this exercise after you have read Chapters 1 and 2. Are these sentences <strong>true or false</strong>?</p>
+<p>1: Sherlock Holmes loved Irene Adler.</p>
+<input type="radio" name="Q1">True<br>
+<input type="radio" name="Q1" id="correct1">False<br>
+<p>2: Watson and Holmes agreed to keep a secret.</p>
+<input type="radio" name="Q2"  id="correct2">True<br>
+<input type="radio" name="Q2">False<br>
+<p>3: Irene Adler had a photo of herself and the King. </p>
+<input type="radio" name="Q3" id="correct3">True<br>
+<input type="radio" name="Q3">False<br>
+<p>4: Irene was happy to hear that the King was going to marry Clotilde.</p>
+<input type="radio" name="Q4">True<br>
+<input type="radio" name="Q4" id="correct4">False<br>
+<p>5: The King gave Holmes two thousand pounds.</p>
+<input type="radio" name="Q5">True<br>
+<input type="radio" name="Q5" id="correct5">False<br>
+<p>6: Holmes found out a lot from Irene Adler's servants.</p>
+<input type="radio" name="Q6" id="correct6">True<br>
+<input type="radio" name="Q6">False<br>
+<p>7: Four taxis drove to the church of St Monica.</p>
+<input type="radio" name="Q7">True<br>
+<input type="radio" name="Q7" id="correct7">False<br>
+<p>8: Holmes helped Irene to marry Godfrey Norton.</p>
+<input type="radio" name="Q8" id="correct8">True<br>
+<input type="radio" name="Q8">False<br>
+<br>
+<br>
+<input type="button" value="Antworten prüfen" onclick="result1()" lang="de">
+<br>
+<p>If you don't know the answers but you want to know them, you will find the solutions to the questions at the end of this page.</p>
+
+<script type="text/javascript">
+    function result1() {
+        var score = 0;
+
+        if (document.getElementById('correct1').checked) {
+            score++;
+        }
+        if (document.getElementById('correct2').checked) {
+            score++;
+        }
+        if (document.getElementById('correct3').checked) {
+            score++;
+        }
+	if (document.getElementById('correct4').checked) {
+            score++;
+        }
+ 	if (document.getElementById('correct5').checked) {
+            score++;
+        }
+        if (document.getElementById('correct6').checked) {
+            score++;
+        }
+        if (document.getElementById('correct7').checked) {
+            score++;
+        }
+	if (document.getElementById('correct8').checked) {
+            score++;
+        }
+        alert("Richtige Antworten: " + score);
+    }
+</script>
+
+<h2>Exercise 2:</h2>
+<p>Do this exercise after you have read Chapters 3 and 4. Choose the best question-word for these questions, and then answer them.</p>
+
+<p>9: <select id="9" name="9">
+            <option value="...">...</option>
+            <option value="Who">Who</option>
+            <option value="Where">Where</option>
+            <option value="Why">Why</option>
+            <option value="What">What</option>
+        </select> fell, with blood running down his face?</p>
+<input type="text" id="9.1" name="9.1">
+<p>10: <select id="10" name="10">
+            <option value="...">...</option>
+            <option value="Who">Who</option>
+            <option value="Where">Where</option>
+            <option value="Why">Why</option>
+            <option value="What">What</option>
+        </select> did Irene bring Holmes into her house?</p>
+<input type="text" id="10.1" name="10.1">
+<p>11: <select id="11" name="11">
+            <option value="...">...</option>
+            <option value="Who">Who</option>
+            <option value="Where">Where</option>
+            <option value="Why">Why</option>
+            <option value="What">What</option>
+        </select> did Watson throw the smoke-stick into the room?</p>
+<input type="text" id="11.1" name="11.1">
+<p>12: <select id="12" name="12">
+            <option value="...">...</option>
+            <option value="Who">Who</option>
+            <option value="Where">Where</option>
+            <option value="Why">Why</option>
+            <option value="What">What</option>
+        </select> happened next?</p>
+<input type="text" id="12.1" name="12.1">
+<p>13: <select id="13" name="13">
+            <option value="...">...</option>
+            <option value="Who">Who</option>
+            <option value="Where">Where</option>
+            <option value="Why">Why</option>
+            <option value="What">What</option>
+        </select> did Irene hide the photo?</p>
+<input type="text" id="13.1" name="13.1">
+<p>14: <select id="14" name="14">
+            <option value="...">...</option>
+            <option value="Who">Who</option>
+            <option value="Where">Where</option>
+            <option value="Why">Why</option>
+            <option value="What">What</option>
+        </select> said, 'Good night, Mr Sherlock Holmes'?</p>
+<input type="text" id="14.1" name="14.1">
+<p>15: <select id="15" name="15">
+            <option value="...">...</option>
+            <option value="Who">Who</option>
+            <option value="Where">Where</option>
+            <option value="Why">Why</option>
+            <option value="What">What</option>
+        </select> was the King happy in the end?</p>
+<input type="text" id="15.1" name="15.1">
+<p>16: <select id="16" name="16">
+            <option value="...">...</option>
+            <option value="Who">Who</option>
+            <option value="Where">Where</option>
+            <option value="Why">Why</option>
+            <option value="What">What</option>
+        </select> did Holmes ask the King to give him?</p>
+<input type="text" id="16.1" name="16.1">
+<br>
+<p>Go to the end of the page to find the solutions to Exercise 2.</p>
+<br>
+<h3>Solutions to Exercise 1</h3>
+<p>1: False. Sherlock Holmes never loved a woman.</p>
+<p>2: True.</p>
+<p>3: True.</p>
+<p>4: Irene doesn't want the King to marry another woman.</p>
+<p>5: The King just said: 'Money is not important.'</p>
+<p>6: True.</p>
+<p>7: Three taxis drove to the church.</p>
+<p>8: True.</p>
+
+<h3>Solutions to Exercise 2</h3>
+<p><strong>9: Who fell, with blood running down his face?</strong></p>
+<p>Sherlock Holmes, dressed as a servant.</p>
+<p><strong>10: Why did Irene bring Holmes into her house?</strong></p>
+<p>Because he helped her escape the fight.</p>
+<p><strong>11: Why did Watson throw the smoke-stick into the room?</strong></p>
+<p>Because Irene thought there was a fire. And when there is a fire, a woman runs to the most important thing in her house. Her photograph.</p>
+<p><strong>12: What happened next?</strong></p>
+<p>They went to the house of Irene the next day. There, they find out, that Irene and her husband have left the county.</p>
+<p><strong>13: Where did Irene hide the photo?</strong></p>
+<p>In a cupboard in the sitting-room.</p>
+<p><strong>14: Who said, 'Good night, Mr Sherlock Holmes'?</strong></p>
+<p>Irene, dressed as a young man.</p>
+<p><strong>15: Why was the King happy in the end?</strong></p>
+<p>Because he needs nothing more than Irene’s word.</p>
+<p><strong>16: What did Holmes ask the King to give him?</strong></p>
+<p>The photograph of Irene which was left in the cupboard. Sherlock Holmes still has the photograph because she was more clever than he was.</p>
+<br>
+<br>
+<br>
+</body>
+</html>
