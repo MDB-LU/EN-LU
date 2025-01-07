@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short Stories</title>
+</head>
+<body>
+
+	<p><h1>Sherlock Holmes - The Speckled Band - Exercises</h1></p>
+<p>On this page, you will find some exercises for one of the Sherlock Holmes short stories.</p>
+
+<h2>Exercise 1</h2>
+<p>Do this exercise after you have read Chapter 1. Choose the correct answer for these questions.</p>
+<p>1: Who killed a servant?</p>
+<input type="radio" name="Q1" lang="de">Helen Stoner<br>
+<input type="radio" name="Q1" id="correct1" lang="de">Doctor Grimesby Roylott<br>
+<input type="radio" name="Q1" lang="de">Doctor Watson
+<p>2: Who died in an accident eight years ago?</p>
+<input type="radio" name="Q2" id="correct2" lang="de">Helen's mother<br>
+<input type="radio" name="Q2" lang="de">Helen's father<br>
+<input type="radio" name="Q2" lang="de">Helen's sister
+<p>3: Who died two years ago?</p>
+<input type="radio" name="Q3" lang="de">Helen's mother<br>
+<input type="radio" name="Q3" lang="de">Helen's father<br>
+<input type="radio" name="Q3" id="correct3" lang="de">Helen's sister
+<p>4: Who was afraid of the wild animals and the gipsies?</p>
+<input type="radio" name="Q4" lang="de">Sherlock Holmes and Doctor Watson<br>
+<input type="radio" name="Q4" id="correct4" lang="de">Julia and Helen<br>
+<input type="radio" name="Q4" lang="de">The servants
+
+<br>
+<br>
+<input type="button" value="Antworten prüfen" onclick="result1()" lang="de">
+<br>
+<p>If you don't know the answers but you want to know them, you will find the solutions the the questions at the end of this page.</p>
+
+<script type="text/javascript">
+    function result1() {
+        var score = 0;
+
+        if (document.getElementById('correct1').checked) {
+            score++;
+        }
+        if (document.getElementById('correct2').checked) {
+            score++;
+        }
+        if (document.getElementById('correct3').checked) {
+            score++;
+        }
+	if (document.getElementById('correct4').checked) {
+            score++;
+        }
+        alert("Richtige Antworten: " + score);
+    }
+</script>
+
+<h2>Exercise 2.1</h2>
+<p>Do this exercise after you have read Chapter 2. Here are some false sentences. Change them into true sentences.</p>
+<p><strong>5: Dr Roylott did not need the girls' money.</strong></p>
+<input type="text" id="5" name="5"> 
+<p><strong>6: Something was wrong with Helen's bedroom wall.</strong></p>
+<input type="text" id="6" name="6">
+<p><strong>7: Helen and Julia often used the bell-rope.</strong></p>
+<input type="text" id="7" name="7"> 
+<p><strong>8: The air-vent was outside the two bedrooms.</strong></p>
+<input type="text" id="8" name="8">
+<br>
+<p>If you want to know whether your answers were correct or not, go to the end of this page to find the solutions.</p>
+ 
+<h2>Exercise 2.2</h2>
+<p>Do this exercise before you read Chapter 3. Are the following things going to happen?</p>
+<p>9: Dr Roylott kills Helen.</p>
+<select id="9" name="9">
+            <option value="...">...</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+<p>10: Watson kills a cat.</p>
+<select id="10" name="10">
+            <option value="...">...</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+<p>11: Dr Roylott dies.</p>
+<select id="11" name="11">
+            <option value="...">...</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+<p>12: Holmes finds the killer.</p>
+<select id="12" name="12">
+            <option value="...">...</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+<p>13: The gipsies kill Dr Roylott.</p>
+<select id="13" name="13">
+            <option value="...">...</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+<br>
+<p><button onclick="alert('Um herauszufinden, ob Ihre Antworten stimmen, können Sie nun Kapitel 3 lesen.')">Check Answers</button>
+<br>
+<br>
+<br>
+
+<h3>Solutions to Exercise 1</h3>
+<p>Doctor Grimesby Roylott is a violent man and killed an Indian servant.</p>
+<p>Helen's mother died in an accident eight years ago.</p>
+<p>Helen's sister died two years ago.</p>
+<p>Helen and her sister Julia locked the doors because they were afraid of the wild animals.</p>
+
+<h3>Solutions to Exercise 2.1</h3>
+<p>5: Dr. Roylott needs the money because he only has 750£ a year from his dead wife.</p>
+<p>6: Nothing was wrong with Helen's bedroom wall, which is why it is strange that they are fixing her bedroom.</p>
+<p>7: Helen and Julia never used the bell-rope because the didn't have any servants.</p>
+<p>8: The air-vent was between the two bedrooms of Doctor Roylott and Julia.</p>
+
+<br>
+<br>
+<br>
+</body>
+</html>
