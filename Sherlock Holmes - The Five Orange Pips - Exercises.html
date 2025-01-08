@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sherlock Holmes - The Five Orange Pips - Exercises</title>
+</head>
+<body>
+
+	<p><h1>Sherlock Holmes - The Five Orange Pips - Exercises</h1></p>
+<p>On this page, you will find some exercises for one of the Sherlock Holmes short stories.</p>
+
+<h2>Exercise 1</h2>
+<p>Do this exercise after you have read Chapters 1 and 2. Who said or wrote this?</p>
+<p><strong>1: 'I've come to ask for help.'</strong></p>
+<input type="radio" name="Q1" lang="de">Uncle Elias<br>
+<input type="radio" name="Q1" id="correct1" lang="de">John Openshaw<br>
+<input type="radio" name="Q1" lang="de">Doctor Watson
+<p><strong>2: 'I don't know anyone in Pondicherry!'</strong></p>
+<input type="radio" name="Q2" id="correct2" lang="de">Uncle Elias<br>
+<input type="radio" name="Q2" lang="de">John Openshaw<br>
+<input type="radio" name="Q2" lang="de">Sherlock Holmes
+<p><strong>3: 'He killed himself.'</strong></p>
+<input type="radio" name="Q3" lang="de">John Openshaw<br>
+<input type="radio" name="Q3" lang="de">Sherlock Holmes<br>
+<input type="radio" name="Q3" id="correct3" lang="de">The police
+<p><strong>4: 'Put the papers in the garden.'</strong></p>
+<input type="radio" name="Q4" lang="de">Uncle Elias<br>
+<input type="radio" name="Q4" id="correct4" lang="de">The K.K.K.<br>
+<input type="radio" name="Q4" lang="de">The police
+<p><strong>5: 'Let's just forget about it.'</strong></p>
+<input type="radio" name="Q5" lang="de">John Openshaw<br>
+<input type="radio" name="Q5" id="correct5" lang="de">Joseph Openshaw<br>
+<input type="radio" name="Q5" lang="de">Uncle Elias
+<p><strong>6: 'You must do something fast.'</strong></p>
+<input type="radio" name="Q6" lang="de">Doctor Watson<br>
+<input type="radio" name="Q6" lang="de">The police<br>
+<input type="radio" name="Q6" id="correct6" lang="de">Sherlock Holmes
+<p><strong>7: 'Sent the pips to three people.'</strong></p>
+<input type="radio" name="Q7" lang="de">Sherlock Holmes<br>
+<input type="radio" name="Q7" lang="de">John Openshaw<br>
+<input type="radio" name="Q7" id="correct7" lang="de">Uncle Elias
+<p><strong>8: 'I'll do everything you say.'</strong></p>
+<input type="radio" name="Q8" id="correct8" lang="de">John Openshaw<br>
+<input type="radio" name="Q8" lang="de">Doctor Watson<br>
+<input type="radio" name="Q8" lang="de">Uncle Elias
+
+
+<br>
+<br>
+<input type="button" value="Antworten prüfen" onclick="result1()" lang="de">
+<br>
+<p>If you don't know the answers but you want to know them, you will find the solutions to the questions at the end of this page.</p>
+
+<script type="text/javascript">
+    function result1() {
+        var score = 0;
+
+        if (document.getElementById('correct1').checked) {
+            score++;
+        }
+        if (document.getElementById('correct2').checked) {
+            score++;
+        }
+        if (document.getElementById('correct3').checked) {
+            score++;
+        }
+	if (document.getElementById('correct4').checked) {
+            score++;
+        }
+        if (document.getElementById('correct5').checked) {
+            score++;
+        }
+        if (document.getElementById('correct6').checked) {
+            score++;
+        }
+        if (document.getElementById('correct7').checked) {
+            score++;
+        }
+	if (document.getElementById('correct8').checked) {
+            score++;
+        }
+        alert("Richtige Antworten: " + score);
+    }
+</script>
+
+<h2>Exercise 2</h2>
+<p>Do this exercise before you read Chapters 3 and 4. Can you guess the answers to these questions?
+<p>9: Are the K.K.K. Americans?</p>
+<input type="text" id="9" name="9">
+<p>10: Where are the K.K.K. now?</p>
+<input type="text" id="10" name="10">
+<p>11: Will they come to John Openshaw's house?</p>
+<input type="text" id="11" name="11">
+<p>12: Will they kill John Openshaw?</p>
+<input type="text" id="12" name="12">
+<p>13: Will Sherlock Holmes find the killers?</p>
+<input type="text" id="13" name="13">
+<p>14: Will Sherlock Holmes need Dr Watson's help?</p>
+<input type="text" id="14" name="14">
+<p>15: How many people are going to die?</p>
+<input type="text" id="15" name="15">
+<p>16: Will it be the end of the K.K.K?</p>
+<input type="text" id="16" name="16">
+<br>
+<p><button onclick="alert('Um herauszufinden, ob Ihre Antworten stimmen, können Sie nun Kapitel 3 und 4 lesen.')">Check Answers</button>
+
+<h3>Solutions to Exercise 1</h3>
+<p>1: John Openshaw</p>
+<p>2: Uncle Elias</p>
+<p>3: The police</p>
+<p>4: The K.K.K.</p>
+<p>5: Joseph Openshaw</p>
+<p>6: Sherlock Holmes</p>
+<p>7: Uncle Elias</p>
+<p>8: John Openshaw</p>
+
+<br>
+<br>
+<br>
+</body>
+</html>
