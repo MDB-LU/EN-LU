@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortschatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: left;
+            margin: 50px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 20px;
+            margin: 5px;
+        }
+        #statistics {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="wordToTranslate"></p>
+    <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
+    <button onclick="showStatistics()">Statistics</button>
+    <div id="result"></div>
+    <div id="statistics" style="display: none;">
+        <p>Correct Words: <span id="correctCount">0</span></p>
+        <p id="correctWords"></p>
+        <p>Incorrect Words: <span id="incorrectCount">0</span></p>
+        <p id="incorrectWords"></p>
+    </div>
+
+    <script>
+        const wörterbuch = {
+            "be": "was/were",
+            "become": "became",
+            "begin": "began",
+            "break": "broke",
+            "bring": "brought",
+            "build": "built",
+            "buy": "bought",
+            "can": "could",
+            "catch": "caught",
+            "choose": "chose",
+            "come": "came",
+            "cost": "cost",
+            "cut": "cut",
+            "do": "did",
+            "drink": "drank",
+            "drive": "drove",
+            "eat": "ate",
+            "fall": "fell",
+            "feel": "felt",
+            "fight": "fought",
+            "find": "found",
+            "fly": "flew",
+            "forget": "forgot",
+            "get": "got",
+            "give": "gave",
+            "go": "went",
+            "grow": "grew",
+            "have": "had",
+            "hear": "heard",
+            "hit": "hit",
+            "keep": "kept",
+            "know": "knew",
+            "learn": "learnt",
+            "leave": "left",
+            "lose": "lost",
+            "make": "made",
+            "meet": "met",
+            "pay": "paid",
+            "put": "put",
+            "read": "read",
+            "ride": "rode",
+            "run": "ran",
+            "say": "said",
+            "see": "saw",
+            "sell": "sold",
+            "send": "sent",
+            "shut": "shut",
+            "sing": "sang",
+            "sit": "sat",
+            "sleep": "slept",
+            "speak": "spoke",
+            "spend": "spent",
+            "stand": "stood",
+            "steal": "stole",
+            "swim": "swam",
+            "take": "took",
+            "tell": "told",
+            "think": "thought",
+            "understand": "understood",
+            "wake": "woke",
+            "wear": "wore",
+            "win": "won",
+            "write": "wrote"
+        };
+
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let correctWords = [];
+        let incorrectWords = [];
+
+        function getRandomWord() {
+            const keys = Object.keys(wörterbuch);
+            const randomIndex = Math.floor(Math.random() * keys.length);
+            return keys[randomIndex];
+        }
+
+        function translate() {
+            const englisch = document.getElementById("englisch").value.trim();
+            const deutsch = document.getElementById("wordToTranslate").textContent.trim();
+            const correctTranslation = wörterbuch[deutsch];
+            const result = (englisch.toLowerCase() === correctTranslation.toLowerCase()) ? "Correct!" : "Incorrect, the correct solution is " + correctTranslation;
+            alert(result);
+
+            if (englisch.toLowerCase() === correctTranslation.toLowerCase()) {
+                correctCount++;
+                correctWords.push(deutsch);
+            } else {
+                incorrectCount++;
+                incorrectWords.push(deutsch);
+            }
+
+            document.getElementById("wordToTranslate").textContent = getRandomWord();
+            document.getElementById("englisch").value = '';
+        }
+
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                translate();
+            }
+        }
+
+        function showStatistics() {
+            document.getElementById("correctCount").textContent = correctCount;
+            document.getElementById("incorrectCount").textContent = incorrectCount;
+
+            const correctWordsHtml = correctWords.map(word => `${word}`).join(", ");
+            document.getElementById("correctWords").innerHTML = correctWordsHtml;
+
+            const incorrectWordsHtml = incorrectWords.map(word => `${word}`).join(", ");
+            document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
+
+            document.getElementById("statistics").style.display = "block";
+        }
+
+        // Initialize with a random word on page load
+        document.getElementById("wordToTranslate").textContent = getRandomWord();
+    </script>
+
+    <p>Click here, if you want to download a list with of the irregular verbs and their Past Simple form.</p>
+    <p><a href="Past Simple - Irregular Verb List.docx" target="_blank"><span lang="en">Irregular Verbs - Past Simple</span></a></p>
+</body>
+</html>
