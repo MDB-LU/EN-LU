@@ -25,6 +25,7 @@
     <p id="wordToTranslate"></p>
     <input type="text" id="englisch" onkeypress="checkEnter(event)"><br>
     <button onclick="showStatistics()">Statistics</button>
+    <button onclick="switchToTranslationMode()">Translation Mode</button>
     <div id="result"></div>
     <div id="statistics" style="display: none;">
         <p>Correct Words: <span id="correctCount">0</span></p>
@@ -147,6 +148,10 @@
             document.getElementById("incorrectWords").innerHTML = incorrectWordsHtml;
 
             document.getElementById("statistics").style.display = "block";
+        }
+
+        function switchToTranslationMode() {
+            window.location.href = "Wortschatz Irregular Verbs - EN.html";
         }
 
         // Initialize with a random word on page load
